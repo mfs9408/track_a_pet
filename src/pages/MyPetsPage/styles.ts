@@ -1,14 +1,17 @@
-import { StyleSheet } from 'react-native';
-import { MD3Colors } from 'react-native-paper/lib/typescript/src/types';
+import { StyleSheet } from "react-native";
 
-export const makeStyles = (colors: MD3Colors) =>
+export const makeStyles = () =>
   StyleSheet.create({
     cardContainer: {
-      flexDirection: 'row',
-      flexWrap: 'wrap',
-      justifyContent: 'space-between',
+      flexDirection: "row",
+      flexWrap: "wrap",
+      justifyContent: "space-between",
     },
     text: {
       marginBottom: 15,
+    },
+    cardHeader: {
+      flexDirection: "row",
+      justifyContent: "space-between",
     },
   });

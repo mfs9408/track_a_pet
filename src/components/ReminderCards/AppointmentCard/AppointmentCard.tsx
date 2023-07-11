@@ -1,13 +1,13 @@
 import React from "react";
 import { TouchableOpacity, View, Text } from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import Animated, { useAnimatedStyle } from "react-native-reanimated";
 import SwipeableItem, {
   OpenDirection,
   useSwipeableItemParams,
 } from "react-native-swipeable-item";
-import { IAppointmentItem } from "../../../interfaces";
 import { commonColors, commonStyles } from "../../../theme";
+import { IAppointmentItem } from "../../../interfaces";
 import { makeStyles } from "./styles";
 
 export type RowItemProps = {

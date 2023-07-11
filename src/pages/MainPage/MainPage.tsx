@@ -5,13 +5,13 @@ import DraggableFlatList, {
   RenderItemParams,
 } from "react-native-draggable-flatlist";
 import User from "../../components/User";
-import { IActivityItem, IAppointmentItem } from "../../interfaces";
-import { commonColors, commonStyles } from "../../theme";
-import { useSelector } from "../../store";
-import { makeStyles } from "./styles";
 import RemindBuilder from "../../components/RemindBulder";
+import { useSelector } from "../../store";
+import { IActivityItem, IAppointmentItem } from "../../interfaces";
 import { todayRemindersActions } from "../../store/currentReminders/slice";
+import { commonColors, commonStyles } from "../../theme";
 import { ERemindersType } from "../../enums";
+import { makeStyles } from "./styles";
 
 const MainPage = () => {
   const dispatch = useDispatch();

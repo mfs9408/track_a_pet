@@ -4,22 +4,18 @@ import { View } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 
 interface IUserProps {
-  avatarUrl: string;
-  name: string;
-  owning: string;
+  avatar?: string;
+  name?: string;
+  owning?: string;
 }
 import { makeStyles } from "./styles";
 
-const User = ({ avatarUrl, owning, name }: IUserProps) => {
+const User = ({ avatar, owning, name }: IUserProps) => {
   const classes = makeStyles();
 
   return (
     <View style={classes.viewContainer}>
-      <Avatar.Image
-        size={42}
-        source={{ uri: avatarUrl }}
-        style={classes.avatar}
-      />
+      <Avatar.Image size={42} source={{ uri: avatar }} style={classes.avatar} />
       <View style={classes.infoContainer}>
         <Text style={{ color: "#828282" }} variant="bodyMedium">
           {owning}

@@ -53,7 +53,7 @@ const Navigate = () => {
             <Stack.Screen
               name="Add pet"
               component={AddPet}
-              options={({ route }) => ({
+              options={() => ({
                 headerTintColor: theme.colors.primary,
               })}
             />

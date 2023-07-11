@@ -1,67 +1,101 @@
-import React from "react";
-import { SafeAreaView, ScrollView, View } from "react-native";
-import { Avatar, Text, useTheme } from "react-native-paper";
+import React, { useCallback, useRef } from "react";
+import { useDispatch } from "react-redux";
+import { LayoutAnimation, SafeAreaView, Text, View } from "react-native";
+import DraggableFlatList, {
+  RenderItemParams,
+} from "react-native-draggable-flatlist";
+import User from "../../components/User";
+import { IActivityItem, IAppointmentItem } from "../../interfaces";
+import { commonStyles } from "../../theme";
 import { useSelector } from "../../store";
 import { makeStyles } from "./styles";
-import ActivityCard from "../../components/ActivityCard";
-import { FindIcon } from "../../icons";
-import User from "../../components/User";
+import RemindBuilder from "../../components/RemindBulder";
+import { todayRemindersActions } from "../../store/currentReminders/slice";
+import { ERemindersType } from "../../enums";
 
 const MainPage = () => {
-  const { user, reminders, articles } = useSelector((store) => store);
-  const { name, avatar, owning } = user.user;
-  const theme = useTheme();
-  const classes = makeStyles(theme.colors);
+  const dispatch = useDispatch();
+  const user = useSelector((store) => store).user;
+  const currentReminders = useSelector((store) => store).currentReminders;
+  const appointment = currentReminders.appointment;
+  const activity = currentReminders.activity;
+
+  const classes = makeStyles();
+  const itemRefs = useRef(new Map());
+
+  const renderItem = useCallback(
+    (
+      params: RenderItemParams<IActivityItem | IAppointmentItem>,
+      type: ERemindersType
+    ) => {
+      const onPressDelete = () => {
+        LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
+        dispatch(
+          todayRemindersActions.removeActivity({
+            value: params.item.remindId,
+            type,
+          })
+        );
+      };
+
+      return (
+        <RemindBuilder
+          {...params}
+          itemRefs={itemRefs}
+          onPressDelete={onPressDelete}
+        />
+      );
+    },
+    []
+  );
 
   return (
     <SafeAreaView style={classes.container}>
-      <ScrollView style={{ paddingHorizontal: 28, paddingTop: 20 }}>
-        <User avatarUrl={avatar} name={name} owning={owning} />
+      <View style={classes.commonWrapper}>
+        <User {...user.user} />
         <View>
-          <Text
-            variant="headlineSmall"
-            style={{ fontWeight: "600", marginBottom: 15 }}
-          >
+          <Text style={[commonStyles.h3, classes.blockHeader]}>
             Your today's activity
           </Text>
           <View>
-            <ActivityCard
-              name="Tefa"
-              description="Shower your cat with love, attention, and affection. Cats thrive on companionship and appreciate a warm and caring environment."
-              time="2:00pm"
-              icon="pets"
+            <DraggableFlatList
+              keyExtractor={(item) => item.remindId}
+              data={activity}
+              renderItem={(params) =>
+                renderItem(params, ERemindersType.ACTIVITY)
+              }
+              activationDistance={20}
             />
-            <ActivityCard
-              name="Tefa"
-              description="Observe your cat's behavior for any changes or signs of illness."
-              time="3:00pm"
-              icon="medical"
-            />
+            {activity.length === 0 && (
+              <Text style={{ color: "#5F5B5B" }}>
+                You don't have any activities today
+              </Text>
+            )}
           </View>
         </View>
         <View>
           <Text
-            variant="headlineSmall"
-            style={{ fontWeight: "600", marginBottom: 15, marginTop: 10 }}
+            style={[commonStyles.h3, classes.blockHeader, { marginTop: 10 }]}
           >
-            Your today's appoitments
+            Your today's appointments
           </Text>
           <View>
-            <ActivityCard
-              name="Chloe"
-              time="11:00am"
-              description={
-                <>
-                  You have appoitment with Chloe to Dr. Etkin at 5:00 pm.
-                  {"\n"}
-                  {"\n"}
-                  Address: 2806 Avenue U, Brooklyn, NY 11229, United States
-                </>
+            <DraggableFlatList
+              keyExtractor={(item) => item.remindId}
+              data={appointment}
+              renderItem={(params) =>
+                renderItem(params, ERemindersType.APPOINTMENT)
               }
+              activationDistance={20}
             />
+            {appointment.length === 0 && (
+              <Text style={{ color: "#5F5B5B" }}>
+                You don't have any appointments today
+              </Text>
+            )}
           </View>
         </View>
-      </ScrollView>
+      </View>
     </SafeAreaView>
   );
 };

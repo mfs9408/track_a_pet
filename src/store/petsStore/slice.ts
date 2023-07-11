@@ -21,9 +21,9 @@ const initialState: IPetsTypes[] | null = [
     ],
     lost: true,
     loseAddress: "foo",
-    loseDate: new Date(),
+    loseDate: "new Date()",
     remindIDs: [2],
-    birthDay: new Date(),
+    birthDay: "new Date()",
   },
   {
     id: 2,
@@ -40,9 +40,9 @@ const initialState: IPetsTypes[] | null = [
     image: ["foo"],
     lost: false,
     loseAddress: "foo",
-    loseDate: new Date(),
+    loseDate: "new Date()",
     remindIDs: [2],
-    birthDay: new Date(),
+    birthDay: "new Date()",
   },
   {
     id: 3,
@@ -59,9 +59,9 @@ const initialState: IPetsTypes[] | null = [
     image: ["foo"],
     lost: false,
     loseAddress: "foo",
-    loseDate: new Date(),
+    loseDate: "new Date()",
     remindIDs: [2],
-    birthDay: new Date(),
+    birthDay: "new Date()",
   },
 ];
 

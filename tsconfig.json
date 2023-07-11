@@ -1,6 +1,10 @@
 {
   "extends": "expo/tsconfig.base",
+  "target": "es6",
   "compilerOptions": {
-    "strict": true
+    "strictPropertyInitialization": false,
+    "experimentalDecorators": true,
+    "strict": true,
+    "typeRoots": ["./typings", "./node_modules/@types/"]
   }
 }

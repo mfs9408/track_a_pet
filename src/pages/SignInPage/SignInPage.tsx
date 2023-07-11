@@ -1,8 +1,7 @@
-import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
-import { Button, TextInput } from 'react-native-paper';
-import { SubmitHandler, useForm, Controller } from 'react-hook-form';
-import { commonStyles } from '../../commonStyles';
+import React from "react";
+import { StyleSheet, View, Text } from "react-native";
+import { Button, TextInput } from "react-native-paper";
+import { SubmitHandler, useForm, Controller } from "react-hook-form";
 
 interface ISignIn {
   email: string;
@@ -16,8 +15,8 @@ const SignInPage = () => {
     formState: { errors },
   } = useForm<ISignIn>({
     defaultValues: {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
     },
   });
 
@@ -26,7 +25,7 @@ const SignInPage = () => {
   };
 
   return (
-    <View style={[styles.main, commonStyles.mainContainer]}>
+    <View style={[styles.main]}>
       <View style={styles.container}>
         <View style={styles.controllerContainer}>
           <Controller
@@ -75,15 +74,15 @@ const SignInPage = () => {
 const styles = StyleSheet.create({
   main: {
     flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'flex-end',
+    flexDirection: "column",
+    justifyContent: "flex-end",
   },
   container: {
     marginBottom: 100,
   },
   error: {
     marginTop: 5,
-    color: 'red',
+    color: "red",
   },
   controllerContainer: {
     marginBottom: 20,

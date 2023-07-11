@@ -13,7 +13,7 @@ export interface IPetsTypes {
   image: string[] | null;
   lost: boolean;
   loseAddress?: string;
-  loseDate?: Date;
+  loseDate?: string;
   remindIDs?: number[];
-  birthDay: Date;
+  birthDay: string;
 }

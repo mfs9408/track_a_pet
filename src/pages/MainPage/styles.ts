@@ -1,10 +1,18 @@
-import { StyleSheet } from 'react-native';
-import { MD3Colors } from 'react-native-paper/lib/typescript/src/types';
+import { StyleSheet } from "react-native";
+import { commonColors } from "../../theme";
 
-export const makeStyles = (colors: MD3Colors) =>
+export const makeStyles = () =>
   StyleSheet.create({
     container: {
-      backgroundColor: colors.background,
-      height: '100%',
+      backgroundColor: commonColors.background.backgroundColor,
+      height: "100%",
+    },
+    commonWrapper: {
+      paddingHorizontal: 28,
+      paddingTop: 20,
+    },
+    blockHeader: {
+      fontWeight: "600",
+      marginBottom: 15,
     },
   });

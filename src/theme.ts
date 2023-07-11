@@ -4,7 +4,7 @@ import { StyleSheet } from "react-native";
 
 export const theme: MD3Theme = {
   ...MD3LightTheme,
-  fonts: configureFonts({ config }),
+  fonts: configureFonts(),
   colors: {
     ...MD3LightTheme.colors,
     primary: "#533bb3",
@@ -104,3 +104,18 @@ const config = {
     lineHeight: 20,
   },
 };
+
+export const commonColors = StyleSheet.create({
+  primary: {
+    color: "#6b58b4",
+  },
+  lightGrey: {
+    color: "#B4AEAE",
+  },
+  darkGrey: {
+    color: "#5F5B5B",
+  },
+  background: {
+    backgroundColor: "#fff",
+  },
+});

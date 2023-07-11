@@ -1,134 +1,27 @@
 import React from "react";
-import { Image, ScrollView, TouchableOpacity, View } from "react-native";
+import {
+  Image,
+  ScrollView,
+  TouchableOpacity,
+  View,
+  Text,
+  Dimensions,
+} from "react-native";
 import { MaterialIcons, Ionicons } from "@expo/vector-icons";
-import { Text, useTheme } from "react-native-paper";
 import { makeStyles } from "./styles";
 import { useSelector } from "../../store";
-import { commonStyles } from "../../theme";
-import { useRoute } from "@react-navigation/native";
+import { commonColors, commonStyles } from "../../theme";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import InfoBox from "../../components/InfoBox";
 import Gender from "../../components/Gender";
+import { Carousel } from "react-native-basic-carousel";
+import { IPetsTypes } from "../../types";
 
-interface Interface {
-  title: string;
-  icon: string;
-  value: IDataValue[];
-}
-
-interface IDataValue {
-  key: string;
-  value?: string;
-  additionalRecords?: IDataValue[];
-}
-
-const idArray: Interface[] = [
-  {
-    title: "Identification",
-    icon: "pets",
-    value: [
-      {
-        key: "Microchip number",
-        value: "5adea72e-13a7-11ee-be56-0242ac120002",
-      },
-    ],
-  },
-  {
-    title: "Medical records",
-    icon: "medical-services",
-    value: [
-      {
-        key: "Rabies Vaccination",
-        additionalRecords: [
-          {
-            key: "Date",
-            value: "May 15, 2023",
-          },
-          {
-            key: "Vaccine Type",
-            value: "Rabies Vaccine (1-year)",
-          },
-          {
-            key: "Veterinarian",
-            value: "Dr. Emily Johnson, ABC Veterinary Clinic",
-          },
-        ],
-      },
-      {
-        key: "Distemper-Parvo Vaccination",
-        additionalRecords: [
-          {
-            key: "Date",
-            value: "February 28, 2023",
-          },
-          {
-            key: "Vaccine Type",
-            value: "DHPP Vaccine",
-          },
-          {
-            key: "Veterinarian",
-            value: "Dr. Sarah Anderson, XYZ Animal Hospital",
-          },
-        ],
-      },
-      {
-        key: "Bordetella Vaccination",
-        additionalRecords: [
-          {
-            key: "Date",
-            value: "January 10, 2023",
-          },
-          {
-            key: "Vaccine Type",
-            value: "Bordetella Vaccine",
-          },
-          {
-            key: "Veterinarian",
-            value: "Dr. Michael Smith, Paws and Claws Veterinary Care",
-          },
-        ],
-      },
-    ],
-  },
-  {
-    title: "Pet's diet",
-    icon: "note",
-    value: [
-      {
-        key: "Dietary Needs",
-        value:
-          "They have a preference for dry kibble and enjoy a mix of chicken and fish flavors. They require a balanced diet with a combination of protein, carbohydrates, and healthy fats. Additionally, they have a sensitive stomach and should avoid foods containing wheat or artificial additives. Feeding portions consist of two meals a day, with 1 cup of food in the morning and ¾ cup in the evening. It's important to provide fresh water at all times. Please consult with your veterinarian for specific dietary recommendations tailored to your pet's needs",
-      },
-    ],
-  },
-  {
-    title: "Veterinarian Information",
-    icon: "account-box",
-    value: [
-      {
-        key: "Veterinarian",
-        value: "Dr. Sarah Johnson",
-      },
-      {
-        key: "Clinic",
-        value: "ABC Veterinary Clinic",
-      },
-      {
-        key: "Address",
-        value: "123 Main Street, Cityville",
-      },
-      {
-        key: "Phone number",
-        value: " (555) 123-4567",
-      },
-    ],
-  },
-];
-
-const PetPage = ({ navigation }) => {
+const PetPage = () => {
   const { pets } = useSelector((store) => store);
   const route = useRoute();
-  const theme = useTheme();
-  const classes = makeStyles(theme.colors);
+  const navigation = useNavigation();
+  const classes = makeStyles();
 
   const currentPet = pets.find((pet) => route.params.petId === pet.id);
 
@@ -137,6 +30,7 @@ const PetPage = ({ navigation }) => {
     name,
     avatar,
     image,
+    weight,
     loseDate,
     species,
     breed,
@@ -144,57 +38,56 @@ const PetPage = ({ navigation }) => {
     owning,
     lost,
     spayed,
+    age,
     description,
     birthDay,
     remindIDs,
     userId,
     loseAddress,
     color,
-  } = currentPet;
+    data,
+  } = currentPet as IPetsTypes;
 
   return (
-    <ScrollView style={{ position: "relative", backgroundColor: "#fff" }}>
+    <ScrollView style={classes.scrollView}>
       <Ionicons
         name="chevron-back"
         size={35}
-        color="rgba(129, 110, 199, 1)"
-        style={{
-          position: "absolute",
-          top: 70,
-          left: 25,
-          zIndex: 100,
-        }}
+        color={commonColors.primary.color}
+        style={classes.backIcon}
         onPress={() => navigation.goBack()}
       />
-      <Image style={classes.image} source={{ uri: avatar as string }} />
-      <View style={commonStyles.commonWrapper}>
+      <Carousel
+        data={image || []}
+        renderItem={({ item }) => (
+          <Image style={classes.image} source={{ uri: item as string }} />
+        )}
+        itemWidth={Dimensions.get("screen").width}
+        paginationColor={commonColors.primary.color}
+        pagination
+      />
+      <View style={[commonStyles.commonWrapper, classes.commonContainer]}>
         <View style={classes.headerContainer}>
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <Text style={[commonStyles.h1, classes.header]}>{name}</Text>
             <Gender gender={gender} />
           </View>
           <TouchableOpacity>
-            <Text style={[commonStyles.p1, { color: "#6b58b4" }]}>Edit</Text>
+            <Text style={[commonStyles.p1, commonColors.primary]}>Edit</Text>
           </TouchableOpacity>
         </View>
         <View style={classes.infoContainer}>
-          <InfoBox title={breed} description="Breed" />
-          <InfoBox title={color} description="Color" />
-          <InfoBox title={breed} description="Weight" />
-          <InfoBox title={breed} description="Age" />
+          <InfoBox title={breed} description={"Breed"} />
+          <InfoBox title={color} description={"Color"} />
+          <InfoBox title={weight} description={"Weight"} />
+          <InfoBox title={age} description={"Age"} />
         </View>
-        <View
-          style={{
-            flexDirection: "column",
-            alignItems: "flex-start",
-            marginTop: 35,
-          }}
-        >
-          {idArray.map((item) => (
-            <View style={{ marginBottom: 20 }}>
-              <View style={{ flexDirection: "row", marginBottom: 10 }}>
+        <View style={classes.dataWrapper}>
+          {data?.map((item) => (
+            <View style={classes.dataContainer}>
+              <View style={classes.iconContainer}>
                 <MaterialIcons
-                  name={item.icon}
+                  name={item?.icon}
                   size={20}
                   color="black"
                   style={classes.icon}
@@ -202,24 +95,23 @@ const PetPage = ({ navigation }) => {
                 <Text style={commonStyles.p1}>{item.title}</Text>
               </View>
               {item.value.map(({ key, value, additionalRecords }) => (
-                <View style={{ flexDirection: "column", marginBottom: 10 }}>
-                  <View style={{ flexDirection: "row" }}>
+                <View style={classes.subDataContainer}>
+                  <View style={classes.subHeaderContainer}>
                     <Text
                       style={[
                         commonStyles.p2,
-                        { color: additionalRecords ? "#000" : "#5F5B5B" },
+                        {
+                          color: additionalRecords
+                            ? commonColors.blackColor.color
+                            : commonColors.darkGrey.color,
+                        },
                       ]}
                     >
                       &#8728; {key}: {value}
                     </Text>
                   </View>
                   {additionalRecords?.map(({ key, value }) => (
-                    <View
-                      style={{
-                        marginLeft: 15,
-                        flexDirection: "row",
-                      }}
-                    >
+                    <View style={classes.additionalRecordsContainer}>
                       <Text style={[commonStyles.p2, { color: "#5F5B5B" }]}>
                         &#8728; {key}: {value}
                       </Text>

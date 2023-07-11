@@ -1,7 +1,6 @@
-import { StyleSheet } from 'react-native';
-import { MD3Colors } from 'react-native-paper/lib/typescript/src/types';
+import { StyleSheet } from "react-native";
 
-export const makeStyles = (colors: MD3Colors) =>
+export const makeStyles = () =>
   StyleSheet.create({
     viewContainer: {
       width: 157,
@@ -9,22 +8,21 @@ export const makeStyles = (colors: MD3Colors) =>
       marginBottom: 20,
     },
     image: {
-      width: '100%',
+      width: "100%",
       height: 167,
       borderTopRightRadius: 20,
       borderTopLeftRadius: 20,
     },
     content: {
-      backgroundColor: colors.onBackground,
       padding: 10,
       borderBottomLeftRadius: 20,
       borderBottomRightRadius: 20,
     },
     nameWrapper: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
+      flexDirection: "row",
+      justifyContent: "space-between",
     },
     tagsContainer: {
-      flexDirection: 'row',
+      flexDirection: "row",
     },
   });

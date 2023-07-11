@@ -1,11 +1,11 @@
 import React from "react";
-import { Text, View } from "react-native";
+import { Text } from "react-native";
 import { makeStyles } from "./styles";
 import { LinearGradient } from "expo-linear-gradient";
 import { commonStyles } from "../../theme";
 
 interface IInfoBoxProps {
-  title: string;
+  title: string | number;
   description: string;
 }
 

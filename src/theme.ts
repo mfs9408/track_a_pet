@@ -84,27 +84,6 @@ export const commonStyles = StyleSheet.create({
   },
 });
 
-const config = {
-  headlineLarge: {
-    fontSize: 24,
-    fontWeight: "400",
-    letterSpacing: "1%",
-    lineHeight: 24,
-  },
-  headlineMedium: {
-    fontSize: 20,
-    fontWeight: "400",
-    letterSpacing: 0,
-    lineHeight: 20,
-  },
-  headlineSmall: {
-    fontSize: 16,
-    fontWeight: "400",
-    letterSpacing: 0,
-    lineHeight: 20,
-  },
-};
-
 export const commonColors = StyleSheet.create({
   primary: {
     color: "#6b58b4",
@@ -117,5 +96,11 @@ export const commonColors = StyleSheet.create({
   },
   background: {
     backgroundColor: "#fff",
+  },
+  semiTransparentGrey: {
+    color: "#6C6C6C",
+  },
+  blackColor: {
+    color: "#000",
   },
 });

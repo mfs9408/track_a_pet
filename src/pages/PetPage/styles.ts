@@ -1,8 +1,22 @@
 import { StyleSheet } from "react-native";
-import { MD3Colors } from "react-native-paper/lib/typescript/src/types";
 
-export const makeStyles = (colors: MD3Colors) =>
+export const makeStyles = () =>
   StyleSheet.create({
+    scrollView: {
+      position: "relative",
+      backgroundColor: "#fff",
+    },
+    commonContainer: {
+      marginTop: -20,
+      backgroundColor: "#fff",
+      borderRadius: 20,
+    },
+    backIcon: {
+      position: "absolute",
+      top: 70,
+      left: 25,
+      zIndex: 2,
+    },
     image: {
       width: "100%",
       height: 350,
@@ -18,12 +32,35 @@ export const makeStyles = (colors: MD3Colors) =>
       justifyContent: "space-between",
     },
     header: {
-      marginRight: 15,
+      marginRight: 10,
     },
     icon: {
       marginRight: 5,
     },
     editButton: {
       justifyContent: "flex-end",
+    },
+    dataWrapper: {
+      flexDirection: "column",
+      alignItems: "flex-start",
+      marginVertical: 35,
+    },
+    dataContainer: {
+      marginBottom: 20,
+    },
+    iconContainer: {
+      flexDirection: "row",
+      marginBottom: 10,
+    },
+    subDataContainer: {
+      flexDirection: "column",
+      marginBottom: 10,
+    },
+    subHeaderContainer: {
+      flexDirection: "row",
+    },
+    additionalRecordsContainer: {
+      marginLeft: 15,
+      flexDirection: "row",
     },
   });

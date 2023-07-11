@@ -7,6 +7,9 @@ export const makeStyles = () =>
       backgroundColor: commonColors.background.backgroundColor,
       height: "100%",
     },
+    commonPadding: {
+      paddingHorizontal: 28,
+    },
     commonWrapper: {
       paddingHorizontal: 28,
       paddingTop: 20,

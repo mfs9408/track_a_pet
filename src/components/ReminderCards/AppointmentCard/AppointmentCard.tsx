@@ -38,6 +38,7 @@ const AppointmentCard = ({
         if (openDirection !== OpenDirection.NONE) {
           [...itemRefs.current.entries()].forEach(([key, ref]) => {
             if (key !== item.remindId && ref) ref.close();
+            setTimeout(() => ref.close(), 5000);
           });
         }
       }}

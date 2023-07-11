@@ -1,7 +1,6 @@
 import { StyleSheet } from "react-native";
-import { MD3Colors } from "react-native-paper/lib/typescript/src/types";
 
-export const makeStyles = (colors?: MD3Colors) =>
+export const makeStyles = () =>
   StyleSheet.create({
     container: {
       flex: 1,
@@ -9,8 +8,6 @@ export const makeStyles = (colors?: MD3Colors) =>
       marginBottom: 25,
       flexDirection: "row",
       borderRadius: 20,
-      // borderColor: "rgba(106, 82, 198, 0.20)",
-      // borderWidth: 1,
       backgroundColor: "#F0EFF4",
     },
     textContainer: {

@@ -53,47 +53,47 @@ const MainPage = () => {
     <SafeAreaView style={classes.container}>
       <View style={classes.commonWrapper}>
         <User {...user.user} />
-        <View>
-          <Text style={[commonStyles.h3, classes.blockHeader]}>
-            Your today's activity
-          </Text>
-          <View>
-            <DraggableFlatList
-              keyExtractor={(item) => item.remindId}
-              data={activity}
-              renderItem={(params) =>
-                renderItem(params, ERemindersType.ACTIVITY)
-              }
-              activationDistance={20}
-            />
-            {activity.length === 0 && (
-              <Text style={{ color: "#5F5B5B" }}>
-                You don't have any activities today
-              </Text>
-            )}
-          </View>
+        <Text style={[commonStyles.h3, classes.blockHeader]}>
+          Your today's activity
+        </Text>
+      </View>
+      <View>
+        <DraggableFlatList
+          contentContainerStyle={classes.commonPadding}
+          keyExtractor={(item) => item.remindId}
+          data={activity}
+          renderItem={(params) => renderItem(params, ERemindersType.ACTIVITY)}
+          activationDistance={20}
+        />
+        <View style={classes.commonPadding}>
+          {activity.length === 0 && (
+            <Text style={{ color: "#5F5B5B" }}>
+              You don't have any activities today
+            </Text>
+          )}
         </View>
-        <View>
-          <Text
-            style={[commonStyles.h3, classes.blockHeader, { marginTop: 10 }]}
-          >
-            Your today's appointments
-          </Text>
-          <View>
-            <DraggableFlatList
-              keyExtractor={(item) => item.remindId}
-              data={appointment}
-              renderItem={(params) =>
-                renderItem(params, ERemindersType.APPOINTMENT)
-              }
-              activationDistance={20}
-            />
-            {appointment.length === 0 && (
-              <Text style={{ color: "#5F5B5B" }}>
-                You don't have any appointments today
-              </Text>
-            )}
-          </View>
+      </View>
+      <View style={classes.commonWrapper}>
+        <Text style={[commonStyles.h3, classes.blockHeader, { marginTop: 10 }]}>
+          Your today's appointments
+        </Text>
+      </View>
+      <View>
+        <DraggableFlatList
+          contentContainerStyle={classes.commonPadding}
+          keyExtractor={(item) => item.remindId}
+          data={appointment}
+          renderItem={(params) =>
+            renderItem(params, ERemindersType.APPOINTMENT)
+          }
+          activationDistance={20}
+        />
+        <View style={classes.commonPadding}>
+          {appointment.length === 0 && (
+            <Text style={{ color: "#5F5B5B" }}>
+              You don't have any appointments today
+            </Text>
+          )}
         </View>
       </View>
     </SafeAreaView>

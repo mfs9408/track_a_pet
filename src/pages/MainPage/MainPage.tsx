@@ -6,7 +6,7 @@ import DraggableFlatList, {
 } from "react-native-draggable-flatlist";
 import User from "../../components/User";
 import { IActivityItem, IAppointmentItem } from "../../interfaces";
-import { commonStyles } from "../../theme";
+import { commonColors, commonStyles } from "../../theme";
 import { useSelector } from "../../store";
 import { makeStyles } from "./styles";
 import RemindBuilder from "../../components/RemindBulder";
@@ -67,7 +67,7 @@ const MainPage = () => {
         />
         <View style={classes.commonPadding}>
           {activity.length === 0 && (
-            <Text style={{ color: "#5F5B5B" }}>
+            <Text style={commonColors.darkGrey}>
               You don't have any activities today
             </Text>
           )}
@@ -90,7 +90,7 @@ const MainPage = () => {
         />
         <View style={classes.commonPadding}>
           {appointment.length === 0 && (
-            <Text style={{ color: "#5F5B5B" }}>
+            <Text style={commonColors.darkGrey}>
               You don't have any appointments today
             </Text>
           )}

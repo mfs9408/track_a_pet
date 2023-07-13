@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "track_a_pet",
+    "name": "Track A Pet",
     "slug": "track_a_pet",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -11,9 +11,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },

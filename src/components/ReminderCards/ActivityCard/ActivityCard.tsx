@@ -8,7 +8,7 @@ import SwipeableItem, {
 } from "react-native-swipeable-item";
 import { commonColors, commonStyles } from "../../../theme";
 import { IActivityItem } from "../../../interfaces";
-import { getIcon } from "../../helpers";
+import { getIcon } from "../../../helpers";
 import { makeStyles } from "./styles";
 
 export type RowItemProps = {

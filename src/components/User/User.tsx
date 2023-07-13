@@ -1,12 +1,13 @@
 import React from "react";
+import AntDesign from "@expo/vector-icons/AntDesign";
 import { Avatar, Text } from "react-native-paper";
 import { View } from "react-native";
-import { AntDesign } from "@expo/vector-icons";
+import Logo from "../../assets/defaultAvatar/men.svg";
 
 interface IUserProps {
   avatar?: string;
-  name?: string;
-  owning?: string;
+  name: string;
+  owning: string;
 }
 import { makeStyles } from "./styles";
 
@@ -15,7 +16,16 @@ const User = ({ avatar, owning, name }: IUserProps) => {
 
   return (
     <View style={classes.viewContainer}>
-      <Avatar.Image size={42} source={{ uri: avatar }} style={classes.avatar} />
+      <Avatar.Image
+        size={42}
+        source={
+          avatar
+            ? { uri: avatar }
+            : ({ size }) => <Logo width={size} height={size} />
+        }
+        style={classes.avatar}
+      />
+
       <View style={classes.infoContainer}>
         <Text style={{ color: "#828282" }} variant="bodyMedium">
           {owning}

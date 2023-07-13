@@ -4,7 +4,7 @@ export interface IUserInterface {
   role: [string];
   name: string;
   isActivated: boolean;
-  avatar: string;
+  avatar?: string;
   owning: string;
   pets: number[];
 }

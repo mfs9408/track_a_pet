@@ -13,7 +13,6 @@ const initialState: UserStore | null = {
     email: "mfs9408ny@gmail.com",
     role: ["user"],
     name: "Fedor Muratidi",
-    avatar: "https://placekitten.com/g/200/300",
     pets: [234],
     isActivated: true,
     owning: "owner",

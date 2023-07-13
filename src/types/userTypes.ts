@@ -1,3 +1,5 @@
+import { EGenderType } from "../enums";
+
 export interface IUserInterface {
   email: string;
   id: number;
@@ -7,6 +9,7 @@ export interface IUserInterface {
   avatar?: string;
   owning: string;
   pets: number[];
+  gender: EGenderType;
 }
 
 export interface IUserResponseInterface {

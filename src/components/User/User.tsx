@@ -2,16 +2,18 @@ import React from "react";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { Avatar, Text } from "react-native-paper";
 import { View } from "react-native";
-import Logo from "../../assets/defaultAvatar/men.svg";
-
-interface IUserProps {
-  avatar?: string;
-  name: string;
-  owning: string;
-}
+import { EGenderType } from "../../enums";
+import { getAvatar } from "../../helpers/getAvatar";
 import { makeStyles } from "./styles";
 
-const User = ({ avatar, owning, name }: IUserProps) => {
+interface IUserProps {
+  name: string;
+  owning: string;
+  gender: EGenderType;
+  avatar?: string;
+}
+
+const User = ({ avatar, owning, name, gender }: IUserProps) => {
   const classes = makeStyles();
 
   return (
@@ -21,7 +23,7 @@ const User = ({ avatar, owning, name }: IUserProps) => {
         source={
           avatar
             ? { uri: avatar }
-            : ({ size }) => <Logo width={size} height={size} />
+            : ({ size }) => getAvatar(gender, { width: size, height: size })
         }
         style={classes.avatar}
       />

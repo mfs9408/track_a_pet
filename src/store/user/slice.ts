@@ -1,9 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IUserInterface, IUserResponseInterface } from "../../types";
+import { EGenderType } from "../../enums";
 
 interface UserStore {
   accessToken: string | null | undefined;
-  user: IUserInterface | null | undefined;
+  user: IUserInterface;
 }
 
 const initialState: UserStore | null = {
@@ -16,6 +17,7 @@ const initialState: UserStore | null = {
     pets: [234],
     isActivated: true,
     owning: "owner",
+    gender: EGenderType.MALE,
   },
 };
 
@@ -28,11 +30,9 @@ const userSlice = createSlice({
       { payload }: PayloadAction<IUserResponseInterface | null>
     ) => {
       state.accessToken = payload?.tokens.accessToken;
-      state.user = payload?.user;
     },
     removeUser: (state: UserStore) => {
       state.accessToken = null;
-      state.user = null;
     },
   },
 });

@@ -51,21 +51,24 @@ const ActivityCard = ({
       <View style={[commonStyles.boxShadow, classes.container]}>
         <View style={classes.wrapper}>
           <View style={classes.iconWrapper}>
-            {item.type && (
-              <View style={classes.icon}>
-                <MaterialIcons
-                  name={getIcon(item.type)}
-                  size={24}
-                  color={commonColors.primary.color}
-                />
-              </View>
-            )}
+            <View style={classes.icon}>
+              <MaterialIcons
+                name={getIcon(item.type)}
+                size={24}
+                color={commonColors.primary.color}
+              />
+            </View>
             <Text style={commonStyles.p1}>{item.header}</Text>
           </View>
-          <Text style={commonColors.lightGrey}>{item.time}</Text>
+          <Text style={[commonStyles.p3, commonColors.lightGrey]}>
+            {item.time}
+          </Text>
         </View>
         <View>
-          <Text style={commonColors.darkGrey} numberOfLines={5}>
+          <Text
+            style={[commonStyles.p2, commonColors.darkGrey]}
+            numberOfLines={5}
+          >
             {item.description}
           </Text>
         </View>

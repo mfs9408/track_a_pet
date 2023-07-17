@@ -2,6 +2,18 @@ import { configureFonts, MD3LightTheme } from "react-native-paper";
 import { MD3Theme } from "react-native-paper/src/types";
 import { StyleSheet } from "react-native";
 
+export const fonts = {
+  "Inter-Black": require("../assets/fonts/Inter-Black.ttf"),
+  "Inter-Bold": require("../assets/fonts/Inter-Bold.ttf"),
+  "Inter-ExtraBold": require("../assets/fonts/Inter-ExtraBold.ttf"),
+  "Inter-ExtraLight": require("../assets/fonts/Inter-ExtraLight.ttf"),
+  "Inter-Light": require("../assets/fonts/Inter-Light.ttf"),
+  "Inter-Medium": require("../assets/fonts/Inter-Medium.ttf"),
+  "Inter-Regular": require("../assets/fonts/Inter-Regular.ttf"),
+  "Inter-SemiBold": require("../assets/fonts/Inter-SemiBold.ttf"),
+  "Inter-Thin": require("../assets/fonts/Inter-Thin.ttf"),
+};
+
 export const theme: MD3Theme = {
   ...MD3LightTheme,
   fonts: configureFonts(),
@@ -39,48 +51,56 @@ export const commonStyles = StyleSheet.create({
     fontWeight: "600",
     letterSpacing: 0.24,
     color: "#000",
+    fontFamily: "Inter-Bold",
   },
   h2: {
     fontSize: 24,
     fontWeight: "600",
     letterSpacing: 0.24,
     color: "#000",
+    fontFamily: "Inter-Bold",
   },
   h3: {
     fontSize: 20,
     fontWeight: "600",
     letterSpacing: 0.24,
     color: "#000",
+    fontFamily: "Inter-Bold",
   },
   h4: {
     fontSize: 16,
     fontWeight: "600",
     letterSpacing: 0.24,
     color: "#000",
+    fontFamily: "Inter-Bold",
   },
   p1: {
     fontSize: 16,
     fontWeight: "500",
     lineHeight: 20,
     color: "#000",
+    fontFamily: "Inter-SemiBold",
   },
   p2: {
     fontSize: 14,
     fontWeight: "500",
     lineHeight: 20,
     color: "#000",
+    fontFamily: "Inter-Regular",
   },
   p3: {
     fontSize: 12,
     fontWeight: "500",
     lineHeight: 20,
     color: "#000",
+    fontFamily: "Inter-Regular",
   },
   p4: {
     fontSize: 11,
     fontWeight: "500",
     lineHeight: 20,
     color: "#000",
+    fontFamily: "Inter-Regular",
   },
 });
 

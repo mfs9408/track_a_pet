@@ -15,8 +15,8 @@ import { makeStyles } from "./styles";
 
 const MainPage = () => {
   const dispatch = useDispatch();
-  const user = useSelector((store) => store).user.user;
-  const currentReminders = useSelector((store) => store).currentReminders;
+  const user = useSelector((store) => store.user.user);
+  const currentReminders = useSelector((store) => store.currentReminders);
   const appointment = currentReminders.appointment;
   const activity = currentReminders.activity;
 
@@ -29,7 +29,7 @@ const MainPage = () => {
       type: ERemindersType
     ) => {
       const onPressDelete = () => {
-        LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
+        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
         dispatch(
           todayRemindersActions.removeActivity({
             value: params.item.remindId,
@@ -53,10 +53,10 @@ const MainPage = () => {
     <SafeAreaView style={classes.container}>
       <View style={classes.commonWrapper}>
         <User
-          gender={user?.gender}
-          name={user?.name}
-          owning={user?.owning}
-          avatar={user?.avatar}
+          gender={user.gender}
+          name={user.name}
+          owning={user.owning}
+          avatar={user.avatar}
         />
         <Text style={[commonStyles.h3, classes.blockHeader]}>
           Your today's activity

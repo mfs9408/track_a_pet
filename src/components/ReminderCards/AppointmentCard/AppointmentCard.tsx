@@ -52,17 +52,26 @@ const AppointmentCard = ({
           <View style={classes.iconWrapper}>
             <Text style={commonStyles.p1}>{item.header}</Text>
           </View>
-          <Text style={commonColors.lightGrey}>{item.time}</Text>
+          <Text style={[commonStyles.p3, commonColors.lightGrey]}>
+            {item.time}
+          </Text>
         </View>
         <View>
           <Text
-            style={[commonColors.darkGrey, classes.textDescription]}
+            style={[
+              commonStyles.p2,
+              commonColors.darkGrey,
+              classes.textDescription,
+            ]}
             numberOfLines={5}
           >
             You have appointment with {item.petName} to Dr.{item.doctorName} at{" "}
             {item.time}
           </Text>
-          <Text style={commonColors.darkGrey} numberOfLines={5}>
+          <Text
+            style={[commonStyles.p2, commonColors.darkGrey]}
+            numberOfLines={5}
+          >
             Address: {item.address}
           </Text>
         </View>

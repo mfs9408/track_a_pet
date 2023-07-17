@@ -18,7 +18,7 @@ import { Carousel } from "react-native-basic-carousel";
 import { IPetsTypes } from "../../types";
 
 const PetPage = () => {
-  const { pets } = useSelector((store) => store);
+  const pets = useSelector((store) => store.pets);
   const route = useRoute();
   const navigation = useNavigation();
   const classes = makeStyles();
@@ -83,8 +83,8 @@ const PetPage = () => {
           <InfoBox title={age} description={"Age"} />
         </View>
         <View style={classes.dataWrapper}>
-          {data?.map((item) => (
-            <View style={classes.dataContainer}>
+          {data?.map((item, key) => (
+            <View key={key} style={classes.dataContainer}>
               <View style={classes.iconContainer}>
                 <MaterialIcons
                   name={item?.icon}
@@ -110,8 +110,11 @@ const PetPage = () => {
                       &#8728; {key}: {value}
                     </Text>
                   </View>
-                  {additionalRecords?.map(({ key, value }) => (
-                    <View style={classes.additionalRecordsContainer}>
+                  {additionalRecords?.map(({ key, value }, arrayKey) => (
+                    <View
+                      key={arrayKey}
+                      style={classes.additionalRecordsContainer}
+                    >
                       <Text style={[commonStyles.p2, { color: "#5F5B5B" }]}>
                         &#8728; {key}: {value}
                       </Text>

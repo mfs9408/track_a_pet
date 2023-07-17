@@ -17,16 +17,16 @@ import { makeStyles } from "./styles";
 const MyPetsPage = () => {
   const navigation = useNavigation();
 
-  const pets = useSelector((store) => store).pets;
-  const user = useSelector((store) => store).user;
-  const { name, avatar, owning } = user.user;
+  const pets = useSelector((store) => store.pets);
+  const user = useSelector((store) => store.user);
+  const { name, avatar, owning, gender } = user.user;
 
   const classes = makeStyles();
 
   return (
     <SafeAreaView style={commonStyles.commonContainer}>
       <ScrollView style={commonStyles.commonWrapper}>
-        <User avatar={avatar} name={name} owning={owning} />
+        <User avatar={avatar} name={name} owning={owning} gender={gender} />
         <View style={classes.cardHeader}>
           <Text style={[classes.text, commonStyles.h3]}>Your pets</Text>
           <TouchableOpacity onPress={() => navigation.navigate("Add pet")}>

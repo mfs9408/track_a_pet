@@ -1,10 +1,11 @@
 import React from "react";
 import AntDesign from "@expo/vector-icons/AntDesign";
-import { Avatar, Text } from "react-native-paper";
-import { View } from "react-native";
+import { Avatar } from "react-native-paper";
+import { View, Text } from "react-native";
 import { EGenderType } from "../../enums";
 import { getAvatar } from "../../helpers/getAvatar";
 import { makeStyles } from "./styles";
+import { commonStyles } from "../../theme";
 
 interface IUserProps {
   name: string;
@@ -29,12 +30,8 @@ const User = ({ avatar, owning, name, gender }: IUserProps) => {
       />
 
       <View style={classes.infoContainer}>
-        <Text style={{ color: "#828282" }} variant="bodyMedium">
-          {owning}
-        </Text>
-        <Text variant="bodyLarge" style={{ fontWeight: "600" }}>
-          {name}
-        </Text>
+        <Text style={[commonStyles.p2, { color: "#828282" }]}>{owning}</Text>
+        <Text style={[commonStyles.p1]}>{name}</Text>
       </View>
       <View style={classes.iconContainer}>
         <View style={classes.iconWrapper}>

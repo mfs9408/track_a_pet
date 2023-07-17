@@ -15,7 +15,6 @@ export const makeStyles = () =>
       paddingTop: 20,
     },
     blockHeader: {
-      fontWeight: "600",
       marginBottom: 15,
     },
   });

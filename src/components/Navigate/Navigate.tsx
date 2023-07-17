@@ -1,6 +1,7 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { useFonts } from "expo-font";
 import { useSelector } from "../../store";
 import SignInPage from "../../pages/SignInPage";
 import BottomNavigation from "../BottomNavigation";
@@ -8,12 +9,18 @@ import PetPage from "../../pages/PetPage";
 import { useTheme } from "react-native-paper";
 import EditPetInfoPage from "../../pages/EditPetInfoPage";
 import AddPet from "../../pages/AddPet";
+import { fonts } from "../../theme";
 
 const Stack = createNativeStackNavigator();
 
 const Navigate = () => {
+  const [fontsLoaded] = useFonts(fonts);
   const user = useSelector((state) => state.user.accessToken);
   const theme = useTheme();
+
+  if (!fontsLoaded) {
+    return null;
+  }
 
   return (
     <NavigationContainer>
@@ -65,11 +72,6 @@ const Navigate = () => {
               component={SignInPage}
               options={{
                 title: "",
-                headerStyle: {
-                  headerTitleStyle: {
-                    fontWeight: "light",
-                  },
-                },
               }}
             />
           </>

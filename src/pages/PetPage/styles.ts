@@ -61,6 +61,6 @@ export const makeStyles = () =>
     },
     additionalRecordsContainer: {
       marginLeft: 15,
-      flexDirection: "row",
+      flexDirection: "column",
     },
   });

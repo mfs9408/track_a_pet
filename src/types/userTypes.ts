@@ -1,8 +1,13 @@
 import { EGenderType } from "../enums";
 
+export interface IUserResponseInterface {
+  tokens: ITokensInterface | null;
+  user: IUserInterface | null;
+}
+
 export interface IUserInterface {
   email: string;
-  id: number;
+  id: string;
   role: [string];
   name: string;
   isActivated: boolean;
@@ -10,11 +15,6 @@ export interface IUserInterface {
   owning: string;
   pets: number[];
   gender: EGenderType;
-}
-
-export interface IUserResponseInterface {
-  tokens: ITokensInterface;
-  user: IUserInterface;
 }
 
 interface ITokensInterface {

@@ -8,63 +8,7 @@ interface RemindersStore {
   description: string;
 }
 
-const initialState: RemindersStore[] | null = [
-  {
-    id: 1,
-    petId: 1,
-    type: "medical",
-    pet: "Tefa",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae culpa\n" +
-      "          excepturi exercitationem id impedit in maxime molestiae molestias,\n" +
-      "          necessitatibus nemo obcaecati optio praesentium, qui quia quis,\n" +
-      "          reiciendis sed temporibus velit!",
-  },
-  {
-    id: 2,
-    petId: 1,
-    type: "medical",
-    pet: "Tefa",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae culpa\n" +
-      "          excepturi exercitationem id impedit in maxime molestiae molestias,\n" +
-      "          necessitatibus nemo obcaecati optio praesentium, qui quia quis,\n" +
-      "          reiciendis sed temporibus velit!",
-  },
-  {
-    id: 3,
-    petId: 1,
-    type: "medical",
-    pet: "Tefa",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae culpa\n" +
-      "          excepturi exercitationem id impedit in maxime molestiae molestias,\n" +
-      "          necessitatibus nemo obcaecati optio praesentium, qui quia quis,\n" +
-      "          reiciendis sed temporibus velit!",
-  },
-  {
-    id: 4,
-    petId: 3,
-    type: "medical",
-    pet: "Tefa",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae culpa\n" +
-      "          excepturi exercitationem id impedit in maxime molestiae molestias,\n" +
-      "          necessitatibus nemo obcaecati optio praesentium, qui quia quis,\n" +
-      "          reiciendis sed temporibus velit!",
-  },
-  {
-    id: 5,
-    petId: 3,
-    type: "medical",
-    pet: "Tefa",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae culpa\n" +
-      "          excepturi exercitationem id impedit in maxime molestiae molestias,\n" +
-      "          necessitatibus nemo obcaecati optio praesentium, qui quia quis,\n" +
-      "          reiciendis sed temporibus velit!",
-  },
-];
+const initialState: RemindersStore[] | null = [];
 
 const remindersSlice = createSlice({
   name: "reminders",

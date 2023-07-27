@@ -7,6 +7,8 @@ import { useTheme } from "react-native-paper";
 import MyPetsPage from "../../pages/MyPetsPage";
 import LibraryPage from "../../pages/LibraryPage";
 import ProfilePage from "../../pages/ProfilePage";
+import { EPage } from "../../enums";
+import { commonColors } from "../../theme";
 
 const Tab = createBottomTabNavigator();
 
@@ -16,28 +18,28 @@ const BottomNavigation = () => {
   return (
     <Tab.Navigator>
       <Tab.Screen
-        name="Home"
+        name={EPage.HOME}
         component={MainPage}
         options={{
           headerShown: false,
+          tabBarLabel: "Main",
+          tabBarInactiveTintColor: commonColors.lightPrimary.color,
           tabBarActiveTintColor: theme.colors.primary,
-          headerStyle: {
-            backgroundColor: theme.colors.background,
-          },
           tabBarIcon: ({ color, focused }) => (
             <MaterialIcons
               name="home"
-              color={focused ? color : "#c0b7e3"}
+              color={focused ? color : commonColors.lightPrimary.color}
               size={24}
             />
           ),
         }}
       />
       <Tab.Screen
-        name="My pets"
+        name={EPage.MYPETS}
         component={MyPetsPage}
         options={{
           headerShown: false,
+          tabBarLabel: "My pets",
           tabBarActiveTintColor: theme.colors.primary,
           headerStyle: {
             backgroundColor: theme.colors.background,
@@ -52,10 +54,11 @@ const BottomNavigation = () => {
         }}
       />
       <Tab.Screen
-        name="Library"
+        name={EPage.LIBRARY}
         component={LibraryPage}
         options={{
           headerShown: false,
+          tabBarLabel: "Library",
           tabBarActiveTintColor: theme.colors.primary,
           headerStyle: {
             backgroundColor: theme.colors.background,
@@ -70,10 +73,11 @@ const BottomNavigation = () => {
         }}
       />
       <Tab.Screen
-        name="Profile"
+        name={EPage.PROFILE}
         component={ProfilePage}
         options={{
           headerShown: false,
+          tabBarLabel: "Profile",
           tabBarActiveTintColor: theme.colors.primary,
           headerStyle: {
             backgroundColor: theme.colors.background,

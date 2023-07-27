@@ -13,6 +13,7 @@ import User from "../../components/User";
 import { useSelector } from "../../store";
 import { commonStyles } from "../../theme";
 import { makeStyles } from "./styles";
+import { EPage } from "../../enums";
 
 const MyPetsPage = () => {
   const navigation = useNavigation();
@@ -29,7 +30,7 @@ const MyPetsPage = () => {
         <User avatar={avatar} name={name} owning={owning} gender={gender} />
         <View style={classes.cardHeader}>
           <Text style={[classes.text, commonStyles.h3]}>Your pets</Text>
-          <TouchableOpacity onPress={() => navigation.navigate("Add pet")}>
+          <TouchableOpacity onPress={() => navigation.navigate(EPage.ADDPET)}>
             <AntDesign name="plus" size={24} color="#6b58b4" />
           </TouchableOpacity>
         </View>

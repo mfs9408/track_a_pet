@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 interface ICommonData {
   isLoading: boolean;
@@ -9,14 +9,11 @@ const initialState: ICommonData = {
 };
 
 const commonDataSlice = createSlice({
-  name: 'commonData',
+  name: "commonData",
   initialState,
   reducers: {
-    changeIsLoading: (
-      state: ICommonData,
-      { payload }: PayloadAction<boolean>
-    ) => {
-      state.isLoading = payload.isLoading;
+    changeIsLoading: (state: ICommonData) => {
+      state.isLoading = true;
     },
   },
 });

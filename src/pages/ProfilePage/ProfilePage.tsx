@@ -1,14 +1,18 @@
 import React, { useState } from "react";
-import { SafeAreaView, ScrollView, Switch, Text, View } from "react-native";
-import { commonStyles } from "../../theme";
+import { SafeAreaView, Switch, Text, View } from "react-native";
 import { Avatar } from "react-native-paper";
 import { AntDesign } from "@expo/vector-icons";
 import { makeStyles } from "./styles";
+import { commonStyles } from "../../theme";
+import { useSelector } from "../../store";
+import { getAvatar } from "../../helpers/getAvatar";
+import { EGenderType } from "../../enums";
 
 const ProfilePage = () => {
   const classes = makeStyles();
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
+  const user = useSelector((store) => store.user.user);
 
   return (
     <SafeAreaView
@@ -24,17 +28,25 @@ const ProfilePage = () => {
         >
           <Avatar.Image
             size={70}
-            source={{ uri: "https://placekitten.com/g/200/300" }}
+            source={
+              user.avatar
+                ? { uri: user.avatar }
+                : ({ size }) =>
+                    getAvatar(user?.gender as EGenderType, {
+                      width: size,
+                      height: size,
+                    })
+            }
           />
           <View style={{ marginLeft: 15 }}>
-            <Text style={commonStyles.h3}>Fedor Muratidi</Text>
+            <Text style={commonStyles.h3}>{user?.name}</Text>
             <Text
               style={[
                 commonStyles.p2,
                 { color: "rgba(95, 91, 91, 1)", fontWeight: "400" },
               ]}
             >
-              mfs9408ny@gmail.com
+              {user.email}
             </Text>
           </View>
         </View>

@@ -5,7 +5,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { commonStyles } from "../../theme";
 
 interface IInfoBoxProps {
-  title: string | number;
+  title?: string | number | null;
   description: string;
 }
 

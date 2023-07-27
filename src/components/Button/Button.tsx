@@ -1,13 +1,13 @@
 import React from "react";
-import { Pressable, Text, TouchableOpacity } from "react-native";
+import { Text, TextStyle, TouchableOpacity, ViewStyle } from "react-native";
 import { makeStyles } from "./styles";
 import { commonStyles } from "../../theme";
 
 interface IButtonProps {
   title: string;
   onPress: () => void;
-  styles?: any;
-  textStyles?: any;
+  styles?: ViewStyle | ViewStyle[];
+  textStyles?: TextStyle | TextStyle[];
 }
 
 const Button = ({ title, onPress, styles, textStyles }: IButtonProps) => {
@@ -15,7 +15,9 @@ const Button = ({ title, onPress, styles, textStyles }: IButtonProps) => {
 
   return (
     <TouchableOpacity style={[classes.button, styles]} onPress={onPress}>
-      <Text style={[commonStyles.p2, classes.text, textStyles]}>{title}</Text>
+      <Text style={[commonStyles.p2, commonStyles.buttonText, textStyles]}>
+        {title}
+      </Text>
     </TouchableOpacity>
   );
 };

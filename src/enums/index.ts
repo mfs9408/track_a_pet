@@ -1,3 +1,6 @@
 export { EUserRole } from "./EUserRole";
 export { ERemindersType } from "./ERemindersType";
 export { EGenderType } from "./EGenderType";
+export { EPage } from "./EPage";
+export { EPetGenderType } from "./EPetGenderType";
+export { EPetType } from "./EPetType";

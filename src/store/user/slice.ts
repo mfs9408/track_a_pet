@@ -1,38 +1,19 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IUserInterface, IUserResponseInterface } from "../../types";
-import { EGenderType } from "../../enums";
+import { IUserResponseInterface } from "../../types";
 
-interface UserStore {
-  accessToken: string | null | undefined;
-  user: IUserInterface;
-}
-
-const initialState: UserStore | null = {
-  accessToken: "foo",
-  user: {
-    id: 1,
-    email: "mfs9408ny@gmail.com",
-    role: ["user"],
-    name: "Fedor Muratidi",
-    pets: [234],
-    isActivated: true,
-    owning: "owner",
-    gender: EGenderType.MALE,
-  },
+const initialState: IUserResponseInterface = {
+  user: null,
+  tokens: null,
 };
 
 const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    getUser: (
-      state: UserStore,
-      { payload }: PayloadAction<IUserResponseInterface | null>
-    ) => {
-      state.accessToken = payload?.tokens.accessToken;
-    },
-    removeUser: (state: UserStore) => {
-      state.accessToken = null;
+    getUser: (state, { payload }: PayloadAction<IUserResponseInterface>) =>
+      (state = payload),
+    cleanStore: (state) => {
+      state = initialState;
     },
   },
 });

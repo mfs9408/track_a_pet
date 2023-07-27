@@ -31,7 +31,57 @@ export const theme: MD3Theme = {
   },
 };
 
+export const commonColors = StyleSheet.create({
+  primary: {
+    color: "#6b58b4",
+  },
+  lightPrimary: {
+    color: "rgba(106, 82, 198, 0.20)",
+  },
+  cancel: {
+    color: "#ba00e0",
+  },
+  lightGrey: {
+    color: "#B4AEAE",
+  },
+  grey: {
+    color: "#747474",
+  },
+  darkGrey: {
+    color: "#5F5B5B",
+  },
+  background: {
+    backgroundColor: "#fff",
+  },
+  semiTransparentGrey: {
+    color: "#6C6C6C",
+  },
+  blackColor: {
+    color: "#000",
+  },
+  whiteColor: {
+    color: "#fff",
+  },
+  error: {
+    color: "#d32f2f",
+  },
+});
+
 export const commonStyles = StyleSheet.create({
+  interRegular: {
+    fontFamily: "Inter-Regular",
+  },
+  button: {
+    backgroundColor: commonColors.primary.color,
+    borderRadius: 40,
+    shadowColor: "#171717",
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.4,
+    shadowRadius: 2,
+  },
+  buttonText: {
+    color: "#fff",
+  },
   boxShadow: {
     shadowColor: "#171717",
     shadowOffset: { width: 0, height: 3 },
@@ -101,26 +151,5 @@ export const commonStyles = StyleSheet.create({
     lineHeight: 20,
     color: "#000",
     fontFamily: "Inter-Regular",
-  },
-});
-
-export const commonColors = StyleSheet.create({
-  primary: {
-    color: "#6b58b4",
-  },
-  lightGrey: {
-    color: "#B4AEAE",
-  },
-  darkGrey: {
-    color: "#5F5B5B",
-  },
-  background: {
-    backgroundColor: "#fff",
-  },
-  semiTransparentGrey: {
-    color: "#6C6C6C",
-  },
-  blackColor: {
-    color: "#000",
   },
 });

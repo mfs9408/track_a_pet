@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
-import { MD3Colors } from "react-native-paper/lib/typescript/src/types";
+import { commonColors } from "../../theme";
 
-export const makeStyles = () =>
+export const makeStyles = (error?: boolean) =>
   StyleSheet.create({
     container: {
       height: 40,
@@ -9,7 +9,9 @@ export const makeStyles = () =>
       paddingHorizontal: 15,
       paddingVertical: 10,
       borderRadius: 40,
-      borderColor: "rgba(106, 82, 198, 0.20)",
+      borderColor: error
+        ? commonColors.error.color
+        : commonColors.lightPrimary.color,
       backgroundColor: "rgba(217, 214, 218, 0.20)",
     },
     wrapper: {

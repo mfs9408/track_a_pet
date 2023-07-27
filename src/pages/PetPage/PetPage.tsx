@@ -1,13 +1,13 @@
 import React from "react";
 import {
+  Dimensions,
   Image,
   ScrollView,
+  Text,
   TouchableOpacity,
   View,
-  Text,
-  Dimensions,
 } from "react-native";
-import { MaterialIcons, Ionicons } from "@expo/vector-icons";
+import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { makeStyles } from "./styles";
 import { useSelector } from "../../store";
 import { commonColors, commonStyles } from "../../theme";
@@ -16,6 +16,7 @@ import InfoBox from "../../components/InfoBox";
 import Gender from "../../components/Gender";
 import { Carousel } from "react-native-basic-carousel";
 import { IPetsTypes } from "../../types";
+import { EPetGenderType } from "../../enums";
 
 const PetPage = () => {
   const pets = useSelector((store) => store.pets);
@@ -26,26 +27,17 @@ const PetPage = () => {
   const currentPet = pets.find((pet) => route.params.petId === pet.id);
 
   const {
-    id,
     name,
-    avatar,
     image,
     weight,
-    loseDate,
-    species,
-    breed,
     gender,
-    owning,
-    lost,
-    spayed,
     age,
-    description,
-    birthDay,
-    remindIDs,
-    userId,
-    loseAddress,
+    petType,
     color,
-    data,
+    diet,
+    identification,
+    vaccination,
+    veterinarianInfo,
   } = currentPet as IPetsTypes;
 
   return (
@@ -70,60 +62,131 @@ const PetPage = () => {
         <View style={classes.headerContainer}>
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <Text style={[commonStyles.h1, classes.header]}>{name}</Text>
-            <Gender gender={gender} />
+            <Gender gender={gender || EPetGenderType.UNKNOWN} />
           </View>
           <TouchableOpacity>
             <Text style={[commonStyles.p1, commonColors.primary]}>Edit</Text>
           </TouchableOpacity>
         </View>
         <View style={classes.infoContainer}>
-          <InfoBox title={breed} description={"Breed"} />
+          <InfoBox title={petType} description={"Pet"} />
           <InfoBox title={color} description={"Color"} />
           <InfoBox title={weight} description={"Weight"} />
           <InfoBox title={age} description={"Age"} />
         </View>
         <View style={classes.dataWrapper}>
-          {data?.map((item, key) => (
-            <View key={key} style={classes.dataContainer}>
+          {diet && (
+            <View style={classes.dataContainer}>
               <View style={classes.iconContainer}>
                 <MaterialIcons
-                  name={item?.icon}
+                  name="note"
                   size={20}
                   color="black"
                   style={classes.icon}
                 />
-                <Text style={commonStyles.p1}>{item.title}</Text>
+                <Text style={commonStyles.p1}>Pet diet</Text>
               </View>
-              {item.value.map(({ key, value, additionalRecords }) => (
-                <View style={classes.subDataContainer}>
-                  <View style={classes.subHeaderContainer}>
-                    <Text
-                      style={[
-                        commonStyles.p2,
-                        {
-                          color: additionalRecords
-                            ? commonColors.blackColor.color
-                            : commonColors.darkGrey.color,
-                        },
-                      ]}
-                    >
-                      &#8728; {key}: {value}
-                    </Text>
-                  </View>
-                  {additionalRecords?.map(({ key, value }, arrayKey) => (
-                    <View
-                      key={arrayKey}
-                      style={classes.additionalRecordsContainer}
-                    >
-                      <Text style={[commonStyles.p2, { color: "#5F5B5B" }]}>
-                        &#8728; {key}: {value}
-                      </Text>
-                    </View>
-                  ))}
+              <View style={classes.subDataContainer}>
+                <View style={classes.subHeaderContainer}>
+                  <Text style={[commonStyles.p2, commonColors.darkGrey]}>
+                    {diet}
+                  </Text>
                 </View>
-              ))}
+              </View>
             </View>
-          ))}
+          )}
+          {identification && (
+            <View style={classes.dataContainer}>
+              <View style={classes.iconContainer}>
+                <MaterialIcons
+                  name="pets"
+                  size={20}
+                  color="black"
+                  style={classes.icon}
+                />
+                <Text style={commonStyles.p1}>Identification</Text>
+              </View>
+              {identification?.map(
+                ({ label, value }, key) =>
+                  value && (
+                    <View key={key} style={classes.subDataContainer}>
+                      <View style={classes.subHeaderContainer}>
+                        <Text style={[commonStyles.p2, commonColors.darkGrey]}>
+                          &#8728; {label}: {value}
+                        </Text>
+                      </View>
+                    </View>
+                  )
+              )}
+            </View>
+          )}
+          {vaccination && (
+            <View style={classes.dataContainer}>
+              <View style={classes.iconContainer}>
+                <MaterialIcons
+                  name="medical-services"
+                  size={20}
+                  color="black"
+                  style={classes.icon}
+                />
+                <Text style={commonStyles.p1}>Medical records</Text>
+              </View>
+              {vaccination?.map(
+                ({ label, value, additionalRecords }, key) =>
+                  value && (
+                    <View key={key} style={classes.subDataContainer}>
+                      <Text
+                        style={[
+                          commonStyles.p2,
+                          {
+                            color: additionalRecords
+                              ? commonColors.blackColor.color
+                              : commonColors.darkGrey.color,
+                          },
+                        ]}
+                      >
+                        {value}
+                      </Text>
+                      {additionalRecords?.map(({ label, value }, arrayKey) => (
+                        <View
+                          key={arrayKey}
+                          style={classes.additionalRecordsContainer}
+                        >
+                          <Text style={[commonStyles.p2, { color: "#5F5B5B" }]}>
+                            &#8728; {label}: {value}
+                          </Text>
+                        </View>
+                      ))}
+                    </View>
+                  )
+              )}
+            </View>
+          )}
+          {veterinarianInfo && (
+            <View style={classes.dataContainer}>
+              <View style={classes.iconContainer}>
+                <MaterialIcons
+                  name="account-box"
+                  size={20}
+                  color="black"
+                  style={classes.icon}
+                />
+                <Text style={commonStyles.p1}>Veterinarian Information</Text>
+              </View>
+              {veterinarianInfo?.map(
+                ({ label, value }, key) =>
+                  value && (
+                    <View key={key} style={classes.subDataContainer}>
+                      <View style={classes.subHeaderContainer}>
+                        <Text style={[commonStyles.p2, commonColors.darkGrey]}>
+                          &#8728; {label}: {value}
+                        </Text>
+                      </View>
+                    </View>
+                  )
+              )}
+            </View>
+          )}
         </View>
       </View>
     </ScrollView>

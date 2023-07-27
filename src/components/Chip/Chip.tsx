@@ -1,26 +1,28 @@
-import React, { Dispatch, SetStateAction } from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import React, { ReactNode } from "react";
+import { Text, TouchableOpacity, View, ViewStyle } from "react-native";
 import { makeStyles } from "./styles";
 
 interface IChipProps {
-  value: string;
-  selected: boolean;
-  setSelected: Dispatch<SetStateAction<boolean>>;
+  id: string;
+  label: string;
+  value: ReactNode;
+  onChange: (event: string) => void;
   icon?: React.ReactNode;
-  styles?: any;
+  styles?: ViewStyle | ViewStyle[];
 }
 
-const Chip = ({ selected, value, setSelected, styles, icon }: IChipProps) => {
-  const classes = makeStyles(selected);
+const Chip = ({ id, value, label, onChange, styles, icon }: IChipProps) => {
+  const isSelected = id == value;
+  const classes = makeStyles(isSelected);
 
   return (
     <TouchableOpacity
-      onPress={() => setSelected(!selected)}
+      onPress={() => onChange(id)}
       style={[styles, classes.wrapper]}
     >
       <View style={classes.container}>
         {icon}
-        <Text>{value}</Text>
+        <Text>{label}</Text>
       </View>
     </TouchableOpacity>
   );

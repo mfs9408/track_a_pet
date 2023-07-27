@@ -28,7 +28,6 @@ const User = ({ avatar, owning, name, gender }: IUserProps) => {
         }
         style={classes.avatar}
       />
-
       <View style={classes.infoContainer}>
         <Text style={[commonStyles.p2, { color: "#828282" }]}>{owning}</Text>
         <Text style={[commonStyles.p1]}>{name}</Text>

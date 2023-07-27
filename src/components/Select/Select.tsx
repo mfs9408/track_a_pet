@@ -1,20 +1,30 @@
 import React from "react";
 import RNPickerSelect from "react-native-picker-select";
-import { View } from "react-native";
+import { View, ViewStyle } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { makeStyles } from "./styles";
 
 interface ISelectProps {
   placeholder?: any;
   items: any;
-  onValueChange: () => void;
+  onValueChange: any;
+  value: any;
+  error?: boolean;
+  styles?: ViewStyle | ViewStyle[];
 }
 
-const Select = ({ placeholder, onValueChange, items }: ISelectProps) => {
-  const classes = makeStyles();
+const Select = ({
+  placeholder,
+  value,
+  onValueChange,
+  items,
+  error,
+  styles,
+}: ISelectProps) => {
+  const classes = makeStyles(error);
 
   return (
-    <View style={classes.container}>
+    <View style={[classes.container, styles]}>
       <RNPickerSelect
         placeholder={placeholder}
         Icon={() => (
@@ -25,12 +35,9 @@ const Select = ({ placeholder, onValueChange, items }: ISelectProps) => {
             style={{ color: "rgba(106, 82, 198, 0.4)", marginTop: 2 }}
           />
         )}
-        items={[
-          { label: "Football", value: "football" },
-          { label: "Baseball", value: "baseball" },
-          { label: "Hockey", value: "hockey" },
-        ]}
-        onValueChange={() => {}}
+        value={value}
+        items={items}
+        onValueChange={(value) => onValueChange(value)}
       />
     </View>
   );

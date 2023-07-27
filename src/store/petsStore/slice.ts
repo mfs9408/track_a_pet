@@ -1,175 +1,111 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IPetsTypes } from "../../types";
+import { EPetGenderType } from "../../enums";
 
 const initialState: IPetsTypes[] | null = [
   {
-    id: 1,
-    userId: 2,
+    id: "221",
+    userId: "f2",
     name: "Tefa",
+    petType: "",
     avatar: "https://placekitten.com/g/200/300",
-    owning: "owning",
-    gender: "female",
+    gender: EPetGenderType.FEMALE,
     spayed: true,
-    species: "street",
     breed: "foo",
     age: "11",
     color: "Orange",
+    activityHistory: "",
+    insurance: "uuid",
     description: "lorem",
     image: [
       "https://placekitten.com/g/200/300",
       "https://placekitten.com/g/200/300",
       "https://placekitten.com/g/200/300",
     ],
-    lost: true,
-    weight: 1.23,
+    lost: false,
+    weight: "1.23",
     loseAddress: "foo",
     loseDate: "new Date()",
     remindIDs: [2],
     birthDay: "new Date()",
-    data: [
+    diet: "ff",
+    identification: [
       {
-        title: "Identification",
-        icon: "pets",
-        value: [
+        label: "Microchip number",
+        value: "5adea72e-13a7-11ee-be56-0242ac120002",
+      },
+    ],
+    vaccination: [
+      {
+        value: "Rabies Vaccination",
+        additionalRecords: [
           {
-            key: "Microchip number",
-            value: "5adea72e-13a7-11ee-be56-0242ac120002",
+            label: "Date",
+            value: "May 15, 2023",
+          },
+          {
+            label: "Vaccine Type",
+            value: "Rabies Vaccine (1-year)",
+          },
+          {
+            label: "Veterinarian",
+            value: "Dr. Emily Johnson, ABC Veterinary Clinic",
           },
         ],
       },
       {
-        title: "Medical records",
-        icon: "medical-services",
-        value: [
+        value: "Distemper-Parvo Vaccination",
+        additionalRecords: [
           {
-            key: "Rabies Vaccination",
-            additionalRecords: [
-              {
-                key: "Date",
-                value: "May 15, 2023",
-              },
-              {
-                key: "Vaccine Type",
-                value: "Rabies Vaccine (1-year)",
-              },
-              {
-                key: "Veterinarian",
-                value: "Dr. Emily Johnson, ABC Veterinary Clinic",
-              },
-            ],
+            label: "Date",
+            value: "February 28, 2023",
           },
           {
-            key: "Distemper-Parvo Vaccination",
-            additionalRecords: [
-              {
-                key: "Date",
-                value: "February 28, 2023",
-              },
-              {
-                key: "Vaccine Type",
-                value: "DHPP Vaccine",
-              },
-              {
-                key: "Veterinarian",
-                value: "Dr. Sarah Anderson, XYZ Animal Hospital",
-              },
-            ],
+            label: "Vaccine Type",
+            value: "DHPP Vaccine",
           },
           {
-            key: "Bordetella Vaccination",
-            additionalRecords: [
-              {
-                key: "Date",
-                value: "January 10, 2023",
-              },
-              {
-                key: "Vaccine Type",
-                value: "Bordetella Vaccine",
-              },
-              {
-                key: "Veterinarian",
-                value: "Dr. Michael Smith, Paws and Claws Veterinary Care",
-              },
-            ],
+            label: "Veterinarian",
+            value: "Dr. Sarah Anderson, XYZ Animal Hospital",
           },
         ],
       },
       {
-        title: "Pet's diet",
-        icon: "note",
-        value: [
+        value: "Bordetella Vaccination",
+        additionalRecords: [
           {
-            key: "Dietary Needs",
-            value:
-              "They have a preference for dry kibble and enjoy a mix of chicken and fish flavors. They require a balanced diet with a combination of protein, carbohydrates, and healthy fats. Additionally, they have a sensitive stomach and should avoid foods containing wheat or artificial additives. Feeding portions consist of two meals a day, with 1 cup of food in the morning and ¾ cup in the evening. It's important to provide fresh water at all times. Please consult with your veterinarian for specific dietary recommendations tailored to your pet's needs",
-          },
-        ],
-      },
-      {
-        title: "Veterinarian Information",
-        icon: "account-box",
-        value: [
-          {
-            key: "Veterinarian",
-            value: "Dr. Sarah Johnson",
+            label: "Date",
+            value: "January 10, 2023",
           },
           {
-            key: "Clinic",
-            value: "ABC Veterinary Clinic",
+            label: "Vaccine Type",
+            value: "Bordetella Vaccine",
           },
           {
-            key: "Address",
-            value: "123 Main Street, Cityville",
-          },
-          {
-            key: "Phone number",
-            value: " (555) 123-4567",
+            label: "Veterinarian",
+            value: "Dr. Michael Smith, Paws and Claws Veterinary Care",
           },
         ],
       },
     ],
-  },
-  {
-    id: 2,
-    userId: 3,
-    name: "Fate",
-    avatar: "https://placekitten.com/g/200/300",
-    owning: "owning",
-    gender: "female",
-    color: "White",
-    spayed: true,
-    weight: 1.23,
-    species: "street",
-    breed: "foo",
-    description: "lorem",
-    image: ["foo"],
-    age: "11",
-    lost: false,
-    loseAddress: "foo",
-    loseDate: "new Date()",
-    remindIDs: [2],
-    birthDay: "new Date()",
-  },
-  {
-    id: 3,
-    userId: 1,
-    name: "Afet",
-    avatar: "https://placekitten.com/g/200/300",
-    owning: "owning",
-    gender: "male",
-    spayed: true,
-    species: "street",
-    age: "11",
-    color: "Black",
-    breed: "foo",
-    weight: 1.23,
-    description: "lorem",
-    image: ["foo"],
-    lost: false,
-    loseAddress: "foo",
-    loseDate: "new Date()",
-    remindIDs: [2],
-    birthDay: "new Date()",
+    veterinarianInfo: [
+      {
+        label: "Veterinarian",
+        value: "Dr. Sarah Johnson",
+      },
+      {
+        label: "Clinic",
+        value: "ABC Veterinary Clinic",
+      },
+      {
+        label: "Address",
+        value: "123 Main Street, Cityville",
+      },
+      {
+        label: "Phone number",
+        value: " (555) 123-4567",
+      },
+    ],
   },
 ];
 
@@ -177,9 +113,115 @@ const petsSlice = createSlice({
   name: "pets",
   initialState,
   reducers: {
-    getPetByPetId: (state, { payload }: PayloadAction<any>) => {},
+    addPet: (state, { payload }: PayloadAction<IPetsTypes>) => {
+      state.push(payload);
+    },
   },
 });
 
 export const petsActions = petsSlice.actions;
 export default petsSlice;
+
+// {
+//     id: 1,
+//     userId: 2,
+//     name: "Tefa",
+//     avatar: "https://placekitten.com/g/200/300",
+//     owning: "owning",
+//     gender: "female",
+//     spayed: true,
+//     species: "street",
+//     breed: "foo",
+//     age: "11",
+//     color: "Orange",
+//     description: "lorem",
+//     image: [
+//       "https://placekitten.com/g/200/300",
+//       "https://placekitten.com/g/200/300",
+//       "https://placekitten.com/g/200/300",
+//     ],
+//     lost: true,
+//     weight: "1.23",
+//     loseAddress: "foo",
+//     loseDate: "new Date()",
+//     remindIDs: [2],
+//     birthDay: "new Date()",
+//     diet: "ff",
+//     identification: [
+//       {
+//         label: "Microchip number",
+//         value: "5adea72e-13a7-11ee-be56-0242ac120002",
+//       },
+//     ],
+//     medicalRecords: [
+//       {
+//         value: "Rabies Vaccination",
+//         additionalRecords: [
+//           {
+//             label: "Date",
+//             value: "May 15, 2023",
+//           },
+//           {
+//             label: "Vaccine Type",
+//             value: "Rabies Vaccine (1-year)",
+//           },
+//           {
+//             label: "Veterinarian",
+//             value: "Dr. Emily Johnson, ABC Veterinary Clinic",
+//           },
+//         ],
+//       },
+//       {
+//         value: "Distemper-Parvo Vaccination",
+//         additionalRecords: [
+//           {
+//             label: "Date",
+//             value: "February 28, 2023",
+//           },
+//           {
+//             label: "Vaccine Type",
+//             value: "DHPP Vaccine",
+//           },
+//           {
+//             label: "Veterinarian",
+//             value: "Dr. Sarah Anderson, XYZ Animal Hospital",
+//           },
+//         ],
+//       },
+//       {
+//         value: "Bordetella Vaccination",
+//         additionalRecords: [
+//           {
+//             label: "Date",
+//             value: "January 10, 2023",
+//           },
+//           {
+//             label: "Vaccine Type",
+//             value: "Bordetella Vaccine",
+//           },
+//           {
+//             label: "Veterinarian",
+//             value: "Dr. Michael Smith, Paws and Claws Veterinary Care",
+//           },
+//         ],
+//       },
+//     ],
+//     veterinarianInfo: [
+//       {
+//         label: "Veterinarian",
+//         value: "Dr. Sarah Johnson",
+//       },
+//       {
+//         label: "Clinic",
+//         value: "ABC Veterinary Clinic",
+//       },
+//       {
+//         label: "Address",
+//         value: "123 Main Street, Cityville",
+//       },
+//       {
+//         label: "Phone number",
+//         value: " (555) 123-4567",
+//       },
+//     ],
+//   },

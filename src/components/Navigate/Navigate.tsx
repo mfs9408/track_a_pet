@@ -8,14 +8,18 @@ import BottomNavigation from "../BottomNavigation";
 import PetPage from "../../pages/PetPage";
 import { useTheme } from "react-native-paper";
 import EditPetInfoPage from "../../pages/EditPetInfoPage";
+import WelcomePage from "../../pages/WelcomePage";
+import { RootStackParamList } from "../../types";
 import AddPet from "../../pages/AddPet";
 import { fonts } from "../../theme";
+import { EPage } from "../../enums";
+// import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const Navigate = () => {
   const [fontsLoaded] = useFonts(fonts);
-  const user = useSelector((state) => state.user.accessToken);
+  const user = useSelector((state) => state.user?.user);
   const theme = useTheme();
 
   if (!fontsLoaded) {
@@ -28,39 +32,33 @@ const Navigate = () => {
         {user ? (
           <>
             <Stack.Screen
-              name="main"
+              name={EPage.MAIN}
               component={BottomNavigation}
               options={{
                 headerShown: false,
               }}
             />
             <Stack.Screen
-              name="Pet"
-              component={PetPage}
-              options={{
-                headerTintColor: theme.colors.primary,
-              }}
-            />
-            <Stack.Screen
-              name="Edit pet"
+              name={EPage.EDIT}
               component={EditPetInfoPage}
               options={{
                 headerTintColor: theme.colors.primary,
               }}
             />
             <Stack.Screen
-              name="Pet page"
+              name={EPage.PET}
               component={PetPage}
               options={({ route }) => ({
-                title: route.params.name,
+                title: route.params.petId,
                 headerTintColor: theme.colors.primary,
                 headerShown: false,
               })}
             />
             <Stack.Screen
-              name="Add pet"
+              name={EPage.ADDPET}
               component={AddPet}
               options={() => ({
+                title: "Add a pet",
                 headerTintColor: theme.colors.primary,
               })}
             />
@@ -68,10 +66,24 @@ const Navigate = () => {
         ) : (
           <>
             <Stack.Screen
-              name="SignIn"
+              name={EPage.WELCOME}
+              component={WelcomePage}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name={EPage.SIGNIN}
               component={SignInPage}
               options={{
-                title: "",
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name={EPage.SIGNUP}
+              component={SignInPage}
+              options={{
+                headerShown: false,
               }}
             />
           </>

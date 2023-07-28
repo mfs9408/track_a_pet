@@ -22,7 +22,7 @@ const BottomNavigation = () => {
         component={MainPage}
         options={{
           headerShown: false,
-          tabBarLabel: "Main",
+          tabBarLabel: "Home",
           tabBarInactiveTintColor: commonColors.lightPrimary.color,
           tabBarActiveTintColor: theme.colors.primary,
           tabBarIcon: ({ color, focused }) => (

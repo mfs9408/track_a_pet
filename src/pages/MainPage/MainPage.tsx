@@ -4,14 +4,19 @@ import { LayoutAnimation, SafeAreaView, Text, View } from "react-native";
 import DraggableFlatList, {
   RenderItemParams,
 } from "react-native-draggable-flatlist";
+import { Ionicons } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
 import User from "../../components/User";
 import RemindBuilder from "../../components/RemindBulder";
+import ContextButton from "../../components/ContextButton";
 import { useSelector } from "../../store";
 import { IActivityItem, IAppointmentItem } from "../../interfaces";
 import { todayRemindersActions } from "../../store/currentReminders/slice";
 import { commonColors, commonStyles } from "../../theme";
 import { ERemindersType } from "../../enums";
 import { makeStyles } from "./styles";
+
+const ACTIVATION_DISTANCE = 20;
 
 const MainPage = () => {
   const dispatch = useDispatch();
@@ -53,10 +58,10 @@ const MainPage = () => {
     <SafeAreaView style={classes.container}>
       <View style={classes.commonWrapper}>
         <User
-          gender={user.gender}
-          name={user.name}
-          owning={user.owning}
-          avatar={user.avatar}
+          gender={user?.gender}
+          name={user?.name}
+          owning={user?.owning}
+          avatar={user?.avatar}
         />
         <Text style={[commonStyles.h3, classes.blockHeader]}>
           Your today's activity
@@ -78,7 +83,28 @@ const MainPage = () => {
           )}
         </View>
       </View>
-      <View style={classes.commonWrapper}>
+      <View style={classes.addButtonsContainer}>
+        <ContextButton
+          title="Add a reminder"
+          onPress={() => {}}
+          textStyles={{ fontFamily: "Inter-SemiBold" }}
+          icon={
+            <Ionicons
+              name="notifications-outline"
+              size={24}
+              color={commonColors.primary.color}
+            />
+          }
+          endIcon={
+            <MaterialIcons
+              name="keyboard-arrow-right"
+              size={24}
+              color={commonColors.primary.color}
+            />
+          }
+        />
+      </View>
+      <View style={[classes.commonWrapper, { paddingTop: 10 }]}>
         <Text style={[commonStyles.h3, classes.blockHeader, { marginTop: 10 }]}>
           Your today's appointments
         </Text>
@@ -91,7 +117,7 @@ const MainPage = () => {
           renderItem={(params) =>
             renderItem(params, ERemindersType.APPOINTMENT)
           }
-          activationDistance={20}
+          activationDistance={ACTIVATION_DISTANCE}
         />
         <View style={classes.commonPadding}>
           {appointment.length === 0 && (

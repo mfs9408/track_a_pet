@@ -2,7 +2,7 @@ import React from "react";
 import { SafeAreaView, Text } from "react-native";
 import { commonStyles } from "../../theme";
 
-const RemindersList = () => {
+const CurrentRemindersPage = () => {
   return (
     <SafeAreaView style={commonStyles.commonWrapper}>
       <Text>foo</Text>
@@ -10,4 +10,4 @@ const RemindersList = () => {
   );
 };
 
-export default RemindersList;
+export default CurrentRemindersPage;

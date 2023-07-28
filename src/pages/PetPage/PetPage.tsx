@@ -17,14 +17,15 @@ import Gender from "../../components/Gender";
 import { Carousel } from "react-native-basic-carousel";
 import { IPetsTypes } from "../../types";
 import { EPetGenderType } from "../../enums";
+import { RouteProps } from "../../types/navigateTypes";
 
 const PetPage = () => {
   const pets = useSelector((store) => store.pets);
-  const route = useRoute();
+  const route = useRoute<RouteProps>();
   const navigation = useNavigation();
   const classes = makeStyles();
 
-  const currentPet = pets.find((pet) => route.params.petId === pet.id);
+  const currentPet = pets?.find((pet) => route.params?.petId === pet.id);
 
   const {
     name,

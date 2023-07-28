@@ -1,18 +1,20 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { useTheme } from "react-native-paper";
 import { useFonts } from "expo-font";
 import { useSelector } from "../../store";
-import SignInPage from "../../pages/SignInPage";
-import BottomNavigation from "../BottomNavigation";
-import PetPage from "../../pages/PetPage";
-import { useTheme } from "react-native-paper";
 import EditPetInfoPage from "../../pages/EditPetInfoPage";
+import RemindersList from "../../pages/RemindersList";
+import BottomNavigation from "../BottomNavigation";
 import WelcomePage from "../../pages/WelcomePage";
-import { RootStackParamList } from "../../types";
+import SignInPage from "../../pages/SignInPage";
+import PetPage from "../../pages/PetPage";
 import AddPet from "../../pages/AddPet";
+import { RootStackParamList } from "../../types";
 import { fonts } from "../../theme";
 import { EPage } from "../../enums";
+import CurrentRemindersPage from "../../pages/CurrentRemindersPage";
 // import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -61,6 +63,20 @@ const Navigate = () => {
                 title: "Add a pet",
                 headerTintColor: theme.colors.primary,
               })}
+            />
+            <Stack.Screen
+              name={EPage.REMINDERSLIST}
+              component={RemindersList}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name={EPage.CURRENTREMINDERS}
+              component={CurrentRemindersPage}
+              options={{
+                headerShown: false,
+              }}
             />
           </>
         ) : (

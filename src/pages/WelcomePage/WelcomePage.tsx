@@ -31,11 +31,11 @@ const WelcomePage = () => {
           title="Get started"
           styles={classes.button}
           textStyles={[commonStyles.p1, commonColors.whiteColor]}
-          onPress={() => navigation.navigate(EPage.SIGNIN)}
+          onPress={() => navigation.navigate(EPage.SIGN_IN)}
         />
         <View style={classes.accountTextWrapper}>
           <Text style={classes.accountText}>Already have an account?</Text>
-          <Pressable onPress={() => navigation.navigate(EPage.SIGNUP)}>
+          <Pressable onPress={() => navigation.navigate(EPage.SIGN_UP)}>
             <Text style={[commonColors.primary]}>Login</Text>
           </Pressable>
         </View>

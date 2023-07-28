@@ -17,9 +17,12 @@ export const makeStyles = () =>
     blockHeader: {
       marginBottom: 15,
     },
-      addButtonsContainer: {
-          backgroundColor: commonColors.lightPrimary.color,
-          paddingHorizontal: 30,
-          paddingVertical: 15,
-      }
+    addButtonsContainer: {
+      backgroundColor: commonColors.lightPrimary.color,
+      paddingHorizontal: 30,
+      paddingVertical: 15,
+    },
+    flatListContainer: {
+      marginBottom: 20,
+    },
   });

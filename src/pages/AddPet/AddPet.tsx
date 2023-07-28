@@ -67,7 +67,7 @@ const AddPet = () => {
 
   const onSubmit: SubmitHandler<IAddForm> = (data) => {
     dispatch(petsActions.addPet(data));
-    navigation.navigate(EPage.MYPETS);
+    navigation.navigate(EPage.MY_PETS);
   };
 
   const onReset = () => {

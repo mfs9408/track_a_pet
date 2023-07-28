@@ -13,13 +13,15 @@ import { useSelector } from "../../store";
 import { IActivityItem, IAppointmentItem } from "../../interfaces";
 import { todayRemindersActions } from "../../store/currentReminders/slice";
 import { commonColors, commonStyles } from "../../theme";
-import { ERemindersType } from "../../enums";
+import {EPage, ERemindersType} from "../../enums";
 import { makeStyles } from "./styles";
+import { useNavigation } from "@react-navigation/native";
 
 const ACTIVATION_DISTANCE = 20;
 
 const MainPage = () => {
   const dispatch = useDispatch();
+  const navigation = useNavigation();
   const user = useSelector((store) => store.user.user);
   const currentReminders = useSelector((store) => store.currentReminders);
   const appointment = currentReminders.appointment;
@@ -67,7 +69,7 @@ const MainPage = () => {
           Your today's activity
         </Text>
       </View>
-      <View>
+      <View style={classes.flatListContainer}>
         <DraggableFlatList
           contentContainerStyle={classes.commonPadding}
           keyExtractor={(item) => item.remindId}
@@ -86,7 +88,7 @@ const MainPage = () => {
       <View style={classes.addButtonsContainer}>
         <ContextButton
           title="Add a reminder"
-          onPress={() => {}}
+          onPress={() => navigation.navigate(EPage.CURRENT_REMINDERS)}
           textStyles={{ fontFamily: "Inter-SemiBold" }}
           icon={
             <Ionicons
@@ -109,7 +111,7 @@ const MainPage = () => {
           Your today's appointments
         </Text>
       </View>
-      <View>
+      <View style={classes.flatListContainer}>
         <DraggableFlatList
           contentContainerStyle={classes.commonPadding}
           keyExtractor={(item) => item.remindId}

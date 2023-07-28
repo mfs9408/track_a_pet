@@ -126,7 +126,7 @@ const SignInPage = () => {
         </View>
         <View style={classes.accountTextWrapper}>
           <Text style={classes.accountText}>Dont have an account?</Text>
-          <Pressable onPress={() => navigation.navigate(EPage.SIGNUP)}>
+          <Pressable onPress={() => navigation.navigate(EPage.SIGN_UP)}>
             <Text style={[commonColors.primary]}>Sign up!</Text>
           </Pressable>
         </View>

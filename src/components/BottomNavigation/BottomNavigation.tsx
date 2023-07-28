@@ -35,7 +35,7 @@ const BottomNavigation = () => {
         }}
       />
       <Tab.Screen
-        name={EPage.MYPETS}
+        name={EPage.MY_PETS}
         component={MyPetsPage}
         options={{
           headerShown: false,

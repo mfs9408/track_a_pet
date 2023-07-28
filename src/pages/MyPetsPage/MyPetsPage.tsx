@@ -30,7 +30,7 @@ const MyPetsPage = () => {
         <User avatar={avatar} name={name} owning={owning} gender={gender} />
         <View style={classes.cardHeader}>
           <Text style={[classes.text, commonStyles.h3]}>Your pets</Text>
-          <TouchableOpacity onPress={() => navigation.navigate(EPage.ADDPET)}>
+          <TouchableOpacity onPress={() => navigation.navigate(EPage.ADD_PET)}>
             <AntDesign name="plus" size={24} color="#6b58b4" />
           </TouchableOpacity>
         </View>

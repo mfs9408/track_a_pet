@@ -24,6 +24,8 @@ const Navigate = () => {
   const user = useSelector((state) => state.user?.user);
   const theme = useTheme();
 
+  // AsyncStorage.clear();
+
   if (!fontsLoaded) {
     return null;
   }
@@ -57,7 +59,7 @@ const Navigate = () => {
               })}
             />
             <Stack.Screen
-              name={EPage.ADDPET}
+              name={EPage.ADD_PET}
               component={AddPet}
               options={() => ({
                 title: "Add a pet",
@@ -65,17 +67,18 @@ const Navigate = () => {
               })}
             />
             <Stack.Screen
-              name={EPage.REMINDERSLIST}
+              name={EPage.REMINDERS_LIST}
               component={RemindersList}
               options={{
                 headerShown: false,
               }}
             />
             <Stack.Screen
-              name={EPage.CURRENTREMINDERS}
+              name={EPage.CURRENT_REMINDERS}
               component={CurrentRemindersPage}
               options={{
-                headerShown: false,
+                title: "Current reminders",
+                headerTintColor: theme.colors.primary,
               }}
             />
           </>
@@ -89,14 +92,14 @@ const Navigate = () => {
               }}
             />
             <Stack.Screen
-              name={EPage.SIGNIN}
+              name={EPage.SIGN_IN}
               component={SignInPage}
               options={{
                 headerShown: false,
               }}
             />
             <Stack.Screen
-              name={EPage.SIGNUP}
+              name={EPage.SIGN_UP}
               component={SignInPage}
               options={{
                 headerShown: false,

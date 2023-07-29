@@ -16,6 +16,7 @@ export const makeStyles = () =>
     },
     blockHeader: {
       marginBottom: 15,
+      marginTop: 10,
     },
     addButtonsContainer: {
       backgroundColor: commonColors.lightPrimary.color,

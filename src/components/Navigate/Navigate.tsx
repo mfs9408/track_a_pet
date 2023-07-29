@@ -5,7 +5,6 @@ import { useTheme } from "react-native-paper";
 import { useFonts } from "expo-font";
 import { useSelector } from "../../store";
 import EditPetInfoPage from "../../pages/EditPetInfoPage";
-import RemindersList from "../../pages/RemindersList";
 import BottomNavigation from "../BottomNavigation";
 import WelcomePage from "../../pages/WelcomePage";
 import SignInPage from "../../pages/SignInPage";
@@ -15,6 +14,7 @@ import { RootStackParamList } from "../../types";
 import { fonts } from "../../theme";
 import { EPage } from "../../enums";
 import CurrentRemindersPage from "../../pages/CurrentRemindersPage";
+import RemindersListPage from "../../pages/RemindersListPage";
 // import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -68,16 +68,17 @@ const Navigate = () => {
             />
             <Stack.Screen
               name={EPage.REMINDERS_LIST}
-              component={RemindersList}
+              component={RemindersListPage}
               options={{
-                headerShown: false,
+                title: "",
+                headerTintColor: theme.colors.primary,
               }}
             />
             <Stack.Screen
               name={EPage.CURRENT_REMINDERS}
               component={CurrentRemindersPage}
               options={{
-                title: "Current reminders",
+                title: "",
                 headerTintColor: theme.colors.primary,
               }}
             />

@@ -1,11 +1,17 @@
 import React from "react";
-import { SafeAreaView, Text } from "react-native";
+import { Text, View } from "react-native";
+import { commonStyles } from "../../theme";
+import { makeStyles } from "./styles";
 
 const RemindersListPage = () => {
+  const classes = makeStyles();
+
   return (
-    <SafeAreaView>
-      <Text>foo</Text>
-    </SafeAreaView>
+    <View style={[commonStyles.commonContainer, commonStyles.commonWrapper]}>
+      <Text style={[commonStyles.h2, classes.header]}>
+        What type of reminder do you want to create?
+      </Text>
+    </View>
   );
 };
 

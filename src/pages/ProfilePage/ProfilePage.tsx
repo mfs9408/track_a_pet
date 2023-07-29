@@ -29,7 +29,7 @@ const ProfilePage = () => {
           <Avatar.Image
             size={70}
             source={
-              user.avatar
+              user?.avatar
                 ? { uri: user.avatar }
                 : ({ size }) =>
                     getAvatar(user?.gender as EGenderType, {
@@ -46,7 +46,7 @@ const ProfilePage = () => {
                 { color: "rgba(95, 91, 91, 1)", fontWeight: "400" },
               ]}
             >
-              {user.email}
+              {user?.email}
             </Text>
           </View>
         </View>

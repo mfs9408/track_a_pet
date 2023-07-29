@@ -13,7 +13,7 @@ import { useSelector } from "../../store";
 import { IActivityItem, IAppointmentItem } from "../../interfaces";
 import { todayRemindersActions } from "../../store/currentReminders/slice";
 import { commonColors, commonStyles } from "../../theme";
-import {EPage, ERemindersType} from "../../enums";
+import { EPage, ERemindersType } from "../../enums";
 import { makeStyles } from "./styles";
 import { useNavigation } from "@react-navigation/native";
 
@@ -79,7 +79,7 @@ const MainPage = () => {
         />
         <View style={classes.commonPadding}>
           {activity.length === 0 && (
-            <Text style={commonColors.darkGrey}>
+            <Text style={[commonStyles.p2, commonColors.darkGrey]}>
               You don't have any activities today
             </Text>
           )}
@@ -107,7 +107,7 @@ const MainPage = () => {
         />
       </View>
       <View style={[classes.commonWrapper, { paddingTop: 10 }]}>
-        <Text style={[commonStyles.h3, classes.blockHeader, { marginTop: 10 }]}>
+        <Text style={[commonStyles.h3, classes.blockHeader]}>
           Your today's appointments
         </Text>
       </View>
@@ -123,7 +123,7 @@ const MainPage = () => {
         />
         <View style={classes.commonPadding}>
           {appointment.length === 0 && (
-            <Text style={commonColors.darkGrey}>
+            <Text style={[commonStyles.p2, commonColors.darkGrey]}>
               You don't have any appointments today
             </Text>
           )}

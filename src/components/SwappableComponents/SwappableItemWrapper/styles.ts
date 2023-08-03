@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { commonColors } from "../../../theme";
 
 export const makeStyles = () =>
   StyleSheet.create({
@@ -9,28 +10,8 @@ export const makeStyles = () =>
       paddingVertical: 10,
       marginBottom: 20,
     },
-    wrapper: {
-      flex: 1,
-      flexDirection: "row",
-      justifyContent: "space-between",
-    },
-    iconWrapper: {
-      flexDirection: "row",
-      marginBottom: 8,
-      alignItems: "center",
-    },
-    icon: {
-      marginRight: 10,
-    },
-    descriptionContainer: {
-      flexDirection: "column",
-      flex: 5,
-    },
-    timeContainer: {
-      flex: 1,
-    },
     closeButtonContainer: {
-      backgroundColor: "#F0EFF4",
+      backgroundColor: commonColors.error.color,
       height: "100%",
       borderRadius: 10,
       paddingHorizontal: 20,
@@ -42,8 +23,5 @@ export const makeStyles = () =>
       flexDirection: "row",
       alignItems: "center",
       justifyContent: "flex-end",
-    },
-    textDescription: {
-      marginBottom: 10,
     },
   });

@@ -51,13 +51,7 @@ const ActivityCard = ({
       <View style={[commonStyles.boxShadow, classes.container]}>
         <View style={classes.wrapper}>
           <View style={classes.iconWrapper}>
-            <View style={classes.icon}>
-              <MaterialIcons
-                name={getIcon(item.type)}
-                size={24}
-                color={commonColors.primary.color}
-              />
-            </View>
+            <View style={classes.icon}>{getIcon(item.type)}</View>
             <Text style={commonStyles.p1}>{item.header}</Text>
           </View>
           <Text style={[commonStyles.p3, commonColors.lightGrey]}>

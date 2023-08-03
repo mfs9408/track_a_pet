@@ -13,8 +13,12 @@ export const makeStyles = (error?: boolean) =>
         ? commonColors.error.color
         : commonColors.lightPrimary.color,
       backgroundColor: "rgba(217, 214, 218, 0.20)",
+      marginBottom: 20,
     },
     wrapper: {
       marginRight: 10,
+    },
+    label: {
+      marginBottom: 10,
     },
   });

@@ -71,6 +71,9 @@ export const commonStyles = StyleSheet.create({
   interRegular: {
     fontFamily: "Inter-Regular",
   },
+  interSemiBold: {
+    fontFamily: "Inter-SemiBold",
+  },
   button: {
     backgroundColor: commonColors.primary.color,
     borderRadius: 40,

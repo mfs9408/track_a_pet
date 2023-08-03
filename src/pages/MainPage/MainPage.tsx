@@ -89,7 +89,7 @@ const MainPage = () => {
         <ContextButton
           title="Add a reminder"
           onPress={() => navigation.navigate(EPage.CURRENT_REMINDERS)}
-          textStyles={{ fontFamily: "Inter-SemiBold" }}
+          textStyles={commonStyles.interSemiBold}
           icon={
             <Ionicons
               name="notifications-outline"

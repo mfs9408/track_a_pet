@@ -2,10 +2,11 @@ import { StyleSheet } from "react-native";
 
 export const makeStyles = () =>
   StyleSheet.create({
-    subHeader: {
+    header: {
+      marginBottom: 30,
+    },
+    formContainer: {
       marginBottom: 20,
     },
-    noRemindersContainer: {
-      marginBottom: 20,
-    },
+
   });

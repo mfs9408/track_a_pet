@@ -24,6 +24,6 @@ export const makeStyles = () =>
       paddingVertical: 15,
     },
     flatListContainer: {
-      marginBottom: 20,
+      marginBottom: 15,
     },
   });

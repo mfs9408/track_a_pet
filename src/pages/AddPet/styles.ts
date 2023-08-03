@@ -3,14 +3,14 @@ import { StyleSheet } from "react-native";
 export const makeStyles = () =>
   StyleSheet.create({
     container: {
-      marginBottom: 25,
+      marginBottom: 20,
     },
     buttonsContainer: {
       flexDirection: "row",
       justifyContent: "space-around",
     },
     text: {
-      marginBottom: 15,
+      marginBottom: 10,
     },
     genderChipContainer: {
       flexDirection: "row",

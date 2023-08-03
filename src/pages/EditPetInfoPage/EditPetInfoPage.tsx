@@ -1,14 +1,17 @@
-import React from 'react';
-import { ScrollView, View } from 'react-native';
-import { Controller, useForm } from 'react-hook-form';
-import { Avatar, Text, TextInput, useTheme } from 'react-native-paper';
-import { useSelector } from '../../store';
-import { makeStyles } from './styles';
+import React from "react";
+import { ScrollView } from "react-native";
+import { useForm } from "react-hook-form";
+import { Avatar, Text, useTheme } from "react-native-paper";
+import { useSelector } from "../../store";
+import { makeStyles } from "./styles";
+import { useRoute } from "@react-navigation/native";
 
-const EditPetInfoPage = ({ route }) => {
+const EditPetInfoPage = () => {
   const theme = useTheme();
   const classes = makeStyles();
+  const route = useRoute();
   const { id } = route.params;
+
   const petValue = useSelector((store) =>
     store.pets.find((pet) => pet.id === id)
   );
@@ -19,7 +22,7 @@ const EditPetInfoPage = ({ route }) => {
     formState: { errors },
   } = useForm<any>({
     defaultValues: {
-      id: petValue.id,
+      id: petValue?.id,
       userId: petValue.userId,
       name: petValue.name,
       avatar: petValue.avatar,

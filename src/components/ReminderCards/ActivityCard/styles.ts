@@ -34,7 +34,6 @@ export const makeStyles = () =>
       height: "100%",
       borderRadius: 10,
       paddingHorizontal: 20,
-      marginRight: 10,
       justifyContent: "center",
     },
     underlayLeft: {

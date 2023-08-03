@@ -1,14 +1,14 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import { reducer as network } from "react-native-offline";
 import { persistReducer, persistStore } from "redux-persist";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import thunk from "redux-thunk";
 import userReducer from "./user";
 import commonData from "./commonData";
-import remindersReducer from "./reminders";
+import remindersReducer from "./remindersStore";
 import currentRemindersReducer from "./currentReminders";
 import articlesReducer from "./articles";
 import petReducer from "./petsStore";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const persistConfig = {
   key: "root",

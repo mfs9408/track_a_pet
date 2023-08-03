@@ -4,3 +4,4 @@ export { EGenderType } from "./EGenderType";
 export { EPage } from "./EPage";
 export { EPetGenderType } from "./EPetGenderType";
 export { EPetType } from "./EPetType";
+export { EIconEnum } from "./EIconEnum";

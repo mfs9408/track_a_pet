@@ -1,7 +1,6 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { useTheme } from "react-native-paper";
 import { useFonts } from "expo-font";
 import { useSelector } from "../../store";
 import EditPetInfoPage from "../../pages/EditPetInfoPage";
@@ -11,10 +10,12 @@ import SignInPage from "../../pages/SignInPage";
 import PetPage from "../../pages/PetPage";
 import AddPet from "../../pages/AddPet";
 import { RootStackParamList } from "../../types";
-import { fonts } from "../../theme";
+import { commonColors, fonts } from "../../theme";
 import { EPage } from "../../enums";
 import CurrentRemindersPage from "../../pages/CurrentRemindersPage";
 import RemindersListPage from "../../pages/RemindersListPage";
+import CreateReminderPage from "../../pages/CreateReminderPage";
+import SuccessPage from "../../pages/SuccessPage";
 // import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -22,7 +23,6 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 const Navigate = () => {
   const [fontsLoaded] = useFonts(fonts);
   const user = useSelector((state) => state.user?.user);
-  const theme = useTheme();
 
   // AsyncStorage.clear();
 
@@ -46,7 +46,7 @@ const Navigate = () => {
               name={EPage.EDIT}
               component={EditPetInfoPage}
               options={{
-                headerTintColor: theme.colors.primary,
+                headerTintColor: commonColors.primary.color,
               }}
             />
             <Stack.Screen
@@ -54,7 +54,7 @@ const Navigate = () => {
               component={PetPage}
               options={({ route }) => ({
                 title: route.params.petId,
-                headerTintColor: theme.colors.primary,
+                headerTintColor: commonColors.primary.color,
                 headerShown: false,
               })}
             />
@@ -63,7 +63,7 @@ const Navigate = () => {
               component={AddPet}
               options={() => ({
                 title: "Add a pet",
-                headerTintColor: theme.colors.primary,
+                headerTintColor: commonColors.primary.color,
               })}
             />
             <Stack.Screen
@@ -71,7 +71,7 @@ const Navigate = () => {
               component={RemindersListPage}
               options={{
                 title: "",
-                headerTintColor: theme.colors.primary,
+                headerTintColor: commonColors.primary.color,
               }}
             />
             <Stack.Screen
@@ -79,7 +79,26 @@ const Navigate = () => {
               component={CurrentRemindersPage}
               options={{
                 title: "",
-                headerTintColor: theme.colors.primary,
+                headerTintColor: commonColors.primary.color,
+              }}
+            />
+            <Stack.Screen
+              name={EPage.CREATE_REMINDER}
+              component={CreateReminderPage}
+              options={{
+                title: "",
+                headerTintColor: commonColors.primary.color,
+              }}
+            />
+            <Stack.Screen
+              name={EPage.SUCCESS_PAGE}
+              component={SuccessPage}
+              options={{
+                title: "",
+                headerBackVisible: false,
+                headerStyle: {
+                  backgroundColor: commonColors.primary.color,
+                },
               }}
             />
           </>

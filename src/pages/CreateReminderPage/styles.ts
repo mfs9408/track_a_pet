@@ -20,7 +20,8 @@ export const makeStyles = () =>
       alignItems: "center",
       marginBottom: 20,
     },
-      addButtonBlock: {
-          flexDirection: "row", justifyContent: "space-around"
-      }
+    addButtonBlock: {
+      flexDirection: "row",
+      justifyContent: "space-around",
+    },
   });

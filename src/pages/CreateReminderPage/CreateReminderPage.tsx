@@ -6,17 +6,17 @@ import RNDateTimePicker from "@react-native-community/datetimepicker";
 import { useDispatch } from "react-redux";
 import "react-native-get-random-values";
 import { v4 as uuidv4 } from "uuid";
+import { remindersActions } from "../../store/remindersStore";
+import { RouteProps } from "../../types/navigateTypes";
 import TextField from "../../components/TextField";
+import Switch from "../../components/Switch";
+import Select from "../../components/Select";
 import Button from "../../components/Button";
 import { commonStyles } from "../../theme";
-import { makeStyles } from "./styles";
-import { RouteProps } from "../../types/navigateTypes";
-import { getDate } from "../../helpers";
-import Select from "../../components/Select";
-import Switch from "../../components/Switch";
-import { EPage } from "../../enums";
-import { remindersActions } from "../../store/remindersStore";
 import { useSelector } from "../../store";
+import { getDate } from "../../helpers";
+import { EPage } from "../../enums";
+import { makeStyles } from "./styles";
 
 const repeat = [
   { label: "Daily", value: "daily" },
@@ -88,7 +88,7 @@ const CreateReminderPage = () => {
     <ScrollView
       style={[commonStyles.commonContainer, commonStyles.commonWrapper]}
     >
-      <View style={{ paddingBottom: 100 }}>
+      <View style={classes.viewWrapper}>
         <View style={classes.header}>
           <Text style={commonStyles.h2}>Add {reminderType} reminder</Text>
         </View>
@@ -143,11 +143,10 @@ const CreateReminderPage = () => {
                       display="spinner"
                     />
                     <View
-                      style={{
-                        flexDirection: "row",
-                        justifyContent: "space-around",
-                        marginBottom: 20,
-                      }}
+                      style={[
+                        commonStyles.marginBottom20,
+                        classes.buttonContainer,
+                      ]}
                     >
                       <Button
                         title="Reset"
@@ -178,13 +177,7 @@ const CreateReminderPage = () => {
               />
             )}
           />
-          <View
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              marginBottom: 20,
-            }}
-          >
+          <View style={classes.switcherContainer}>
             <Text style={commonStyles.p2}>Open end date</Text>
             <Switch value={isEndDate} toggleSwitch={onToggleChange} />
           </View>
@@ -193,7 +186,7 @@ const CreateReminderPage = () => {
               name="endDate"
               control={control}
               render={({ field: { value, onChange } }) => (
-                <View style={{ marginBottom: 20 }}>
+                <View style={commonStyles.marginBottom20}>
                   {!isEndDayOpen && (
                     <TextField
                       label="End date"
@@ -211,12 +204,7 @@ const CreateReminderPage = () => {
                         mode="datetime"
                         display="spinner"
                       />
-                      <View
-                        style={{
-                          flexDirection: "row",
-                          justifyContent: "space-around",
-                        }}
-                      >
+                      <View style={classes.buttonContainer}>
                         <Button
                           title="Reset"
                           onPress={() => {
@@ -234,9 +222,7 @@ const CreateReminderPage = () => {
               )}
             />
           )}
-          <View
-            style={{ flexDirection: "row", justifyContent: "space-around" }}
-          >
+          <View style={classes.addButtonBlock}>
             <Button
               title="Reset"
               onPress={() => {

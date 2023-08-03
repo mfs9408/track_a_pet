@@ -8,5 +8,19 @@ export const makeStyles = () =>
     formContainer: {
       marginBottom: 20,
     },
-
+    viewWrapper: {
+      paddingBottom: 100,
+    },
+    buttonContainer: {
+      flexDirection: "row",
+      justifyContent: "space-around",
+    },
+    switcherContainer: {
+      flexDirection: "row",
+      alignItems: "center",
+      marginBottom: 20,
+    },
+      addButtonBlock: {
+          flexDirection: "row", justifyContent: "space-around"
+      }
   });

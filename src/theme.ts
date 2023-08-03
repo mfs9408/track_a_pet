@@ -74,6 +74,9 @@ export const commonStyles = StyleSheet.create({
   interSemiBold: {
     fontFamily: "Inter-SemiBold",
   },
+  marginBottom20: {
+    marginBottom: 20,
+  },
   button: {
     backgroundColor: commonColors.primary.color,
     borderRadius: 40,

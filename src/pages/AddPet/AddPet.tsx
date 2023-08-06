@@ -115,18 +115,21 @@ const AddPet = () => {
                     label="Female"
                     id={EPetGenderType.FEMALE}
                     value={value}
+                    //@ts-ignore added task to fix
                     onChange={onChange}
                   />
                   <Chip
                     label="Male"
                     id={EPetGenderType.MALE}
                     value={value}
+                    //@ts-ignore added task to fix
                     onChange={onChange}
                   />
                   <Chip
                     label="Unknown"
                     id={EPetGenderType.UNKNOWN}
                     value={value}
+                    //@ts-ignore added task to fix
                     onChange={onChange}
                   />
                 </View>

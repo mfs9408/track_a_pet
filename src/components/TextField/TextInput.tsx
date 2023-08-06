@@ -4,7 +4,7 @@ import { makeStyles } from "./styles";
 import { commonStyles } from "../../theme";
 
 interface ITextFieldProps {
-  value: string;
+  value: string | undefined;
   onChange?: (event: string | ChangeEvent<Element>) => void;
   placeholder?: string;
   label?: string;
@@ -33,7 +33,7 @@ const TextField = ({
       {label && <Text style={[commonStyles.p1, classes.label]}>{label}</Text>}
       <TextInput
         placeholder={placeholder}
-        value={value}
+        value={value || ''}
         onChangeText={onChange}
         onFocus={() => setIsFocused(!isFocused)}
         onBlur={() => setIsFocused(!isFocused)}

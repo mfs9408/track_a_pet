@@ -11,9 +11,8 @@ const petsSlice = createSlice({
       state.push(payload);
     },
     editPet: (state, { payload }: PayloadAction<IPetsTypes>) => {
-      const element = state.findIndex((item) => item.id === payload.id);
-
-      state[element] = payload;
+      const index = state.findIndex((item) => item.id === payload.id);
+      state[index] = payload;
     },
   },
 });

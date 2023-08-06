@@ -20,14 +20,18 @@ const MyPetsPage = () => {
 
   const pets = useSelector((store) => store.pets);
   const user = useSelector((store) => store.user);
-  const { name, avatar, owning, gender } = user?.user;
 
   const classes = makeStyles();
 
   return (
     <SafeAreaView style={commonStyles.commonContainer}>
       <ScrollView style={commonStyles.commonWrapper}>
-        <User avatar={avatar} name={name} owning={owning} gender={gender} />
+        <User
+          avatar={user.user?.avatar}
+          name={user.user?.name}
+          owning={user.user?.owning}
+          gender={user.user?.gender}
+        />
         <View style={classes.cardHeader}>
           <Text style={[classes.text, commonStyles.h3]}>Your pets</Text>
           <TouchableOpacity

@@ -1,12 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { FlatList, TextInput, View } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { commonStyles } from "../../theme";
 import { makeStyles } from "./styles";
 import ArticleCard from "../../components/ArticleCard";
-import Chip from "../../components/Chip";
-import { Ionicons } from "@expo/vector-icons";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const foo = [1, 2, 3, 4, 5, 6];
 const filters = [
@@ -16,7 +13,6 @@ const filters = [
 
 const LibraryPage = () => {
   const classes = makeStyles();
-  const [searchValue, setSearchValue] = useState("");
 
   return (
     <View
@@ -38,39 +34,40 @@ const LibraryPage = () => {
         </View>
         <View style={{ flexDirection: "row", marginBottom: 25 }}>
           {filters.map((item) => (
+            // @ will be deleted
             <View key={item.id}>
-              <Chip
-                value={item.value}
-                selected={false}
-                setSelected={() => {}}
-                icon={
-                  item.id === 1 ? (
-                    <Ionicons
-                      name="logo-octocat"
-                      size={24}
-                      color="#816EC7"
-                      style={{
-                        marginRight: 5,
-                        height: 30,
-                        marginTop: 6,
-                        transform: [{ scaleX: 0.8 }, { scaleY: 0.8 }],
-                      }}
-                    />
-                  ) : (
-                    <MaterialCommunityIcons
-                      name="dog"
-                      size={24}
-                      color="#816EC7"
-                      style={{
-                        marginRight: 5,
-                        marginTop: 6,
-                        height: 30,
-                        transform: [{ scaleX: 0.8 }, { scaleY: 0.8 }],
-                      }}
-                    />
-                  )
-                }
-              />
+              {/*<Chip*/}
+              {/*  value={item.value}*/}
+              {/*  selected={false}*/}
+              {/*  setSelected={() => {}}*/}
+              {/*  icon={*/}
+              {/*    item.id === 1 ? (*/}
+              {/*      <Ionicons*/}
+              {/*        name="logo-octocat"*/}
+              {/*        size={24}*/}
+              {/*        color="#816EC7"*/}
+              {/*        style={{*/}
+              {/*          marginRight: 5,*/}
+              {/*          height: 30,*/}
+              {/*          marginTop: 6,*/}
+              {/*          transform: [{ scaleX: 0.8 }, { scaleY: 0.8 }],*/}
+              {/*        }}*/}
+              {/*      />*/}
+              {/*    ) : (*/}
+              {/*      <MaterialCommunityIcons*/}
+              {/*        name="dog"*/}
+              {/*        size={24}*/}
+              {/*        color="#816EC7"*/}
+              {/*        style={{*/}
+              {/*          marginRight: 5,*/}
+              {/*          marginTop: 6,*/}
+              {/*          height: 30,*/}
+              {/*          transform: [{ scaleX: 0.8 }, { scaleY: 0.8 }],*/}
+              {/*        }}*/}
+              {/*      />*/}
+              {/*    )*/}
+              {/*  }*/}
+              {/*/>*/}
             </View>
           ))}
         </View>

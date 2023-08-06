@@ -16,12 +16,12 @@ const PetCard = ({ name, breed, id, gender, image }: IPetsTypes) => {
   return (
     <TouchableOpacity
       style={commonStyles.boxShadow}
-      onPress={() => navigation.navigate(EPage.PET, { petId: id, name })}
+      onPress={() => navigation.navigate(EPage.PET, { petId: id })}
     >
       <View style={classes.viewContainer}>
         <Image
           style={classes.image}
-          source={{ uri: !image || image[0] || DEFAULT_IMAGE_AVATAR }}
+          source={{ uri: (image && image[0]) || DEFAULT_IMAGE_AVATAR }}
         />
         <View style={[classes.content, commonColors.background]}>
           <View style={classes.nameWrapper}>

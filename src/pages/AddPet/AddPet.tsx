@@ -72,6 +72,7 @@ const AddPet = () => {
 
   const onSubmit: SubmitHandler<IAddForm> = (data) => {
     if (petId) {
+      console.log(data);
       dispatch(petsActions.editPet(data));
       navigation.navigate(EPage.PET, { petId: petId });
     } else {
@@ -188,7 +189,7 @@ const AddPet = () => {
           )}
         />
         <Controller
-          name="chip"
+          name="identification.microchip"
           control={control}
           render={({ field: { onChange, value } }) => (
             <TextField
@@ -201,7 +202,7 @@ const AddPet = () => {
           )}
         />
         <Controller
-          name="description"
+          name="identification.description"
           control={control}
           render={({ field: { onChange, value } }) => (
             <TextField

@@ -76,9 +76,9 @@ const PetPage = () => {
         </View>
         <View style={classes.infoContainer}>
           <InfoBox title={petType?.label} description={"Pet"} />
-          <InfoBox title={color} description={"Color"} />
-          <InfoBox title={weight} description={"Weight"} />
-          <InfoBox title={age} description={"Age"} />
+          {color && <InfoBox title={color} description={"Color"} />}
+          {weight && <InfoBox title={weight} description={"Weight"} />}
+          {age && <InfoBox title={age} description={"Age"} />}
         </View>
         <View style={classes.dataWrapper}>
           {diet && (
@@ -101,39 +101,38 @@ const PetPage = () => {
               </View>
             </View>
           )}
-          {identification?.microchip ||
-            (identification?.description && (
-              <View style={classes.dataContainer}>
-                <View style={classes.iconContainer}>
-                  <MaterialIcons
-                    name="pets"
-                    size={20}
-                    color="black"
-                    style={classes.icon}
-                  />
-                  <Text style={commonStyles.p1}>Identification</Text>
-                </View>
-                {identification.microchip && (
-                  <View>
-                    <View style={classes.subHeaderContainer}>
-                      <Text style={[commonStyles.p2, commonColors.darkGrey]}>
-                        &#8728; Microchip number: {identification.microchip}
-                      </Text>
-                    </View>
-                  </View>
-                )}
-                {identification.description && (
-                  <View>
-                    <View style={classes.subHeaderContainer}>
-                      <Text style={[commonStyles.p2, commonColors.darkGrey]}>
-                        &#8728; Pet description: {identification.description}
-                      </Text>
-                    </View>
-                  </View>
-                )}
+          {(identification?.microchip || identification?.description) && (
+            <View style={classes.dataContainer}>
+              <View style={classes.iconContainer}>
+                <MaterialIcons
+                  name="pets"
+                  size={20}
+                  color="black"
+                  style={classes.icon}
+                />
+                <Text style={commonStyles.p1}>Identification</Text>
               </View>
-            ))}
-          {vaccination && (
+              {identification.microchip && (
+                <View>
+                  <View style={classes.subHeaderContainer}>
+                    <Text style={[commonStyles.p2, commonColors.darkGrey]}>
+                      &#8728; Microchip number: {identification.microchip}
+                    </Text>
+                  </View>
+                </View>
+              )}
+              {identification.description && (
+                <View>
+                  <View style={classes.subHeaderContainer}>
+                    <Text style={[commonStyles.p2, commonColors.darkGrey]}>
+                      &#8728; Pet description: {identification.description}
+                    </Text>
+                  </View>
+                </View>
+              )}
+            </View>
+          )}
+          {vaccination && vaccination?.length > 0 && (
             <View style={classes.dataContainer}>
               <View style={classes.iconContainer}>
                 <MaterialIcons
@@ -175,7 +174,7 @@ const PetPage = () => {
               )}
             </View>
           )}
-          {veterinarianInfo && (
+          {veterinarianInfo && veterinarianInfo.length > 0 && (
             <View style={classes.dataContainer}>
               <View style={classes.iconContainer}>
                 <MaterialIcons

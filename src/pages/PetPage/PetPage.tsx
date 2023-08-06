@@ -7,27 +7,27 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { Ionicons, MaterialIcons } from "@expo/vector-icons";
-import { makeStyles } from "./styles";
-import { useSelector } from "../../store";
-import { commonColors, commonStyles } from "../../theme";
 import { useNavigation, useRoute } from "@react-navigation/native";
+import { Ionicons, MaterialIcons } from "@expo/vector-icons";
+import { Carousel } from "react-native-basic-carousel";
+import { commonColors, commonStyles } from "../../theme";
+import { RoutePropsProps, IPetsTypes } from "../../types";
+import { EPage, EPetGenderType } from "../../enums";
 import InfoBox from "../../components/InfoBox";
 import Gender from "../../components/Gender";
-import { Carousel } from "react-native-basic-carousel";
-import { IPetsTypes } from "../../types";
-import { EPetGenderType } from "../../enums";
-import { RouteProps } from "../../types/navigateTypes";
+import { useSelector } from "../../store";
+import { makeStyles } from "./styles";
 
 const PetPage = () => {
   const pets = useSelector((store) => store.pets);
-  const route = useRoute<RouteProps>();
+  const route = useRoute<RoutePropsProps<EPage.PET>>();
   const navigation = useNavigation();
   const classes = makeStyles();
 
-  const currentPet = pets?.find((pet) => route.params?.petId === pet.id);
+  const currentPet = pets?.find((pet) => route.params.petId === pet.id);
 
   const {
+    id,
     name,
     image,
     weight,
@@ -66,11 +66,16 @@ const PetPage = () => {
             <Gender gender={gender || EPetGenderType.UNKNOWN} />
           </View>
           <TouchableOpacity>
-            <Text style={[commonStyles.p1, commonColors.primary]}>Edit</Text>
+            <Text
+              style={[commonStyles.p1, commonColors.primary]}
+              onPress={() => navigation.navigate(EPage.ADD_PET, { id: id })}
+            >
+              Edit
+            </Text>
           </TouchableOpacity>
         </View>
         <View style={classes.infoContainer}>
-          <InfoBox title={petType} description={"Pet"} />
+          <InfoBox title={petType?.label} description={"Pet"} />
           <InfoBox title={color} description={"Color"} />
           <InfoBox title={weight} description={"Weight"} />
           <InfoBox title={age} description={"Age"} />
@@ -96,31 +101,38 @@ const PetPage = () => {
               </View>
             </View>
           )}
-          {identification && (
-            <View style={classes.dataContainer}>
-              <View style={classes.iconContainer}>
-                <MaterialIcons
-                  name="pets"
-                  size={20}
-                  color="black"
-                  style={classes.icon}
-                />
-                <Text style={commonStyles.p1}>Identification</Text>
-              </View>
-              {identification?.map(
-                ({ label, value }, key) =>
-                  value && (
-                    <View key={key} style={classes.subDataContainer}>
-                      <View style={classes.subHeaderContainer}>
-                        <Text style={[commonStyles.p2, commonColors.darkGrey]}>
-                          &#8728; {label}: {value}
-                        </Text>
-                      </View>
+          {identification?.microchip ||
+            (identification?.description && (
+              <View style={classes.dataContainer}>
+                <View style={classes.iconContainer}>
+                  <MaterialIcons
+                    name="pets"
+                    size={20}
+                    color="black"
+                    style={classes.icon}
+                  />
+                  <Text style={commonStyles.p1}>Identification</Text>
+                </View>
+                {identification.microchip && (
+                  <View>
+                    <View style={classes.subHeaderContainer}>
+                      <Text style={[commonStyles.p2, commonColors.darkGrey]}>
+                        &#8728; Microchip number: {identification.microchip}
+                      </Text>
                     </View>
-                  )
-              )}
-            </View>
-          )}
+                  </View>
+                )}
+                {identification.description && (
+                  <View>
+                    <View style={classes.subHeaderContainer}>
+                      <Text style={[commonStyles.p2, commonColors.darkGrey]}>
+                        &#8728; Pet description: {identification.description}
+                      </Text>
+                    </View>
+                  </View>
+                )}
+              </View>
+            ))}
           {vaccination && (
             <View style={classes.dataContainer}>
               <View style={classes.iconContainer}>

@@ -20,7 +20,7 @@ const MyPetsPage = () => {
 
   const pets = useSelector((store) => store.pets);
   const user = useSelector((store) => store.user);
-  const { name, avatar, owning, gender } = user.user;
+  const { name, avatar, owning, gender } = user?.user;
 
   const classes = makeStyles();
 
@@ -30,7 +30,11 @@ const MyPetsPage = () => {
         <User avatar={avatar} name={name} owning={owning} gender={gender} />
         <View style={classes.cardHeader}>
           <Text style={[classes.text, commonStyles.h3]}>Your pets</Text>
-          <TouchableOpacity onPress={() => navigation.navigate(EPage.ADD_PET)}>
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate(EPage.ADD_PET, { id: undefined })
+            }
+          >
             <AntDesign name="plus" size={24} color="#6b58b4" />
           </TouchableOpacity>
         </View>

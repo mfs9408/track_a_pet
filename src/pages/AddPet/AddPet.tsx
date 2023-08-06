@@ -1,8 +1,10 @@
 import React from "react";
 import { SafeAreaView, ScrollView, Text, View } from "react-native";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
+import "react-native-get-random-values";
+import { v4 as uuidv4 } from "uuid";
 import TextField from "../../components/TextField";
 import Chip from "../../components/Chip";
 import Button from "../../components/Button";
@@ -11,7 +13,7 @@ import { EPage, EPetGenderType, EPetType } from "../../enums";
 import { petsActions } from "../../store/petsStore/slice";
 import { commonColors, commonStyles } from "../../theme";
 import { useSelector } from "../../store";
-import { IAddForm } from "../../types";
+import { IAddForm, RoutePropsProps } from "../../types";
 import { makeStyles } from "./styles";
 
 const PET_TYPE = [
@@ -22,8 +24,13 @@ const PET_TYPE = [
 const AddPet = () => {
   const classes = makeStyles();
   const navigation = useNavigation();
+  const route = useRoute<RoutePropsProps<EPage.ADD_PET>>();
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user.user);
+  const petId = route.params?.id;
+  const petsData = useSelector((state) =>
+    state.pets.find((pet) => pet.id === petId)
+  );
 
   const {
     control,
@@ -32,41 +39,45 @@ const AddPet = () => {
     formState: { errors },
   } = useForm<IAddForm>({
     defaultValues: {
-      id: "foo",
+      id: petsData?.id || uuidv4(),
       userId: user?.id,
-      name: "",
-      weight: "",
-      color: "",
-      description: "",
-      image: [
+      name: petsData?.name || "",
+      weight: petsData?.weight || "",
+      color: petsData?.color || "",
+      description: petsData?.description || "",
+      image: petsData?.image || [
         "https://placekitten.com/g/200/300",
         "https://placekitten.com/g/200/300",
       ],
-      avatar: "https://placekitten.com/g/200/300",
-      gender: EPetGenderType.UNKNOWN,
-      petType: null,
-      diet: "",
-      insurance: "",
-      identification: {
+      gender: petsData?.gender || EPetGenderType.UNKNOWN,
+      petType: petsData?.petType || null,
+      diet: petsData?.diet || "",
+      insurance: petsData?.insurance || "",
+      identification: petsData?.identification || {
         microchip: "",
         description: "",
       },
-      medicalInformation: {
+      medicalInformation: petsData?.medicalInformation || {
         allergies: "",
         medications: "",
       },
-      vaccination: [],
-      veterinarianInfo: [],
-      lost: false,
-      birthDay: "01.01.2023",
+      vaccination: petsData?.vaccination || [],
+      veterinarianInfo: petsData?.veterinarianInfo || [],
+      lost: petsData?.lost || false,
+      birthDay: petsData?.birthDay || "01.01.2023",
     },
   });
 
   const isErrorExist = Object.keys(errors).length > 0;
 
   const onSubmit: SubmitHandler<IAddForm> = (data) => {
-    dispatch(petsActions.addPet(data));
-    navigation.navigate(EPage.MY_PETS);
+    if (petId) {
+      dispatch(petsActions.editPet(data));
+      navigation.navigate(EPage.PET, { petId: petId });
+    } else {
+      dispatch(petsActions.addPet(data));
+      navigation.navigate(EPage.MY_PETS);
+    }
   };
 
   const onReset = () => {
@@ -224,7 +235,10 @@ const AddPet = () => {
             onPress={onReset}
             textStyles={commonColors.whiteColor}
           />
-          <Button title="Add pet" onPress={handleSubmit(onSubmit)} />
+          <Button
+            title={petId ? "Edit pet" : "Add pet"}
+            onPress={handleSubmit(onSubmit)}
+          />
         </View>
       </ScrollView>
     </SafeAreaView>

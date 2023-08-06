@@ -54,7 +54,6 @@ export const makeStyles = () =>
     },
     subDataContainer: {
       flexDirection: "column",
-      marginBottom: 10,
     },
     subHeaderContainer: {
       flexDirection: "row",

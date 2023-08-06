@@ -3,28 +3,24 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useFonts } from "expo-font";
 import { useSelector } from "../../store";
-import EditPetInfoPage from "../../pages/EditPetInfoPage";
+import CurrentRemindersPage from "../../pages/CurrentRemindersPage";
+import CreateReminderPage from "../../pages/CreateReminderPage";
+import RemindersListPage from "../../pages/RemindersListPage";
 import BottomNavigation from "../BottomNavigation";
 import WelcomePage from "../../pages/WelcomePage";
+import SuccessPage from "../../pages/SuccessPage";
 import SignInPage from "../../pages/SignInPage";
 import PetPage from "../../pages/PetPage";
 import AddPet from "../../pages/AddPet";
 import { RootStackParamList } from "../../types";
 import { commonColors, fonts } from "../../theme";
 import { EPage } from "../../enums";
-import CurrentRemindersPage from "../../pages/CurrentRemindersPage";
-import RemindersListPage from "../../pages/RemindersListPage";
-import CreateReminderPage from "../../pages/CreateReminderPage";
-import SuccessPage from "../../pages/SuccessPage";
-// import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const Navigate = () => {
   const [fontsLoaded] = useFonts(fonts);
   const user = useSelector((state) => state.user?.user);
-
-  // AsyncStorage.clear();
 
   if (!fontsLoaded) {
     return null;
@@ -40,13 +36,6 @@ const Navigate = () => {
               component={BottomNavigation}
               options={{
                 headerShown: false,
-              }}
-            />
-            <Stack.Screen
-              name={EPage.EDIT}
-              component={EditPetInfoPage}
-              options={{
-                headerTintColor: commonColors.primary.color,
               }}
             />
             <Stack.Screen

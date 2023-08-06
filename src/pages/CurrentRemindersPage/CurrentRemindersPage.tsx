@@ -14,13 +14,13 @@ const CurrentRemindersPage = () => {
   const classes = makeStyles();
 
   return (
-    <View style={[commonColors.background, { height: "100%" }]}>
+    <View style={[commonColors.background, classes.commonWrapper]}>
       <View style={[commonStyles.commonWrapper]}>
         <Text style={[commonStyles.h2]}>Current reminders</Text>
       </View>
       {allReminders.length > 0 && (
         <DraggableFlat
-          styles={{ marginVertical: 20, paddingHorizontal: 28, height: "75%" }}
+          styles={classes.flatList}
           data={allReminders}
         />
       )}

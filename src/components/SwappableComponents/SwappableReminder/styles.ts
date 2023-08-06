@@ -6,8 +6,17 @@ export const makeStyles = () =>
       backgroundColor: "#F0EFF4",
       borderRadius: 10,
       paddingHorizontal: 30,
-      paddingVertical: 10,
+      paddingTop: 10,
+      paddingBottom: 7.5,
       marginBottom: 20,
+    },
+    itemContainer: {
+      flexDirection: "row",
+      alignItems: "center",
+      marginVertical: 2.5,
+    },
+    icon: {
+      marginRight: 10,
     },
     closeButtonContainer: {
       backgroundColor: "#F0EFF4",

@@ -4,8 +4,7 @@ export type RootStackParamList = {
   mainPage: undefined;
   myPetsPage: undefined;
   petPage: { petId: string };
-  editPage: undefined;
-  addPetPage: undefined;
+  addPetPage: { id?: string | undefined };
   currentRemindersPage: undefined;
   remindersListPage: undefined;
   createReminderPage: { reminderType: string };
@@ -15,9 +14,5 @@ export type RootStackParamList = {
   successPage: undefined;
 };
 
-export type CommonStackScreenProps = NativeStackScreenProps<
-  RootStackParamList,
-  "petPage" | "createReminderPage"
->;
-
-export type RouteProps = CommonStackScreenProps["route"];
+export type RoutePropsProps<T extends keyof RootStackParamList> =
+  NativeStackScreenProps<RootStackParamList, T>["route"];

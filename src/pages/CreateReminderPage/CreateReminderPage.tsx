@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 import "react-native-get-random-values";
 import { v4 as uuidv4 } from "uuid";
 import { remindersActions } from "../../store/remindersStore";
-import { RouteProps } from "../../types/navigateTypes";
+import { RoutePropsProps } from "../../types";
 import TextField from "../../components/TextField";
 import Switch from "../../components/Switch";
 import Select from "../../components/Select";
@@ -18,7 +18,7 @@ import { getDate } from "../../helpers";
 import { EPage } from "../../enums";
 import { makeStyles } from "./styles";
 
-const repeat = [
+const REPEAT_LIST = [
   { label: "Daily", value: "daily" },
   { label: "Every 2 days", value: "every2days" },
 ];
@@ -34,7 +34,7 @@ type TReminderFormType = {
     value: string;
     label: string;
   } | null;
-  startDate: Date;
+  when: Date;
   endDate: Date | undefined;
   type: string;
 };
@@ -42,7 +42,7 @@ type TReminderFormType = {
 const CreateReminderPage = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  const route = useRoute<RouteProps>();
+  const route = useRoute<RoutePropsProps<EPage.CREATE_REMINDER>>();
   const pets = useSelector((state) => state.pets).map((item) => ({
     value: item.id,
     label: item.name,
@@ -52,16 +52,16 @@ const CreateReminderPage = () => {
 
   const classes = makeStyles();
 
-  const [isStartDayOpen, setIsStartDayOpen] = useState(false);
-  const [isEndDayOpen, setIsEndDayOpen] = useState(false);
-  const [isEndDate, setIsEndDate] = useState(false);
-
-  const currentDate = new Date();
+  const [isStartDayTimeOpen, setIsStartDayTimeOpen] = useState(false);
+  const [isEndDayTimeOpen, setIsEndDayTimeOpen] = useState(false);
+  const [isEndDatePickerBlockOpen, setIsEndDatePickerBlockOpen] =
+    useState(false);
 
   const {
     control,
     handleSubmit,
     reset,
+    watch,
     formState: { errors },
   } = useForm<TReminderFormType>({
     defaultValues: {
@@ -70,17 +70,28 @@ const CreateReminderPage = () => {
       description: "",
       type: reminderType,
       repeat: null,
-      startDate: currentDate,
+      when: new Date(),
       endDate: undefined,
     },
   });
 
+  const currentDate = watch("when");
+  const endMinimumDate = new Date(
+    currentDate.setHours(currentDate.getHours() + 1)
+  );
+
   const onToggleChange = () => {
-    setIsEndDate(!isEndDate);
+    setIsEndDatePickerBlockOpen(!isEndDatePickerBlockOpen);
   };
 
   const onSubmit: SubmitHandler<TReminderFormType> = (data) => {
-    dispatch(remindersActions.addReminder(data));
+    const updatedData = {
+      ...data,
+      repeat: null ? { label: "Never", value: null } : data.repeat,
+      endDate: (isEndDatePickerBlockOpen && data.endDate) || undefined,
+    };
+
+    dispatch(remindersActions.addReminder(updatedData));
     navigation.navigate(EPage.SUCCESS_PAGE);
   };
 
@@ -94,14 +105,16 @@ const CreateReminderPage = () => {
         </View>
         <Controller
           name="pet"
+          rules={{ required: true }}
           control={control}
           render={({ field: { onChange, value } }) => (
             <Select
-              label="Pet"
+              label="Pet *"
               placeholder={{ label: "Select your pet", value: null }}
               items={pets}
               onValueChange={onChange}
               value={value}
+              error={!!errors.pet}
             />
           )}
         />
@@ -121,19 +134,19 @@ const CreateReminderPage = () => {
             )}
           />
           <Controller
-            name="startDate"
+            name="when"
             control={control}
             render={({ field: { value, onChange } }) => (
               <View>
-                {!isStartDayOpen && (
+                {!isStartDayTimeOpen && (
                   <TextField
-                    label="Start date"
-                    value={getDate(value)}
-                    onPress={() => setIsStartDayOpen(!isStartDayOpen)}
+                    label="When"
+                    value={getDate(value, true, true)}
+                    onPress={() => setIsStartDayTimeOpen(!isStartDayTimeOpen)}
                     editable={false}
                   />
                 )}
-                {isStartDayOpen && (
+                {isStartDayTimeOpen && (
                   <>
                     <RNDateTimePicker
                       locale="en"
@@ -156,7 +169,7 @@ const CreateReminderPage = () => {
                       />
                       <Button
                         title="Done"
-                        onPress={() => setIsStartDayOpen(false)}
+                        onPress={() => setIsStartDayTimeOpen(false)}
                       />
                     </View>
                   </>
@@ -171,7 +184,7 @@ const CreateReminderPage = () => {
               <Select
                 label="Repeat"
                 placeholder={{ label: "Never", value: null }}
-                items={repeat}
+                items={REPEAT_LIST}
                 onValueChange={onChange}
                 value={value}
               />
@@ -179,30 +192,34 @@ const CreateReminderPage = () => {
           />
           <View style={classes.switcherContainer}>
             <Text style={commonStyles.p2}>Open end date</Text>
-            <Switch value={isEndDate} toggleSwitch={onToggleChange} />
+            <Switch
+              value={isEndDatePickerBlockOpen}
+              toggleSwitch={onToggleChange}
+            />
           </View>
-          {isEndDate && (
+          {isEndDatePickerBlockOpen && (
             <Controller
               name="endDate"
               control={control}
               render={({ field: { value, onChange } }) => (
                 <View style={commonStyles.marginBottom20}>
-                  {!isEndDayOpen && (
+                  {!isEndDayTimeOpen && (
                     <TextField
                       label="End date"
-                      value={getDate(value)}
-                      onPress={() => setIsEndDayOpen(!isEndDayOpen)}
+                      value={getDate(value, true, true)}
+                      onPress={() => setIsEndDayTimeOpen(!isEndDayTimeOpen)}
                       editable={false}
                     />
                   )}
-                  {isEndDayOpen && (
+                  {isEndDayTimeOpen && (
                     <>
                       <RNDateTimePicker
                         locale="en"
-                        value={value || new Date()}
+                        value={value || endMinimumDate}
                         onChange={(event, date) => onChange(date as Date)}
                         mode="datetime"
                         display="spinner"
+                        minimumDate={endMinimumDate}
                       />
                       <View style={classes.buttonContainer}>
                         <Button
@@ -213,7 +230,7 @@ const CreateReminderPage = () => {
                         />
                         <Button
                           title="Done"
-                          onPress={() => setIsEndDayOpen(false)}
+                          onPress={() => setIsEndDayTimeOpen(false)}
                         />
                       </View>
                     </>
@@ -226,7 +243,7 @@ const CreateReminderPage = () => {
             <Button
               title="Reset"
               onPress={() => {
-                setIsEndDate(false);
+                setIsEndDatePickerBlockOpen(false);
                 reset();
               }}
             />

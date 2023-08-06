@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-export interface RemindersStore {
+export interface InterfaceReminderStore {
   id: string;
   pet: {
     label: string;
@@ -11,12 +11,12 @@ export interface RemindersStore {
   repeat: {
     value: string;
     label: string;
-  } | null;
-  startDate: Date;
+  };
+  when: Date;
   endDate: Date | undefined;
 }
 
-const initialState: RemindersStore[] | null = [];
+const initialState: InterfaceReminderStore[] | null = [];
 
 const remindersSlice = createSlice({
   name: "reminders",

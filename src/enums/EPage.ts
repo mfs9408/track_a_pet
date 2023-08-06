@@ -7,7 +7,6 @@ export enum EPage {
   CURRENT_REMINDERS = "currentRemindersPage",
   REMINDERS_LIST = "remindersListPage",
   CREATE_REMINDER = "createReminderPage",
-  EDIT = "editPage",
   MAIN = "mainPage",
   HOME = "homePage",
   MY_PETS = "myPetsPage",

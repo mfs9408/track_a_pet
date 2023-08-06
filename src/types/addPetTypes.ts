@@ -1,4 +1,5 @@
 import { EPetGenderType } from "../enums";
+import { IDataItem } from "./petsTypes";
 
 export interface IAddForm {
   id: string;
@@ -8,7 +9,10 @@ export interface IAddForm {
   weight: string;
   color: string;
   lost: boolean;
-  petType: string | null;
+  petType: {
+    value: string;
+    label: string;
+  } | null;
   insurance: string;
   chip?: string;
   avatar?: string;
@@ -25,6 +29,6 @@ export interface IAddForm {
     allergies?: string;
     medications?: string;
   };
-  vaccination: [];
-  veterinarianInfo?: [];
+  vaccination: IDataItem[];
+  veterinarianInfo?: IDataItem[];
 }

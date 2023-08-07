@@ -15,6 +15,7 @@ import { commonColors, commonStyles } from "../../theme";
 import { useSelector } from "../../store";
 import { IAddForm, RoutePropsProps } from "../../types";
 import { makeStyles } from "./styles";
+import Keyboard from "../../components/Keyboard";
 
 const PET_TYPE = [
   { value: EPetType.CAT, label: "Cat" },
@@ -86,166 +87,168 @@ const AddPet = () => {
   };
 
   return (
-    <SafeAreaView style={[commonStyles.commonContainer]}>
-      <ScrollView style={[commonStyles.commonWrapper]}>
-        <Controller
-          name="name"
-          control={control}
-          rules={{ required: true }}
-          render={({ field: { onChange, value } }) => (
-            <>
-              <Text style={[commonStyles.p1, classes.text]}>Pet name *</Text>
-              <TextField
-                value={value}
-                placeholder="Pet's name"
-                onChange={onChange}
-                error={!!errors.name}
-              />
-            </>
-          )}
-        />
-        <View style={classes.container}>
+    <Keyboard>
+      <SafeAreaView style={[commonStyles.commonContainer]}>
+        <ScrollView style={[commonStyles.commonWrapper, { paddingBottom: 50 }]}>
           <Controller
-            name="gender"
+            name="name"
             control={control}
+            rules={{ required: true }}
             render={({ field: { onChange, value } }) => (
               <>
-                <Text style={[commonStyles.p1, classes.text]}>Gender</Text>
-                <View style={classes.genderChipContainer}>
-                  <Chip
-                    label="Female"
-                    id={EPetGenderType.FEMALE}
-                    value={value}
-                    //@ts-ignore added task to fix
-                    onChange={onChange}
-                  />
-                  <Chip
-                    label="Male"
-                    id={EPetGenderType.MALE}
-                    value={value}
-                    //@ts-ignore added task to fix
-                    onChange={onChange}
-                  />
-                  <Chip
-                    label="Unknown"
-                    id={EPetGenderType.UNKNOWN}
-                    value={value}
-                    //@ts-ignore added task to fix
-                    onChange={onChange}
-                  />
-                </View>
+                <Text style={[commonStyles.p1, classes.text]}>Pet name *</Text>
+                <TextField
+                  value={value}
+                  placeholder="Pet's name"
+                  onChange={onChange}
+                  error={!!errors.name}
+                />
               </>
             )}
           />
-        </View>
-        <Controller
-          name="petType"
-          control={control}
-          rules={{ required: true }}
-          render={({ field: { onChange, value } }) => (
-            <Select
-              label="Pet *"
-              items={PET_TYPE}
-              value={value}
-              onValueChange={onChange}
-              error={!!errors.petType}
+          <View style={classes.container}>
+            <Controller
+              name="gender"
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <>
+                  <Text style={[commonStyles.p1, classes.text]}>Gender</Text>
+                  <View style={classes.genderChipContainer}>
+                    <Chip
+                      label="Female"
+                      id={EPetGenderType.FEMALE}
+                      value={value}
+                      //@ts-ignore added task to fix
+                      onChange={onChange}
+                    />
+                    <Chip
+                      label="Male"
+                      id={EPetGenderType.MALE}
+                      value={value}
+                      //@ts-ignore added task to fix
+                      onChange={onChange}
+                    />
+                    <Chip
+                      label="Unknown"
+                      id={EPetGenderType.UNKNOWN}
+                      value={value}
+                      //@ts-ignore added task to fix
+                      onChange={onChange}
+                    />
+                  </View>
+                </>
+              )}
             />
-          )}
-        />
-        <Controller
-          name="color"
-          control={control}
-          render={({ field: { onChange, value } }) => (
-            <TextField
-              label="Color"
-              value={value}
-              placeholder="Pet's color"
-              onChange={onChange}
-            />
-          )}
-        />
-        <Controller
-          name="weight"
-          control={control}
-          render={({ field: { onChange, value } }) => (
-            <TextField
-              label="Weight"
-              value={value}
-              placeholder="Pet's weight (lb)"
-              onChange={onChange}
-            />
-          )}
-        />
-        <Controller
-          name="age"
-          control={control}
-          render={({ field: { onChange, value } }) => (
-            <TextField
-              label="Age"
-              value={value}
-              placeholder="Pet's age"
-              onChange={onChange}
-            />
-          )}
-        />
-        <Controller
-          name="identification.microchip"
-          control={control}
-          render={({ field: { onChange, value } }) => (
-            <TextField
-              label="Microchip number"
-              value={value}
-              placeholder="Microchip number"
-              onChange={onChange}
-              styles={classes.textField}
-            />
-          )}
-        />
-        <Controller
-          name="identification.description"
-          control={control}
-          render={({ field: { onChange, value } }) => (
-            <TextField
-              value={value}
-              placeholder="Description"
-              onChange={onChange}
-            />
-          )}
-        />
-        <Controller
-          name="diet"
-          control={control}
-          render={({ field: { onChange, value } }) => (
-            <>
-              <TextField
-                label={`Pet's diet`}
+          </View>
+          <Controller
+            name="petType"
+            control={control}
+            rules={{ required: true }}
+            render={({ field: { onChange, value } }) => (
+              <Select
+                label="Pet *"
+                items={PET_TYPE}
                 value={value}
-                placeholder="Pet's diet"
+                onValueChange={onChange}
+                error={!!errors.petType}
+              />
+            )}
+          />
+          <Controller
+            name="color"
+            control={control}
+            render={({ field: { onChange, value } }) => (
+              <TextField
+                label="Color"
+                value={value}
+                placeholder="Pet's color"
                 onChange={onChange}
               />
-            </>
+            )}
+          />
+          <Controller
+            name="weight"
+            control={control}
+            render={({ field: { onChange, value } }) => (
+              <TextField
+                label="Weight"
+                value={value}
+                placeholder="Pet's weight (lb)"
+                onChange={onChange}
+              />
+            )}
+          />
+          <Controller
+            name="age"
+            control={control}
+            render={({ field: { onChange, value } }) => (
+              <TextField
+                label="Age"
+                value={value}
+                placeholder="Pet's age"
+                onChange={onChange}
+              />
+            )}
+          />
+          <Controller
+            name="identification.microchip"
+            control={control}
+            render={({ field: { onChange, value } }) => (
+              <TextField
+                label="Microchip number"
+                value={value}
+                placeholder="Microchip number"
+                onChange={onChange}
+                styles={classes.textField}
+              />
+            )}
+          />
+          <Controller
+            name="identification.description"
+            control={control}
+            render={({ field: { onChange, value } }) => (
+              <TextField
+                value={value}
+                placeholder="Description"
+                onChange={onChange}
+              />
+            )}
+          />
+          <Controller
+            name="diet"
+            control={control}
+            render={({ field: { onChange, value } }) => (
+              <>
+                <TextField
+                  label={`Pet's diet`}
+                  value={value}
+                  placeholder="Pet's diet"
+                  onChange={onChange}
+                />
+              </>
+            )}
+          />
+          {isErrorExist && (
+            <View style={classes.container}>
+              <Text style={[commonStyles.p1, commonColors.error]}>
+                Please fill in all mandatory fields
+              </Text>
+            </View>
           )}
-        />
-        {isErrorExist && (
-          <View style={classes.container}>
-            <Text style={[commonStyles.p1, commonColors.error]}>
-              Please fill in all mandatory fields
-            </Text>
+          <View style={[classes.container, classes.buttonsContainer]}>
+            <Button
+              title="Reset all"
+              onPress={onReset}
+              textStyles={commonColors.whiteColor}
+            />
+            <Button
+              title={petId ? "Edit pet" : "Add pet"}
+              onPress={handleSubmit(onSubmit)}
+            />
           </View>
-        )}
-        <View style={[classes.container, classes.buttonsContainer]}>
-          <Button
-            title="Reset all"
-            onPress={onReset}
-            textStyles={commonColors.whiteColor}
-          />
-          <Button
-            title={petId ? "Edit pet" : "Add pet"}
-            onPress={handleSubmit(onSubmit)}
-          />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+        </ScrollView>
+      </SafeAreaView>
+    </Keyboard>
   );
 };
 

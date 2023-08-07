@@ -1,13 +1,12 @@
 import React from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import Gender from "../Gender";
 import { commonColors, commonStyles } from "../../theme";
-import { makeStyles } from "./styles";
+import { DEFAULT_IMAGE_AVATAR } from "../../constList";
 import { EPage, EPetGenderType } from "../../enums";
 import { IPetsTypes } from "../../types";
-
-const DEFAULT_IMAGE_AVATAR = "https://placekitten.com/g/200/300";
+import Gender from "../Gender";
+import { makeStyles } from "./styles";
 
 const PetCard = ({ name, breed, id, gender, image }: IPetsTypes) => {
   const classes = makeStyles();

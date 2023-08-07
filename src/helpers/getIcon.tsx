@@ -1,8 +1,7 @@
-import { commonColors } from "../theme";
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import React from "react";
-
-const ICON_SIZE = 24;
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import { ICON_SIZE } from "../constList";
+import { commonColors } from "../theme";
 
 export const getIcon = (value: string) => {
   switch (value) {

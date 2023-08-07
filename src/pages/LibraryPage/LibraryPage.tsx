@@ -4,12 +4,9 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { commonStyles } from "../../theme";
 import { makeStyles } from "./styles";
 import ArticleCard from "../../components/ArticleCard";
+import { FILTERS } from "../../constList";
 
 const foo = [1, 2, 3, 4, 5, 6];
-const filters = [
-  { id: 1, value: "Cat health" },
-  { id: 2, value: "Dog health" },
-];
 
 const LibraryPage = () => {
   const classes = makeStyles();
@@ -33,7 +30,7 @@ const LibraryPage = () => {
           <TextInput style={classes.search} placeholder="Search" />
         </View>
         <View style={{ flexDirection: "row", marginBottom: 25 }}>
-          {filters.map((item) => (
+          {FILTERS.map((item) => (
             // @ will be deleted
             <View key={item.id}>
               {/*<Chip*/}

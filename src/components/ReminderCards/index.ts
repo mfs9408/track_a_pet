@@ -1,2 +1,2 @@
 export * from "./AppointmentCard";
-export * from './ActivityCard'
+export * from "./ActivityCard";

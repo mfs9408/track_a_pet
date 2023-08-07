@@ -4,15 +4,15 @@ import SwappableItem, {
   OpenDirection,
   useSwipeableItemParams,
 } from "react-native-swipeable-item";
-import Animated, { useAnimatedStyle } from "react-native-reanimated";
-import { IActivityItem } from "../../../interfaces";
-import { RemindersStore } from "../../../store/remindersStore/slice";
-import { makeStyles } from "./styles";
-import { commonStyles } from "../../../theme";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import Animated, { useAnimatedStyle } from "react-native-reanimated";
+import { InterfaceReminderStore } from "../../../store/remindersStore/slice";
+import { IActivityItem } from "../../../interfaces";
+import { commonStyles } from "../../../theme";
+import { makeStyles } from "./styles";
 
 export type TSwappableItemWrapper = {
-  item: RemindersStore;
+  item: InterfaceReminderStore;
   drag: () => void;
   onPressDelete: () => void;
   itemRefs: React.MutableRefObject<Map<any, any>>;

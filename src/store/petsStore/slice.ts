@@ -14,6 +14,8 @@ const petsSlice = createSlice({
       const index = state.findIndex((item) => item.id === payload.id);
       state[index] = payload;
     },
+    deletePet: (state, { payload }: PayloadAction<string>) =>
+      state.filter((item) => item.id !== payload),
   },
 });
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Dimensions,
   Image,
@@ -7,11 +7,15 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { useDispatch } from "react-redux";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { Carousel } from "react-native-basic-carousel";
 import { commonColors, commonStyles } from "../../theme";
 import { RoutePropsProps, IPetsTypes } from "../../types";
+import { petsActions } from "../../store/petsStore/slice";
+import ModalWindow from "../../components/ModalWindow";
+import Button from "../../components/Button";
 import { EPage, EPetGenderType } from "../../enums";
 import InfoBox from "../../components/InfoBox";
 import Gender from "../../components/Gender";
@@ -19,6 +23,8 @@ import { useSelector } from "../../store";
 import { makeStyles } from "./styles";
 
 const PetPage = () => {
+  const dispatch = useDispatch();
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const pets = useSelector((store) => store.pets);
   const route = useRoute<RoutePropsProps<EPage.PET>>();
   const navigation = useNavigation();
@@ -200,6 +206,46 @@ const PetPage = () => {
             </View>
           )}
         </View>
+        <ModalWindow
+          isModalOpen={isModalOpen}
+          setIsModalOpen={setIsModalOpen}
+          Component={
+            <View style={{ flexDirection: "row" }}>
+              <Button
+                title="Delete pet"
+                styles={{
+                  backgroundColor: commonColors.error.color,
+                  borderColor: commonColors.error.color,
+                  flex: 1,
+                }}
+                onPress={() => setIsModalOpen(true)}
+              />
+            </View>
+          }
+        >
+          <Text style={[commonStyles.p1, { marginBottom: 20 }]}>
+            Delete your pet from your pet's list?
+          </Text>
+          <View
+            style={{ flexDirection: "row", justifyContent: "space-around" }}
+          >
+            <Button
+              title="Cancel"
+              onPress={() => setIsModalOpen(!isModalOpen)}
+            />
+            <Button
+              title="Delete"
+              styles={{
+                backgroundColor: commonColors.error.color,
+                borderColor: commonColors.error.color,
+              }}
+              onPress={() => {
+                dispatch(petsActions.deletePet(id));
+                navigation.navigate(EPage.MY_PETS);
+              }}
+            />
+          </View>
+        </ModalWindow>
       </View>
     </ScrollView>
   );

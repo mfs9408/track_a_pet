@@ -45,6 +45,7 @@ const AddPet = () => {
       name: petsData?.name || "",
       weight: petsData?.weight || "",
       color: petsData?.color || "",
+      age: petsData?.age || "",
       description: petsData?.description || "",
       image: petsData?.image || [
         "https://placekitten.com/g/200/300",
@@ -73,7 +74,6 @@ const AddPet = () => {
 
   const onSubmit: SubmitHandler<IAddForm> = (data) => {
     if (petId) {
-      console.log(data);
       dispatch(petsActions.editPet(data));
       navigation.navigate(EPage.PET, { petId: petId });
     } else {

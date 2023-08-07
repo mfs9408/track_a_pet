@@ -50,9 +50,13 @@ const SwappableReminder = ({
           <Text style={commonStyles.p2}>{item.repeat?.label || "Never"}</Text>
         </View>
         {item.description && (
-          <View style={classes.itemContainer}>
-            <Text>Description: </Text>
-            <Text numberOfLines={3}>{item.description}</Text>
+          <View style={[classes.itemContainer]}>
+            <View style={classes.descriptionHeaderContainer}>
+              <Text>Description: </Text>
+            </View>
+            <Text style={classes.descriptionText} numberOfLines={3}>
+              {item.description}
+            </Text>
           </View>
         )}
       </View>

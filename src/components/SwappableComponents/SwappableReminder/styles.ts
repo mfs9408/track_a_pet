@@ -33,4 +33,10 @@ export const makeStyles = () =>
       alignItems: "center",
       justifyContent: "flex-end",
     },
+    descriptionHeaderContainer: {
+      height: "100%",
+    },
+    descriptionText: {
+      flex: 1,
+    },
   });

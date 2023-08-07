@@ -129,6 +129,7 @@ const CreateReminderPage = () => {
                   value={value}
                   onChange={onChange}
                   placeholder="Description"
+                  multiline
                 />
               </>
             )}

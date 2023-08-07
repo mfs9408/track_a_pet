@@ -13,6 +13,7 @@ interface ITextFieldProps {
   error?: boolean;
   onPress?: () => void;
   editable?: boolean;
+  multiline?: boolean;
 }
 
 const TextField = ({
@@ -23,6 +24,7 @@ const TextField = ({
   error,
   onPress,
   label,
+  multiline,
   editable = true,
 }: ITextFieldProps) => {
   const classes = makeStyles(error);
@@ -33,13 +35,19 @@ const TextField = ({
       {label && <Text style={[commonStyles.p1, classes.label]}>{label}</Text>}
       <TextInput
         placeholder={placeholder}
-        value={value || ''}
+        value={value || ""}
         onChangeText={onChange}
         onFocus={() => setIsFocused(!isFocused)}
         onBlur={() => setIsFocused(!isFocused)}
         editable={editable}
         onPressIn={onPress}
-        style={[classes.input, isFocused && classes.isFocused, styles]}
+        style={[
+          classes.input,
+          isFocused && classes.isFocused,
+          multiline && { paddingTop: 10.5 },
+          styles,
+        ]}
+        multiline={multiline}
       />
     </>
   );

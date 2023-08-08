@@ -30,14 +30,14 @@ type TReminderFormType = {
     id: string;
     value: string;
   } | null;
+  type: string;
   description: string;
-  repeat?: {
+  repeat: {
     id: string;
     value: string;
   } | null;
   when: Date;
   endDate: Date | undefined;
-  type: string;
 };
 
 const CreateReminderPage = () => {
@@ -49,7 +49,10 @@ const CreateReminderPage = () => {
     value: item.name,
   }));
 
-  const { reminderType } = route.params;
+  const { reminderType, reminderId } = route.params;
+  const editData = useSelector((item) =>
+    item.reminders.find((reminder) => reminder.id === reminderId)
+  );
 
   const classes = makeStyles();
 
@@ -62,24 +65,20 @@ const CreateReminderPage = () => {
     control,
     handleSubmit,
     reset,
-    watch,
     formState: { errors },
   } = useForm<TReminderFormType>({
     defaultValues: {
-      id: uuidv4(),
-      pet: pets && pets.length == 1 ? pets[0] : null,
-      description: "",
-      type: reminderType,
-      repeat: null,
-      when: new Date(),
-      endDate: undefined,
+      id: editData?.id || uuidv4(),
+      pet: editData?.pet || (pets && pets.length == 1) ? pets[0] : null,
+      description: editData?.description || "",
+      type: editData?.type || reminderType,
+      repeat: editData?.repeat || null,
+      when: editData?.when || new Date(),
+      endDate: editData?.endDate || undefined,
     },
   });
 
-  const currentDate = watch("when");
-  const endMinimumDate = new Date(
-    currentDate.setHours(currentDate.getHours() + 1)
-  );
+  const currentDate = new Date();
 
   const onToggleChange = () => {
     setIsEndDatePickerBlockOpen(!isEndDatePickerBlockOpen);
@@ -91,6 +90,11 @@ const CreateReminderPage = () => {
       endDate: (isEndDatePickerBlockOpen && data.endDate) || undefined,
     };
 
+    if (reminderId) {
+      dispatch(remindersActions.editReminder(updatedData));
+      return navigation.navigate(EPage.CURRENT_REMINDERS);
+    }
+
     dispatch(remindersActions.addReminder(updatedData));
     navigation.navigate(EPage.SUCCESS_PAGE);
   };
@@ -101,7 +105,9 @@ const CreateReminderPage = () => {
     >
       <View style={classes.viewWrapper}>
         <View style={classes.header}>
-          <Text style={commonStyles.h2}>Add {reminderType} reminder</Text>
+          <Text style={commonStyles.h2}>
+            {reminderId ? "Edit" : "Add"} {reminderType} reminder
+          </Text>
         </View>
         <Controller
           name="pet"
@@ -218,11 +224,10 @@ const CreateReminderPage = () => {
                     <>
                       <RNDateTimePicker
                         locale="en"
-                        value={value || endMinimumDate}
+                        value={value || new Date()}
                         onChange={(event, date) => onChange(date as Date)}
                         mode="datetime"
                         display="spinner"
-                        minimumDate={endMinimumDate}
                       />
                       <View style={classes.buttonContainer}>
                         <Button
@@ -250,7 +255,10 @@ const CreateReminderPage = () => {
                 reset();
               }}
             />
-            <Button title="Add reminder" onPress={handleSubmit(onSubmit)} />
+            <Button
+              title={reminderId ? "Edit reminder" : "Add reminder"}
+              onPress={handleSubmit(onSubmit)}
+            />
           </View>
         </View>
       </View>

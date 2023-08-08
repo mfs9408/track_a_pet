@@ -7,7 +7,7 @@ export type RootStackParamList = {
   addPetPage: { id?: string | undefined };
   currentRemindersPage: undefined;
   remindersListPage: undefined;
-  createReminderPage: { reminderType: string };
+  createReminderPage: { reminderType: string; reminderId?: string };
   welcomePage: undefined;
   signInPage: undefined;
   signUpPage: undefined;

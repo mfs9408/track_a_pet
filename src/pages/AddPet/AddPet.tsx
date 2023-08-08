@@ -6,16 +6,16 @@ import { useDispatch } from "react-redux";
 import "react-native-get-random-values";
 import { v4 as uuidv4 } from "uuid";
 import TextField from "../../components/TextField";
+import Keyboard from "../../components/Keyboard";
 import Chip from "../../components/Chip";
 import Button from "../../components/Button";
 import Select from "../../components/Select";
-import { EPage, EPetGenderType, EPetType } from "../../enums";
-import { petsActions } from "../../store/petsStore/slice";
-import { commonColors, commonStyles } from "../../theme";
 import { useSelector } from "../../store";
+import { petsActions } from "../../store/petsStore/slice";
+import { EPage, EPetGenderType, EPetType } from "../../enums";
 import { IAddForm, RoutePropsProps } from "../../types";
+import { commonColors, commonStyles } from "../../theme";
 import { makeStyles } from "./styles";
-import Keyboard from "../../components/Keyboard";
 
 const PET_TYPE = [
   { value: EPetType.CAT, label: "Cat" },

@@ -19,20 +19,21 @@ import { EPage } from "../../enums";
 import { makeStyles } from "./styles";
 
 const REPEAT_LIST = [
-  { label: "Daily", value: "daily" },
-  { label: "Every 2 days", value: "every2days" },
+  { value: "Never", id: "never" },
+  { value: "Daily", id: "daily" },
+  { value: "Every 2 days", id: "every2days" },
 ];
 
 type TReminderFormType = {
   id: string;
   pet: {
+    id: string;
     value: string;
-    label: string;
   } | null;
   description: string;
   repeat?: {
+    id: string;
     value: string;
-    label: string;
   } | null;
   when: Date;
   endDate: Date | undefined;
@@ -44,8 +45,8 @@ const CreateReminderPage = () => {
   const navigation = useNavigation();
   const route = useRoute<RoutePropsProps<EPage.CREATE_REMINDER>>();
   const pets = useSelector((state) => state.pets).map((item) => ({
-    value: item.id,
-    label: item.name,
+    id: item.id,
+    value: item.name,
   }));
 
   const { reminderType } = route.params;
@@ -87,7 +88,6 @@ const CreateReminderPage = () => {
   const onSubmit: SubmitHandler<TReminderFormType> = (data) => {
     const updatedData = {
       ...data,
-      repeat: null ? { label: "Never", value: null } : data.repeat,
       endDate: (isEndDatePickerBlockOpen && data.endDate) || undefined,
     };
 
@@ -110,7 +110,7 @@ const CreateReminderPage = () => {
           render={({ field: { onChange, value } }) => (
             <Select
               label="Pet *"
-              placeholder={{ label: "Select your pet", value: null }}
+              placeholder={{ value: "Select your pet", id: null }}
               items={pets}
               onValueChange={onChange}
               value={value}
@@ -180,14 +180,16 @@ const CreateReminderPage = () => {
           />
           <Controller
             name="repeat"
+            rules={{ required: true }}
             control={control}
             render={({ field: { onChange, value } }) => (
               <Select
-                label="Repeat"
-                placeholder={{ label: "Never", value: null }}
+                label="Repeat *"
+                placeholder={{ value: "Select repeat", id: null }}
                 items={REPEAT_LIST}
                 onValueChange={onChange}
                 value={value}
+                error={!!errors.repeat}
               />
             )}
           />

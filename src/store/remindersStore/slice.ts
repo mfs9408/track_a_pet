@@ -3,14 +3,14 @@ import { createSlice } from "@reduxjs/toolkit";
 export interface InterfaceReminderStore {
   id: string;
   pet: {
-    label: string;
+    id: string;
     value: string;
   };
   type: string;
   description?: string;
   repeat: {
+    id: string;
     value: string;
-    label: string;
   };
   when: Date;
   endDate: Date | undefined;

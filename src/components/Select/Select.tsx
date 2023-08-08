@@ -5,11 +5,16 @@ import { AntDesign } from "@expo/vector-icons";
 import { makeStyles } from "./styles";
 import { commonStyles } from "../../theme";
 
+interface IValueProps {
+  id: string | null;
+  value: string;
+}
+
 interface ISelectProps {
-  placeholder?: any;
-  items: any[];
+  placeholder?: IValueProps;
+  value: IValueProps | null | undefined;
+  items: IValueProps[];
   onValueChange: any;
-  value: any;
   label?: string;
   error?: boolean;
   styles?: ViewStyle | ViewStyle[];
@@ -25,11 +30,28 @@ const Select = ({
   label,
 }: ISelectProps) => {
   const classes = makeStyles(error);
-  const [selected, setSelected] = useState(value?.value || null);
+  const [selected, setSelected] = useState(value?.id || null);
+
+  const pickerPlaceholder = {
+    label: placeholder?.value,
+    value: placeholder?.id,
+  };
+  const pickerItems = items.map((item) => ({
+    value: item?.id,
+    label: item?.value,
+  }));
 
   useEffect(() => {
-    const foo = items.find((item) => selected === item.value);
-    onValueChange(foo);
+    const item = items.find((item) => selected === item.id);
+
+    const pureItem = item
+      ? {
+          id: item.id,
+          value: item.value,
+        }
+      : null;
+
+    onValueChange(pureItem);
   }, [selected]);
 
   return (
@@ -37,7 +59,7 @@ const Select = ({
       {label && <Text style={[commonStyles.p1, classes.label]}>{label}</Text>}
       <View style={[classes.container, styles]}>
         <RNPickerSelect
-          placeholder={placeholder}
+          placeholder={pickerPlaceholder}
           // @ts-ignore as a bug
           Icon={() => (
             <AntDesign
@@ -48,7 +70,7 @@ const Select = ({
             />
           )}
           value={selected}
-          items={items}
+          items={pickerItems}
           onValueChange={(value) => setSelected(value)}
         />
       </View>

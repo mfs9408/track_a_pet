@@ -5,7 +5,7 @@ export interface IPetsTypes {
   userId: string;
   name: string;
   petType: {
-    label: string;
+    id: string;
     value: string;
   } | null;
   color: string;

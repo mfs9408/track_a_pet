@@ -18,8 +18,8 @@ import { commonColors, commonStyles } from "../../theme";
 import { makeStyles } from "./styles";
 
 const PET_TYPE = [
-  { value: EPetType.CAT, label: "Cat" },
-  { value: EPetType.DOG, label: "Dog" },
+  { id: EPetType.CAT, value: "Cat" },
+  { id: EPetType.DOG, value: "Dog" },
 ];
 
 const AddPet = () => {
@@ -147,6 +147,7 @@ const AddPet = () => {
             render={({ field: { onChange, value } }) => (
               <Select
                 label="Pet *"
+                placeholder={{ id: null, value: "Select pet type" }}
                 items={PET_TYPE}
                 value={value}
                 onValueChange={onChange}

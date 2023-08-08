@@ -11,7 +11,7 @@ export interface IAddForm {
   lost: boolean;
   petType: {
     value: string;
-    label: string;
+    id: string;
   } | null;
   insurance: string;
   chip?: string;

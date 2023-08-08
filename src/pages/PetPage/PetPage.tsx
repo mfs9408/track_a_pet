@@ -81,7 +81,7 @@ const PetPage = () => {
           </TouchableOpacity>
         </View>
         <View style={classes.infoContainer}>
-          <InfoBox title={petType?.label} description={"Pet"} />
+          <InfoBox title={petType?.value} description={"Pet"} />
           {color && <InfoBox title={color} description={"Color"} />}
           {weight && <InfoBox title={weight} description={"Weight"} />}
           {age && <InfoBox title={age} description={"Age"} />}

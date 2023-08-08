@@ -21,6 +21,8 @@ const SwappableReminder = ({
 }: ISwappableReminder) => {
   const classes = makeStyles();
 
+  console.log(item);
+
   return (
     <SwappableItemWrapper
       item={item}
@@ -31,7 +33,7 @@ const SwappableReminder = ({
       <View style={[commonStyles.boxShadow, classes.container]}>
         <View style={classes.itemContainer}>
           <View style={classes.icon}>{getIcon(item.type)}</View>
-          <Text style={commonStyles.p1}>{item.pet.label}</Text>
+          <Text style={commonStyles.p1}>{item.pet.value}</Text>
         </View>
         <View style={classes.itemContainer}>
           <Text>Start date: </Text>
@@ -47,7 +49,7 @@ const SwappableReminder = ({
         )}
         <View style={classes.itemContainer}>
           <Text>Repeat: </Text>
-          <Text style={commonStyles.p2}>{item.repeat?.label || "Never"}</Text>
+          <Text style={commonStyles.p2}>{item.repeat.value}</Text>
         </View>
         {item.description && (
           <View style={[classes.itemContainer]}>

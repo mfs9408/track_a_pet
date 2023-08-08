@@ -207,7 +207,7 @@ const CreateReminderPage = () => {
                   {!isEndDayTimeOpen && (
                     <TextField
                       label="End date"
-                      value={getDate(value, true, true)}
+                      value={getDate(value, true, false)}
                       onPress={() => setIsEndDayTimeOpen(!isEndDayTimeOpen)}
                       editable={false}
                     />

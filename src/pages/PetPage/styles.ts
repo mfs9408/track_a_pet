@@ -10,6 +10,7 @@ export const makeStyles = () =>
       marginTop: -20,
       backgroundColor: "#fff",
       borderRadius: 20,
+      paddingBottom: 40,
     },
     backIcon: {
       position: "absolute",
@@ -43,7 +44,7 @@ export const makeStyles = () =>
     dataWrapper: {
       flexDirection: "column",
       alignItems: "flex-start",
-      marginVertical: 35,
+      marginVertical: 20,
     },
     dataContainer: {
       marginBottom: 20,

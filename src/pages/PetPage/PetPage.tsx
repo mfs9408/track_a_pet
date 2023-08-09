@@ -180,28 +180,52 @@ const PetPage = () => {
               )}
             </View>
           )}
-          {veterinarianInfo && veterinarianInfo.length > 0 && (
+          {veterinarianInfo && (
             <View style={classes.dataContainer}>
               <View style={classes.iconContainer}>
                 <MaterialIcons
-                  name="account-box"
+                  name="pets"
                   size={20}
                   color="black"
                   style={classes.icon}
                 />
-                <Text style={commonStyles.p1}>Veterinarian Information</Text>
+                <Text style={commonStyles.p1}>Veterinarian info</Text>
               </View>
-              {veterinarianInfo?.map(
-                ({ label, value }, key) =>
-                  value && (
-                    <View key={key} style={classes.subDataContainer}>
-                      <View style={classes.subHeaderContainer}>
-                        <Text style={[commonStyles.p2, commonColors.darkGrey]}>
-                          &#8728; {label}: {value}
-                        </Text>
-                      </View>
-                    </View>
-                  )
+              {veterinarianInfo.vet && (
+                <View>
+                  <View style={classes.subHeaderContainer}>
+                    <Text style={[commonStyles.p2, commonColors.darkGrey]}>
+                      &#8728; Veterinarian: {veterinarianInfo.vet}
+                    </Text>
+                  </View>
+                </View>
+              )}
+              {veterinarianInfo.clinic && (
+                <View>
+                  <View style={classes.subHeaderContainer}>
+                    <Text style={[commonStyles.p2, commonColors.darkGrey]}>
+                      &#8728; Clinic: {veterinarianInfo.clinic}
+                    </Text>
+                  </View>
+                </View>
+              )}
+              {veterinarianInfo.address && (
+                <View>
+                  <View style={classes.subHeaderContainer}>
+                    <Text style={[commonStyles.p2, commonColors.darkGrey]}>
+                      &#8728; Address: {veterinarianInfo.address}
+                    </Text>
+                  </View>
+                </View>
+              )}
+              {veterinarianInfo.phone && (
+                <View>
+                  <View style={classes.subHeaderContainer}>
+                    <Text style={[commonStyles.p2, commonColors.darkGrey]}>
+                      &#8728; Address: {veterinarianInfo.phone}
+                    </Text>
+                  </View>
+                </View>
               )}
             </View>
           )}

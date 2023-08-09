@@ -64,7 +64,12 @@ const AddPet = () => {
         medications: "",
       },
       vaccination: petsData?.vaccination || [],
-      veterinarianInfo: petsData?.veterinarianInfo || [],
+      veterinarianInfo: petsData?.veterinarianInfo || {
+        vet: "",
+        clinic: "",
+        address: "",
+        phone: "",
+      },
       lost: petsData?.lost || false,
       birthDay: petsData?.birthDay || "01.01.2023",
     },
@@ -229,6 +234,66 @@ const AddPet = () => {
               </>
             )}
           />
+          <View style={{marginBottom: 20}}>
+            <Text style={[commonStyles.p1, { marginBottom: 10 }]}>
+              Veterinarian info
+            </Text>
+            <Controller
+              name="veterinarianInfo.vet"
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <>
+                  <TextField
+                    value={value}
+                    placeholder="Veterinarian"
+                    onChange={onChange}
+                    styles={{ marginBottom: 10 }}
+                  />
+                </>
+              )}
+            />
+            <Controller
+              name="veterinarianInfo.clinic"
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <>
+                  <TextField
+                    value={value}
+                    placeholder="Clinic"
+                    onChange={onChange}
+                    styles={{ marginBottom: 10 }}
+                  />
+                </>
+              )}
+            />
+            <Controller
+              name="veterinarianInfo.address"
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <>
+                  <TextField
+                    value={value}
+                    placeholder="Address"
+                    onChange={onChange}
+                    styles={{ marginBottom: 10 }}
+                  />
+                </>
+              )}
+            />
+            <Controller
+              name="veterinarianInfo.phone"
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <>
+                  <TextField
+                    value={value}
+                    placeholder="Phone"
+                    onChange={onChange}
+                  />
+                </>
+              )}
+            />
+          </View>
           {isErrorExist && (
             <View style={classes.container}>
               <Text style={[commonStyles.p1, commonColors.error]}>

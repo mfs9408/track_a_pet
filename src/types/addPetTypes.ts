@@ -30,5 +30,10 @@ export interface IAddForm {
     medications?: string;
   };
   vaccination: IDataItem[];
-  veterinarianInfo?: IDataItem[];
+  veterinarianInfo?: {
+    vet: string;
+    clinic: string;
+    address: string;
+    phone: string;
+  };
 }

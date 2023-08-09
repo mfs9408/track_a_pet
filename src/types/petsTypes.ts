@@ -34,7 +34,12 @@ export interface IPetsTypes {
     description?: string;
   };
   vaccination?: IDataItem[];
-  veterinarianInfo?: IDataItem[];
+  veterinarianInfo?: {
+    vet: string;
+    clinic: string;
+    address: string;
+    phone: string;
+  };
 }
 
 export interface IDataItem {

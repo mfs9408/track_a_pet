@@ -13,11 +13,10 @@ import { useSelector } from "../../store";
 import { IActivityItem, IAppointmentItem } from "../../interfaces";
 import { todayRemindersActions } from "../../store/currentReminders/slice";
 import { commonColors, commonStyles } from "../../theme";
+import { ACTIVATION_DISTANCE } from "../../constList";
 import { EPage, ERemindersType } from "../../enums";
 import { makeStyles } from "./styles";
 import { useNavigation } from "@react-navigation/native";
-
-const ACTIVATION_DISTANCE = 20;
 
 const MainPage = () => {
   const dispatch = useDispatch();

@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { LayoutAnimation, SafeAreaView, Text, View } from "react-native";
 import DraggableFlatList, {
@@ -10,35 +10,45 @@ import User from "../../components/User";
 import RemindBuilder from "../../components/RemindBulder";
 import ContextButton from "../../components/ContextButton";
 import { useSelector } from "../../store";
-import { IActivityItem, IAppointmentItem } from "../../interfaces";
-import { todayRemindersActions } from "../../store/currentReminders/slice";
 import { commonColors, commonStyles } from "../../theme";
-import { ACTIVATION_DISTANCE } from "../../constList";
 import { EPage, ERemindersType } from "../../enums";
 import { makeStyles } from "./styles";
 import { useNavigation } from "@react-navigation/native";
+import { IActivity, remindersActions } from "../../store/remindersStore/slice";
+import { commonDataActions } from "../../store/commonData";
+import { getFilteredCurrentActivity } from "../../helpers/getFilteredCurrentActivity";
 
 const MainPage = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const user = useSelector((store) => store.user.user);
-  const currentReminders = useSelector((store) => store.currentReminders);
-  const appointment = currentReminders.appointment;
-  const activity = currentReminders.activity;
+  const activity = useSelector((store) => store.reminders.activity) || [];
+  const time = useSelector((state) => state.commonData.time);
+  const appointment = [];
+
+  const currentActivity = getFilteredCurrentActivity(activity, time);
+
+  useEffect(() => {
+    const interval = setInterval(
+      () => dispatch(commonDataActions.changeDate(Date.now())),
+      20000
+    );
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
 
   const classes = makeStyles();
   const itemRefs = useRef(new Map());
 
   const renderItem = useCallback(
-    (
-      params: RenderItemParams<IActivityItem | IAppointmentItem>,
-      type: ERemindersType
-    ) => {
+    (params: RenderItemParams<IActivity>, type: ERemindersType) => {
       const onPressDelete = () => {
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
         dispatch(
-          todayRemindersActions.removeActivity({
-            value: params.item.remindId,
+          remindersActions.removeCurrentReminder({
+            id: params.item.id,
             type,
           })
         );
@@ -70,19 +80,20 @@ const MainPage = () => {
       </View>
       <View style={classes.flatListContainer}>
         <DraggableFlatList
-          contentContainerStyle={classes.commonPadding}
-          keyExtractor={(item) => item.remindId}
-          data={activity}
+          style={{ maxHeight: 200 }}
+          contentContainerStyle={[classes.commonPadding]}
+          keyExtractor={(item) => item.id}
+          data={currentActivity}
           renderItem={(params) => renderItem(params, ERemindersType.ACTIVITY)}
           activationDistance={20}
         />
-        <View style={classes.commonPadding}>
-          {activity.length === 0 && (
+        {currentActivity.length === 0 && (
+          <View style={classes.commonPadding}>
             <Text style={[commonStyles.p2, commonColors.darkGrey]}>
               You don't have any activities today
             </Text>
-          )}
-        </View>
+          </View>
+        )}
       </View>
       <View style={classes.addButtonsContainer}>
         <ContextButton
@@ -111,15 +122,15 @@ const MainPage = () => {
         </Text>
       </View>
       <View style={classes.flatListContainer}>
-        <DraggableFlatList
-          contentContainerStyle={classes.commonPadding}
-          keyExtractor={(item) => item.remindId}
-          data={appointment}
-          renderItem={(params) =>
-            renderItem(params, ERemindersType.APPOINTMENT)
-          }
-          activationDistance={ACTIVATION_DISTANCE}
-        />
+        {/*<DraggableFlatList*/}
+        {/*  contentContainerStyle={classes.commonPadding}*/}
+        {/*  keyExtractor={(item) => item.remindId}*/}
+        {/*  data={appointment}*/}
+        {/*  renderItem={(params) =>*/}
+        {/*    renderItem(params, ERemindersType.APPOINTMENT)*/}
+        {/*  }*/}
+        {/*  activationDistance={ACTIVATION_DISTANCE}*/}
+        {/*/>*/}
         <View style={classes.commonPadding}>
           {appointment.length === 0 && (
             <Text style={[commonStyles.p2, commonColors.darkGrey]}>

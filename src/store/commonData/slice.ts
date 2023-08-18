@@ -1,11 +1,13 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface ICommonData {
   isLoading: boolean;
+  time: number;
 }
 
 const initialState: ICommonData = {
   isLoading: false,
+  time: Date.now(),
 };
 
 const commonDataSlice = createSlice({
@@ -14,6 +16,9 @@ const commonDataSlice = createSlice({
   reducers: {
     changeIsLoading: (state: ICommonData) => {
       state.isLoading = true;
+    },
+    changeDate: (state, { payload }: PayloadAction<number>) => {
+      state.time = payload;
     },
   },
 });

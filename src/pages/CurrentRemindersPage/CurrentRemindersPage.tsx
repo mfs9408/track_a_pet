@@ -10,7 +10,7 @@ import { makeStyles } from "./styles";
 
 const CurrentRemindersPage = () => {
   const navigation = useNavigation();
-  const allReminders = useSelector((state) => state.reminders);
+  const allReminders = useSelector((state) => state.reminders.activity) || [];
   const classes = makeStyles();
 
   return (
@@ -19,10 +19,7 @@ const CurrentRemindersPage = () => {
         <Text style={[commonStyles.h2]}>Current reminders</Text>
       </View>
       {allReminders.length > 0 && (
-        <DraggableFlat
-          styles={classes.flatList}
-          data={allReminders}
-        />
+        <DraggableFlat styles={classes.flatList} data={allReminders} />
       )}
       <View style={[commonStyles.commonWrapper]}>
         {allReminders.length == 0 && (

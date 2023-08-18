@@ -15,14 +15,9 @@ import Button from "../../components/Button";
 import { commonStyles } from "../../theme";
 import { useSelector } from "../../store";
 import { getDate } from "../../helpers";
-import { EPage } from "../../enums";
+import { EPage, ERepeatType } from "../../enums";
 import { makeStyles } from "./styles";
-
-const REPEAT_LIST = [
-  { value: "Never", id: "never" },
-  { value: "Daily", id: "daily" },
-  { value: "Every 2 days", id: "every2days" },
-];
+import { REPEAT_LIST } from "../../constList";
 
 type TReminderFormType = {
   id: string;
@@ -38,6 +33,7 @@ type TReminderFormType = {
   } | null;
   when: Date;
   endDate: Date | undefined;
+  nextRepeat: Date | null;
 };
 
 const CreateReminderPage = () => {
@@ -50,8 +46,8 @@ const CreateReminderPage = () => {
   }));
 
   const { reminderType, reminderId } = route.params;
-  const editData = useSelector((item) =>
-    item.reminders.find((reminder) => reminder.id === reminderId)
+  const editData = useSelector((state) =>
+    state.reminders.activity?.find((reminder) => reminder.id === reminderId)
   );
 
   const classes = makeStyles();
@@ -72,9 +68,13 @@ const CreateReminderPage = () => {
       pet: editData?.pet || (pets && pets.length == 1) ? pets[0] : null,
       description: editData?.description || "",
       type: editData?.type || reminderType,
-      repeat: editData?.repeat || null,
+      repeat: editData?.repeat || {
+        id: ERepeatType.NEVER,
+        value: "Never",
+      },
       when: editData?.when || new Date(),
       endDate: editData?.endDate || undefined,
+      nextRepeat: editData?.when || new Date(),
     },
   });
 
@@ -87,7 +87,10 @@ const CreateReminderPage = () => {
   const onSubmit: SubmitHandler<TReminderFormType> = (data) => {
     const updatedData = {
       ...data,
-      endDate: (isEndDatePickerBlockOpen && data.endDate) || undefined,
+      when: data.when.toISOString(),
+      endDate:
+        (isEndDatePickerBlockOpen && data.endDate?.toISOString()) || undefined,
+      nextRepeat: data.when.toISOString(),
     };
 
     if (reminderId) {

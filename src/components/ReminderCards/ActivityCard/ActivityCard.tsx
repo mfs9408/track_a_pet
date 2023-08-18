@@ -8,11 +8,12 @@ import SwipeableItem, {
 } from "react-native-swipeable-item";
 import { commonColors, commonStyles } from "../../../theme";
 import { IActivityItem } from "../../../interfaces";
-import { getIcon } from "../../../helpers";
+import { getDate, getIcon } from "../../../helpers";
 import { makeStyles } from "./styles";
+import { IActivity } from "../../../store/remindersStore/slice";
 
 export type RowItemProps = {
-  item: IActivityItem;
+  item: IActivity;
   drag: () => void;
   onPressDelete: () => void;
   itemRefs: React.MutableRefObject<Map<any, any>>;
@@ -28,17 +29,17 @@ const ActivityCard = ({
 }: RowItemProps) => {
   return (
     <SwipeableItem
-      key={item.remindId}
+      key={item.id}
       item={item}
       ref={(ref) => {
-        if (ref && !itemRefs.current.get(item.remindId)) {
-          itemRefs.current.set(item.remindId, ref);
+        if (ref && !itemRefs.current.get(item.id)) {
+          itemRefs.current.set(item.id, ref);
         }
       }}
       onChange={({ openDirection }) => {
         if (openDirection !== OpenDirection.NONE) {
           [...itemRefs.current.entries()].forEach(([key, ref]) => {
-            if (key !== item.remindId && ref) ref.close();
+            if (key !== item.id && ref) ref.close();
             setTimeout(() => ref.close(), 5000);
           });
         }
@@ -52,10 +53,10 @@ const ActivityCard = ({
         <View style={classes.wrapper}>
           <View style={classes.iconWrapper}>
             <View style={classes.icon}>{getIcon(item.type)}</View>
-            <Text style={commonStyles.p1}>{item.header}</Text>
+            <Text style={commonStyles.p1}>{item.pet?.value}</Text>
           </View>
           <Text style={[commonStyles.p3, commonColors.lightGrey]}>
-            {item.time}
+            {getDate(item.when, false, true)}
           </Text>
         </View>
         <View>

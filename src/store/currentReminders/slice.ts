@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ERemindersType } from "../../enums";
 import { IActivityItem, IAppointmentItem } from "../../interfaces";
+import { InterfaceReminderStore } from "../remindersStore/slice";
 
 interface ITodayReminders {
   activity: IActivityItem[];
@@ -9,18 +10,6 @@ interface ITodayReminders {
 
 const initialState: ITodayReminders | null = {
   activity: [
-    // {
-    //   petId: "1",
-    //   remindId: "1",
-    //   type: "medical",
-    //   header: "Foo",
-    //   reminderType: ERemindersType.ACTIVITY,
-    //
-    //   petName: "Tefa",
-    //   time: "2:00pm",
-    //   description:
-    //     "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae culpa",
-    // },
     // {
     //   petId: "1",
     //   remindId: "2",
@@ -59,9 +48,14 @@ const todayRemindersSlice = createSlice({
     ) => {
       // @ts-ignore
       state[payload.type] = state[payload.type].filter(
-        (item) => item.remindId !== payload.value
+        (item: { remindId: string }) => item.remindId !== payload.value
       );
     },
+    getCurrentReminders: (
+      state,
+      { payload }: PayloadAction<InterfaceReminderStore[]>
+    ) => {},
+    refreshReminders: (state, { payload }) => {},
   },
 });
 

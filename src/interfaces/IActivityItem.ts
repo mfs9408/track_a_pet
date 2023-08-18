@@ -6,9 +6,10 @@ export interface IActivityItem {
   type: string;
   header: string;
   reminderType: ERemindersType;
-  time: string;
+  time: Date;
   petName: string;
-  description: string;
+  description?: string;
+  nextRepeat?: Date | null;
 }
 
 export interface IAppointmentItem {
@@ -17,9 +18,10 @@ export interface IAppointmentItem {
   type: string;
   header: string;
   reminderType: ERemindersType;
-  time: string;
+  time?: Date;
   petName: string;
   description: string;
-  doctorName: string;
-  address: string;
+  doctorName?: string;
+  address?: string;
+  nextRepeat?: Date | null;
 }

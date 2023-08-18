@@ -5,3 +5,4 @@ export { EPage } from "./EPage";
 export { EPetGenderType } from "./EPetGenderType";
 export { EPetType } from "./EPetType";
 export { EIconEnum } from "./EIconEnum";
+export { ERepeatType } from "./ERepeatType";

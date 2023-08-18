@@ -2,14 +2,14 @@ import React from "react";
 import { Pressable, Text, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import SwappableItemWrapper from "../SwappableItemWrapper";
-import { InterfaceReminderStore } from "../../../store/remindersStore/slice";
+import { IActivity } from "../../../store/remindersStore/slice";
 import { getDate, getIcon } from "../../../helpers";
 import { commonStyles } from "../../../theme";
 import { makeStyles } from "./styles";
 import { EPage } from "../../../enums";
 
 interface ISwappableReminder {
-  item: InterfaceReminderStore;
+  item: IActivity;
   drag: () => void;
   onPressDelete: () => void;
   itemRefs: React.MutableRefObject<Map<any, any>>;
@@ -32,7 +32,7 @@ const SwappableReminder = ({
       onPressDelete={onPressDelete}
     >
       <Pressable
-        onPress={() =>
+        onLongPress={() =>
           navigation.navigate(EPage.CREATE_REMINDER, {
             reminderType: item.type,
             reminderId: item.id,
@@ -72,6 +72,11 @@ const SwappableReminder = ({
               </Text>
             </View>
           )}
+          <Text>
+            {item.nextRepeat
+              ? getDate(item.nextRepeat, true, true)
+              : JSON.stringify(item.nextRepeat)}
+          </Text>
         </View>
       </Pressable>
     </SwappableItemWrapper>

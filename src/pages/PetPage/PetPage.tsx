@@ -19,6 +19,7 @@ import Button from "../../components/Button";
 import { EPage, EPetGenderType } from "../../enums";
 import InfoBox from "../../components/InfoBox";
 import Gender from "../../components/Gender";
+import { isDataInObject } from "../../helpers";
 import { useSelector } from "../../store";
 import { makeStyles } from "./styles";
 
@@ -180,7 +181,7 @@ const PetPage = () => {
               )}
             </View>
           )}
-          {veterinarianInfo && (
+          {isDataInObject(veterinarianInfo) && (
             <View style={classes.dataContainer}>
               <View style={classes.iconContainer}>
                 <MaterialIcons
@@ -191,7 +192,7 @@ const PetPage = () => {
                 />
                 <Text style={commonStyles.p1}>Veterinarian info</Text>
               </View>
-              {veterinarianInfo.vet && (
+              {veterinarianInfo?.vet && (
                 <View>
                   <View style={classes.subHeaderContainer}>
                     <Text style={[commonStyles.p2, commonColors.darkGrey]}>
@@ -200,7 +201,7 @@ const PetPage = () => {
                   </View>
                 </View>
               )}
-              {veterinarianInfo.clinic && (
+              {veterinarianInfo?.clinic && (
                 <View>
                   <View style={classes.subHeaderContainer}>
                     <Text style={[commonStyles.p2, commonColors.darkGrey]}>
@@ -209,7 +210,7 @@ const PetPage = () => {
                   </View>
                 </View>
               )}
-              {veterinarianInfo.address && (
+              {veterinarianInfo?.address && (
                 <View>
                   <View style={classes.subHeaderContainer}>
                     <Text style={[commonStyles.p2, commonColors.darkGrey]}>
@@ -218,7 +219,7 @@ const PetPage = () => {
                   </View>
                 </View>
               )}
-              {veterinarianInfo.phone && (
+              {veterinarianInfo?.phone && (
                 <View>
                   <View style={classes.subHeaderContainer}>
                     <Text style={[commonStyles.p2, commonColors.darkGrey]}>

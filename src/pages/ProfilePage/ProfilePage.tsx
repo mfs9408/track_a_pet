@@ -3,10 +3,11 @@ import { SafeAreaView, Switch, Text, View } from "react-native";
 import { Avatar } from "react-native-paper";
 import { AntDesign } from "@expo/vector-icons";
 import { makeStyles } from "./styles";
-import { commonStyles } from "../../theme";
-import { useSelector } from "../../store";
+import ProfileCard from "../../components/ProfileCard";
 import { getAvatar } from "../../helpers/getAvatar";
-import { EGenderType } from "../../enums";
+import { useSelector } from "../../store";
+import { EGenderType, EPage } from "../../enums";
+import { commonStyles } from "../../theme";
 
 const ProfilePage = () => {
   const classes = makeStyles();
@@ -19,13 +20,7 @@ const ProfilePage = () => {
       style={[commonStyles.commonContainer, { backgroundColor: "#f4f4f4" }]}
     >
       <View style={[commonStyles.commonWrapper]}>
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            marginBottom: 50,
-          }}
-        >
+        <View style={classes.imgContainer}>
           <Avatar.Image
             size={70}
             source={
@@ -40,195 +35,125 @@ const ProfilePage = () => {
           />
           <View style={{ marginLeft: 15 }}>
             <Text style={commonStyles.h3}>{user?.name}</Text>
-            <Text
-              style={[
-                commonStyles.p2,
-                { color: "rgba(95, 91, 91, 1)", fontWeight: "400" },
-              ]}
-            >
-              {user?.email}
-            </Text>
+            <Text style={[commonStyles.p2, classes.email]}>{user?.email}</Text>
           </View>
         </View>
         <View style={classes.menuContainer}>
-          <View style={classes.block}>
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <AntDesign
-                name="edit"
-                size={17}
-                color="rgba(129, 110, 199, 1)"
-                style={{ marginRight: 10 }}
-              />
-              <Text style={[commonStyles.p2, { fontWeight: "400" }]}>
-                Edit profile
-              </Text>
-            </View>
-            <AntDesign name="right" size={17} color="rgba(196, 196, 196, 1)" />
-          </View>
-          <View
-            style={{
-              borderBottomWidth: 1,
-              borderColor: "#D9D9D9",
-            }}
-          ></View>
-          <View style={classes.block}>
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <ProfileCard
+            title="Edit page"
+            pageNavigate={EPage.CHANGE_PROFILE_PAGE}
+            icon={
+              <AntDesign name="edit" size={17} color="rgba(129, 110, 199, 1)" />
+            }
+          />
+          <ProfileCard
+            title="My appointments"
+            pageNavigate={EPage.CHANGE_PROFILE_PAGE}
+            icon={
               <AntDesign
                 name="calendar"
                 size={17}
                 color="rgba(129, 110, 199, 1)"
-                style={{ marginRight: 10 }}
               />
-              <Text style={[commonStyles.p2, { fontWeight: "400" }]}>
-                My appointments
-              </Text>
-            </View>
-            <AntDesign name="right" size={17} color="rgba(196, 196, 196, 1)" />
-          </View>
-          <View
-            style={{
-              borderBottomWidth: 1,
-              borderColor: "#D9D9D9",
-            }}
-          ></View>
-          <View style={classes.block}>
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
+            }
+          />
+          <ProfileCard
+            title="Payment method"
+            pageNavigate={EPage.CHANGE_PROFILE_PAGE}
+            icon={
               <AntDesign
                 name="creditcard"
                 size={17}
                 color="rgba(129, 110, 199, 1)"
-                style={{ marginRight: 10 }}
               />
-              <Text style={[commonStyles.p2, { fontWeight: "400" }]}>
-                Payment method
-              </Text>
-            </View>
-            <AntDesign name="right" size={17} color="rgba(196, 196, 196, 1)" />
-          </View>
-          <View
-            style={{
-              borderBottomWidth: 1,
-              borderColor: "#D9D9D9",
-            }}
-          ></View>
-          <View style={classes.block}>
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
+            }
+          />
+          <ProfileCard
+            title="Notifications"
+            icon={
               <AntDesign
                 name="bells"
                 size={17}
                 color="rgba(129, 110, 199, 1)"
-                style={{ marginRight: 10 }}
               />
-              <Text style={[commonStyles.p2, { fontWeight: "400" }]}>
-                Notifications
-              </Text>
-            </View>
-            <Switch
-              trackColor={{
-                false: "rgba(230, 230, 230, 1)",
-                true: "rgba(129, 110, 199, 1)",
-              }}
-              thumbColor="#fff"
-              onValueChange={toggleSwitch}
-              value={isEnabled}
-              style={{
-                height: 20,
-                marginTop: -8,
-                transform: [{ scaleX: 0.7 }, { scaleY: 0.7 }],
-              }}
-            />
-          </View>
-          <View
-            style={{
-              borderBottomWidth: 1,
-              borderColor: "#D9D9D9",
-            }}
-          ></View>
-          <View style={classes.block}>
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
+            }
+            rightElement={
+              <Switch
+                trackColor={{
+                  false: "rgba(230, 230, 230, 1)",
+                  true: "rgba(129, 110, 199, 1)",
+                }}
+                thumbColor="#fff"
+                onValueChange={toggleSwitch}
+                value={isEnabled}
+                style={{
+                  height: 20,
+                  marginTop: -8,
+                  transform: [{ scaleX: 0.7 }, { scaleY: 0.7 }],
+                }}
+              />
+            }
+          />
+          <ProfileCard
+            title="Geolocation"
+            lastElement
+            icon={
               <AntDesign
                 name="enviromento"
                 size={17}
                 color="rgba(129, 110, 199, 1)"
-                style={{ marginRight: 10 }}
               />
-              <Text style={[commonStyles.p2, { fontWeight: "400" }]}>
-                Geolocation
-              </Text>
-            </View>
-            <Switch
-              trackColor={{
-                false: "rgba(230, 230, 230, 1)",
-                true: "rgba(129, 110, 199, 1)",
-              }}
-              thumbColor="#fff"
-              // ios_backgroundColor="rgba(230, 230, 230, 1)"
-              onValueChange={toggleSwitch}
-              value={!isEnabled}
-              style={{
-                height: 20,
-                marginTop: -8,
-                transform: [{ scaleX: 0.7 }, { scaleY: 0.7 }],
-              }}
-            />
-          </View>
+            }
+            rightElement={
+              <Switch
+                trackColor={{
+                  false: "rgba(230, 230, 230, 1)",
+                  true: "rgba(129, 110, 199, 1)",
+                }}
+                thumbColor="#fff"
+                onValueChange={toggleSwitch}
+                value={isEnabled}
+                style={{
+                  height: 20,
+                  marginTop: -8,
+                  transform: [{ scaleX: 0.7 }, { scaleY: 0.7 }],
+                }}
+              />
+            }
+          />
         </View>
-
         <View style={classes.menuContainer}>
-          <View style={classes.block}>
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <ProfileCard
+            title="Setting & privacy"
+            icon={
               <AntDesign
                 name="setting"
                 size={17}
                 color="rgba(129, 110, 199, 1)"
-                style={{ marginRight: 10 }}
               />
-              <Text style={[commonStyles.p2, { fontWeight: "400" }]}>
-                Setting & privacy
-              </Text>
-            </View>
-            <AntDesign name="right" size={17} color="rgba(196, 196, 196, 1)" />
-          </View>
-          <View
-            style={{
-              borderBottomWidth: 1,
-              borderColor: "#D9D9D9",
-            }}
-          ></View>
-          <View style={classes.block}>
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
+            }
+          />
+          <ProfileCard
+            title="Help & support"
+            icon={
               <AntDesign
                 name="question"
                 size={17}
                 color="rgba(129, 110, 199, 1)"
-                style={{ marginRight: 10 }}
               />
-              <Text style={[commonStyles.p2, { fontWeight: "400" }]}>
-                Help & support
-              </Text>
-            </View>
-            <AntDesign name="right" size={17} color="rgba(196, 196, 196, 1)" />
-          </View>
-          <View
-            style={{
-              borderBottomWidth: 1,
-              borderColor: "#D9D9D9",
-            }}
-          ></View>
-          <View style={classes.block}>
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
+            }
+          />
+          <ProfileCard
+            title="Log out"
+            lastElement
+            icon={
               <AntDesign
                 name="logout"
                 size={17}
                 color="rgba(129, 110, 199, 1)"
-                style={{ marginRight: 10 }}
               />
-              <Text style={[commonStyles.p2, { fontWeight: "400" }]}>
-                Log out
-              </Text>
-            </View>
-            <AntDesign name="right" size={17} color="rgba(196, 196, 196, 1)" />
-          </View>
+            }
+          />
         </View>
       </View>
     </SafeAreaView>

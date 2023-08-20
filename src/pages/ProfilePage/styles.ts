@@ -1,8 +1,16 @@
 import { StyleSheet } from "react-native";
-import { MD3Colors } from "react-native-paper/lib/typescript/src/types";
 
 export const makeStyles = () =>
   StyleSheet.create({
+    imgContainer: {
+      flexDirection: "row",
+      alignItems: "center",
+      marginBottom: 50,
+    },
+    email: {
+      color: "rgba(95, 91, 91, 1)",
+      fontWeight: "400",
+    },
     menuContainer: {
       borderWidth: 1,
       borderColor: "#D9D9D9",

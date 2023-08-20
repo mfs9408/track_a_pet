@@ -6,6 +6,7 @@ import { useSelector } from "../../store";
 import CurrentRemindersPage from "../../pages/CurrentRemindersPage";
 import CreateReminderPage from "../../pages/CreateReminderPage";
 import RemindersListPage from "../../pages/RemindersListPage";
+import ChangeProfilePage from "../../pages/ChangeProfilePage";
 import BottomNavigation from "../BottomNavigation";
 import WelcomePage from "../../pages/WelcomePage";
 import SuccessPage from "../../pages/SuccessPage";
@@ -88,6 +89,14 @@ const Navigate = () => {
                 headerStyle: {
                   backgroundColor: commonColors.primary.color,
                 },
+              }}
+            />
+            <Stack.Screen
+              name={EPage.CHANGE_PROFILE_PAGE}
+              component={ChangeProfilePage}
+              options={{
+                title: "Edit your profile",
+                headerTintColor: commonColors.primary.color,
               }}
             />
           </>

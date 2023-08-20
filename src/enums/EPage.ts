@@ -11,6 +11,7 @@ export enum EPage {
   HOME = "homePage",
   MY_PETS = "myPetsPage",
   LIBRARY = "libraryPage",
-  PROFILE = "profilePAge",
+  PROFILE = "profilePage",
   SUCCESS_PAGE = "successPage",
+  CHANGE_PROFILE_PAGE = "changeProfilePage",
 }

@@ -1,17 +1,21 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 export type RootStackParamList = {
-  mainPage: undefined;
-  myPetsPage: undefined;
-  petPage: { petId: string };
-  addPetPage: { id?: string | undefined };
-  currentRemindersPage: undefined;
-  remindersListPage: undefined;
-  createReminderPage: { reminderType: string; reminderId?: string };
   welcomePage: undefined;
   signInPage: undefined;
   signUpPage: undefined;
+  addPetPage: { id?: string | undefined };
+  petPage: { petId: string };
+  currentRemindersPage: undefined;
+  remindersListPage: undefined;
+  createReminderPage: { reminderType: string; reminderId?: string };
+  mainPage: undefined;
+  homePage: undefined;
+  myPetsPage: undefined;
+  library: undefined;
+  profilePage: undefined;
   successPage: undefined;
+  changeProfilePage: undefined;
 };
 
 export type RoutePropsProps<T extends keyof RootStackParamList> =

@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { IUserResponseInterface } from "../../types";
 
 const initialState: IUserResponseInterface = {
@@ -10,9 +10,17 @@ const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    getUser: (state, { payload }: PayloadAction<IUserResponseInterface>) =>
-      (state = payload),
-    cleanStore: (state) => {
+    changeUserData: (state, { payload }) => {
+      // @ts-ignore
+      state.user = {
+        ...state.user,
+        email: payload.email,
+        name: payload.name,
+        gender: payload.gender,
+        owning: payload.owning,
+      };
+    },
+    logOut: (state) => {
       state = initialState;
     },
   },

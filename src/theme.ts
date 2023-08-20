@@ -68,6 +68,12 @@ export const commonColors = StyleSheet.create({
 });
 
 export const commonStyles = StyleSheet.create({
+  directionRow: {
+    flexDirection: "row",
+  },
+  alignCenter: {
+    alignItems: "center",
+  },
   interRegular: {
     fontFamily: "Inter-Regular",
   },

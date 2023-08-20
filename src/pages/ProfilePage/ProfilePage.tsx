@@ -7,7 +7,7 @@ import ProfileCard from "../../components/ProfileCard";
 import { getAvatar } from "../../helpers/getAvatar";
 import { useSelector } from "../../store";
 import { EGenderType, EPage } from "../../enums";
-import { commonStyles } from "../../theme";
+import { commonColors, commonStyles } from "../../theme";
 
 const ProfilePage = () => {
   const classes = makeStyles();
@@ -43,7 +43,11 @@ const ProfilePage = () => {
             title="Edit page"
             pageNavigate={EPage.CHANGE_PROFILE_PAGE}
             icon={
-              <AntDesign name="edit" size={17} color="rgba(129, 110, 199, 1)" />
+              <AntDesign
+                name="edit"
+                size={17}
+                color={commonColors.primary.color}
+              />
             }
           />
           <ProfileCard
@@ -53,18 +57,18 @@ const ProfilePage = () => {
               <AntDesign
                 name="calendar"
                 size={17}
-                color="rgba(129, 110, 199, 1)"
+                color={commonColors.primary.color}
               />
             }
           />
           <ProfileCard
             title="Payment method"
-            pageNavigate={EPage.CHANGE_PROFILE_PAGE}
+            disabled
             icon={
               <AntDesign
                 name="creditcard"
                 size={17}
-                color="rgba(129, 110, 199, 1)"
+                color={commonColors.primary.color}
               />
             }
           />
@@ -74,7 +78,7 @@ const ProfilePage = () => {
               <AntDesign
                 name="bells"
                 size={17}
-                color="rgba(129, 110, 199, 1)"
+                color={commonColors.primary.color}
               />
             }
             rightElement={
@@ -101,7 +105,7 @@ const ProfilePage = () => {
               <AntDesign
                 name="enviromento"
                 size={17}
-                color="rgba(129, 110, 199, 1)"
+                color={commonColors.primary.color}
               />
             }
             rightElement={
@@ -129,7 +133,7 @@ const ProfilePage = () => {
               <AntDesign
                 name="setting"
                 size={17}
-                color="rgba(129, 110, 199, 1)"
+                color={commonColors.primary.color}
               />
             }
           />
@@ -139,7 +143,7 @@ const ProfilePage = () => {
               <AntDesign
                 name="question"
                 size={17}
-                color="rgba(129, 110, 199, 1)"
+                color={commonColors.primary.color}
               />
             }
           />
@@ -150,7 +154,7 @@ const ProfilePage = () => {
               <AntDesign
                 name="logout"
                 size={17}
-                color="rgba(129, 110, 199, 1)"
+                color={commonColors.primary.color}
               />
             }
           />

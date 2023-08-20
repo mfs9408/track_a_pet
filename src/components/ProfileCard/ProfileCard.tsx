@@ -3,7 +3,7 @@ import { Pressable, Text, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { AntDesign } from "@expo/vector-icons";
 import { EPage } from "../../enums";
-import { commonStyles } from "../../theme";
+import { commonColors, commonStyles } from "../../theme";
 import { makeStyles } from "./styles";
 
 interface IProfileICard {
@@ -12,6 +12,7 @@ interface IProfileICard {
   icon: React.ReactNode;
   rightElement?: React.ReactNode;
   lastElement?: boolean;
+  disabled?: boolean;
 }
 
 const ProfileCard = ({
@@ -20,6 +21,7 @@ const ProfileCard = ({
   icon,
   rightElement,
   lastElement = false,
+  disabled,
 }: IProfileICard) => {
   const classes = makeStyles();
   const navigation = useNavigation();
@@ -27,12 +29,24 @@ const ProfileCard = ({
   return (
     <>
       <Pressable
-        onPress={() => pageNavigate && navigation.navigate(pageNavigate as any)}
-        style={classes.container}
+        onPress={() =>
+          pageNavigate && !disabled && navigation.navigate(pageNavigate as any)
+        }
+        style={[
+          classes.container,
+          disabled && { backgroundColor: "rgba(95,91,91,0.3)" },
+        ]}
       >
         <View style={[commonStyles.alignCenter, commonStyles.directionRow]}>
           <View style={{ marginRight: 10 }}>{icon}</View>
-          <Text style={[commonStyles.p2]}>{title}</Text>
+          <Text
+            style={[
+              commonStyles.p2,
+              disabled && commonColors.semiTransparentGrey,
+            ]}
+          >
+            {title}
+          </Text>
         </View>
         {rightElement ? (
           rightElement

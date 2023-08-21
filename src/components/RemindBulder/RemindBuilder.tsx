@@ -1,5 +1,5 @@
 import React from "react";
-import ActivityCard from "../ReminderCards/ActivityCard";
+import ActivityCard from "../SwappableComponents/ActivityCard";
 import {IActivity} from "../../store/remindersStore/slice";
 
 export type RowItemProps = {

@@ -7,8 +7,8 @@ import { useTheme } from "react-native-paper";
 import MyPetsPage from "../../pages/MyPetsPage";
 import LibraryPage from "../../pages/LibraryPage";
 import ProfilePage from "../../pages/ProfilePage";
-import { EPage } from "../../enums";
 import { commonColors } from "../../theme";
+import { EPage } from "../../enums";
 
 const Tab = createBottomTabNavigator();
 

@@ -1,32 +1,34 @@
 import React from "react";
 import { Image, Text, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import Button from "../../components/Button";
-import DraggableFlat from "../../components/DraggableFlatList";
 import { commonColors, commonStyles } from "../../theme";
-import { useSelector } from "../../store";
-import { EPage, ERemindersType } from "../../enums";
 import { makeStyles } from "./styles";
+import { useSelector } from "../../store";
+import Button from "../../components/Button";
+import { EPage, ERemindersType } from "../../enums";
+import DraggableFlat from "../../components/DraggableFlatList";
 
-const CurrentRemindersPage = () => {
-  const navigation = useNavigation();
-  const allReminders = useSelector((state) => state.reminders.activity) || [];
+const AppointmentList = () => {
   const classes = makeStyles();
+  const navigation = useNavigation();
+  const allAppointments = useSelector(
+    (state) => state.reminders.appointments || []
+  );
 
   return (
     <View style={[commonColors.background, classes.commonWrapper]}>
       <View style={[commonStyles.commonWrapper]}>
-        <Text style={[commonStyles.h2]}>Current reminders</Text>
+        <Text style={[commonStyles.h2]}>Current appointments</Text>
       </View>
-      {allReminders.length > 0 && (
+      {allAppointments.length > 0 && (
         <DraggableFlat
           style={classes.flatList}
-          data={allReminders}
-          type={ERemindersType.CURRENT_REMINDER_PAGE}
+          data={allAppointments}
+          type={ERemindersType.APPOINTMENT}
         />
       )}
       <View style={[commonStyles.commonWrapper]}>
-        {allReminders.length == 0 && (
+        {allAppointments.length == 0 && (
           <View style={classes.noRemindersContainer}>
             <Text
               style={[
@@ -35,7 +37,7 @@ const CurrentRemindersPage = () => {
                 classes.subHeader,
               ]}
             >
-              There is no any reminders for you pets. Do you want to add it?
+              There is no any appointments for you pets. Do you want to add it?
             </Text>
             <Image
               style={{ width: "100%" }}
@@ -44,12 +46,12 @@ const CurrentRemindersPage = () => {
           </View>
         )}
         <Button
-          title="Create a new reminder"
-          onPress={() => navigation.navigate(EPage.REMINDERS_LIST)}
+          title="Create a new appointment"
+          onPress={() => navigation.navigate(EPage.CREATE_APPOINTMENT)}
         />
       </View>
     </View>
   );
 };
 
-export default CurrentRemindersPage;
+export default AppointmentList;

@@ -1,51 +1,37 @@
 import React from "react";
-import { TouchableOpacity, View, Text } from "react-native";
+import { TouchableOpacity, View, Text, LayoutAnimation } from "react-native";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import Animated, { useAnimatedStyle } from "react-native-reanimated";
-import SwipeableItem, {
-  OpenDirection,
-  useSwipeableItemParams,
-} from "react-native-swipeable-item";
+import { useSwipeableItemParams } from "react-native-swipeable-item";
 import { commonColors, commonStyles } from "../../../theme";
 import { IAppointmentItem } from "../../../interfaces";
 import { makeStyles } from "./styles";
+import SwappableItemWrapper from "../SwappableItemWrapper";
+import { remindersActions } from "../../../store/remindersStore";
+import { useDispatch } from "react-redux";
 
 export type RowItemProps = {
   item: IAppointmentItem;
   drag: () => void;
-  onPressDelete: () => void;
   itemRefs: React.MutableRefObject<Map<any, any>>;
 };
 
 const classes = makeStyles();
 
-const AppointmentCard = ({
-  item,
-  itemRefs,
-  drag,
-  onPressDelete,
-}: RowItemProps) => {
+const AppointmentCard = ({ item, itemRefs, drag }: RowItemProps) => {
+  const dispatch = useDispatch();
+
+  const onPressDelete = () => {
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+    dispatch(remindersActions.removeAppointment({ id: item.id }));
+  };
+
   return (
-    <SwipeableItem
-      key={item.remindId}
+    <SwappableItemWrapper
       item={item}
-      ref={(ref) => {
-        if (ref && !itemRefs.current.get(item.remindId)) {
-          itemRefs.current.set(item.remindId, ref);
-        }
-      }}
-      onChange={({ openDirection }) => {
-        if (openDirection !== OpenDirection.NONE) {
-          [...itemRefs.current.entries()].forEach(([key, ref]) => {
-            if (key !== item.remindId && ref) ref.close();
-            setTimeout(() => ref.close(), 5000);
-          });
-        }
-      }}
-      renderUnderlayLeft={() => (
-        <UnderlayLeft drag={drag} onPressDelete={onPressDelete} />
-      )}
-      snapPointsLeft={[85]}
+      itemRefs={itemRefs}
+      drag={drag}
+      onPressDelete={onPressDelete}
     >
       <View style={[commonStyles.boxShadow, classes.container]}>
         <View style={classes.wrapper}>
@@ -66,8 +52,8 @@ const AppointmentCard = ({
             numberOfLines={5}
           >
             You have appointment with {item.petName} to Dr.{item.doctorName} at{" "}
-            {item.time}
           </Text>
+          <Text>{item.time}</Text>
           <Text
             style={[commonStyles.p2, commonColors.darkGrey]}
             numberOfLines={5}
@@ -76,7 +62,7 @@ const AppointmentCard = ({
           </Text>
         </View>
       </View>
-    </SwipeableItem>
+    </SwappableItemWrapper>
   );
 };
 

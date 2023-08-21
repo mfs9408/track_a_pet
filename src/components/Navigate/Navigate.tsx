@@ -16,6 +16,8 @@ import AddPet from "../../pages/AddPet";
 import { RootStackParamList } from "../../types";
 import { commonColors, fonts } from "../../theme";
 import { EPage } from "../../enums";
+import AppointmentList from "../../pages/AppointmentsList";
+import CreateAppointmentPage from "../../pages/CreateAppointmentPage";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -96,6 +98,22 @@ const Navigate = () => {
               component={ChangeProfilePage}
               options={{
                 title: "Edit your profile",
+                headerTintColor: commonColors.primary.color,
+              }}
+            />
+            <Stack.Screen
+              name={EPage.APPOINTMENT_LIST}
+              component={AppointmentList}
+              options={{
+                title: "",
+                headerTintColor: commonColors.primary.color,
+              }}
+            />
+            <Stack.Screen
+              name={EPage.CREATE_APPOINTMENT}
+              component={CreateAppointmentPage}
+              options={{
+                title: "",
                 headerTintColor: commonColors.primary.color,
               }}
             />

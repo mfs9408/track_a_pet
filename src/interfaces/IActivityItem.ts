@@ -13,8 +13,8 @@ export interface IActivityItem {
 }
 
 export interface IAppointmentItem {
+  id: string;
   petId: string;
-  remindId: string;
   type: string;
   header: string;
   reminderType: ERemindersType;

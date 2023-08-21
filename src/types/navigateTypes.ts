@@ -16,6 +16,8 @@ export type RootStackParamList = {
   profilePage: undefined;
   successPage: undefined;
   changeProfilePage: undefined;
+  appointmentListPage: undefined;
+  createAppointmentPage: undefined;
 };
 
 export type RoutePropsProps<T extends keyof RootStackParamList> =

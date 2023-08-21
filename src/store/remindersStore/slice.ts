@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ERemindersType, ERepeatType } from "../../enums";
-import { changeNextRepeat } from "../../helpers/dateHelpers";
+import { changeNextRepeat } from "../../helpers";
 
 export interface IActivity {
   id: string;
@@ -19,9 +19,22 @@ export interface IActivity {
   nextRepeat: Date | null;
 }
 
+export interface IAppointmentItem {
+  id: string;
+  petId: string;
+  type: string;
+  header: string;
+  reminderType: ERemindersType;
+  time?: Date;
+  petName: string;
+  description: string;
+  doctorName?: string;
+  address?: string;
+}
+
 export interface InterfaceReminderStore {
   activity: IActivity[];
-  appointments: IActivity[];
+  appointments: IAppointmentItem[];
 }
 
 const initialState: InterfaceReminderStore = {
@@ -36,9 +49,9 @@ const remindersSlice = createSlice({
     addReminder: (state, { payload }: PayloadAction<IActivity>) => {
       state.activity.push(payload);
     },
-    removeReminder: (state, { payload }) => {
+    removeReminder: (state, { payload }: PayloadAction<{ id: string }>) => {
       const filteredActivity = state.activity.filter(
-        (item) => item.id !== payload
+        (item) => item.id !== payload.id
       );
       filteredActivity ? (state.activity = filteredActivity) : state.activity;
     },
@@ -48,7 +61,7 @@ const remindersSlice = createSlice({
     },
     removeCurrentReminder: (
       state,
-      { payload }: PayloadAction<{ type: ERemindersType; id: string }>
+      { payload }: PayloadAction<{ id: string }>
     ) => {
       const currentReminder = state.activity.find(
         (item) => item.id === payload.id
@@ -67,6 +80,14 @@ const remindersSlice = createSlice({
           currentReminder.when
         ),
       };
+    },
+    removeAppointment: (state, { payload }: PayloadAction<{ id: string }>) => {
+      const filteredActivity = state.appointments.filter(
+        (item) => item.id !== payload.id
+      );
+      filteredActivity
+        ? (state.appointments = filteredActivity)
+        : state.appointments;
     },
   },
 });

@@ -1,28 +1,33 @@
 import React from "react";
-import { Pressable, Text, View } from "react-native";
+import { LayoutAnimation, Pressable, Text, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import SwappableItemWrapper from "../SwappableItemWrapper";
-import { IActivity } from "../../../store/remindersStore/slice";
+import {
+  IActivity,
+  remindersActions,
+} from "../../../store/remindersStore/slice";
 import { getDate, getIcon } from "../../../helpers";
 import { commonStyles } from "../../../theme";
 import { makeStyles } from "./styles";
 import { EPage } from "../../../enums";
+import { useDispatch } from "react-redux";
 
 interface ISwappableReminder {
   item: IActivity;
   drag: () => void;
-  onPressDelete: () => void;
   itemRefs: React.MutableRefObject<Map<any, any>>;
 }
 
-const SwappableReminder = ({
-  item,
-  itemRefs,
-  drag,
-  onPressDelete,
-}: ISwappableReminder) => {
+const SwappableReminder = ({ item, itemRefs, drag }: ISwappableReminder) => {
   const classes = makeStyles();
   const navigation = useNavigation();
+
+  const dispatch = useDispatch();
+
+  const onPressDelete = () => {
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+    dispatch(remindersActions.removeReminder({ id: item.id }));
+  };
 
   return (
     <SwappableItemWrapper

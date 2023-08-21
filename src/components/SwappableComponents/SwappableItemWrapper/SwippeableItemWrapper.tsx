@@ -6,16 +6,18 @@ import SwappableItem, {
 } from "react-native-swipeable-item";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import Animated, { useAnimatedStyle } from "react-native-reanimated";
-import { IActivity } from "../../../store/remindersStore/slice";
 import { IActivityItem } from "../../../interfaces";
 import { commonStyles } from "../../../theme";
 import { makeStyles } from "./styles";
+import { TReminderBuilder } from "../ReminderBuilder";
 
 export type TSwappableItemWrapper = {
-  item: IActivity;
+  item: TReminderBuilder;
   drag: () => void;
   onPressDelete: () => void;
   itemRefs: React.MutableRefObject<Map<any, any>>;
+  buttonStyle?: any;
+  buttonColor?: any;
 } & PropsWithChildren;
 
 const classes = makeStyles();
@@ -26,6 +28,8 @@ const SwappableItemWrapper = ({
   drag,
   onPressDelete,
   children,
+  buttonStyle,
+  buttonColor,
 }: TSwappableItemWrapper) => {
   return (
     <SwappableItem
@@ -45,7 +49,12 @@ const SwappableItemWrapper = ({
         }
       }}
       renderUnderlayLeft={() => (
-        <UnderlayLeft drag={drag} onPressDelete={onPressDelete} />
+        <UnderlayLeft
+          drag={drag}
+          onPressDelete={onPressDelete}
+          buttonStyle={buttonStyle}
+          buttonColor={buttonColor}
+        />
       )}
       snapPointsLeft={[85]}
     >
@@ -56,9 +65,13 @@ const SwappableItemWrapper = ({
 
 const UnderlayLeft = ({
   onPressDelete,
+  buttonStyle,
+  buttonColor,
 }: {
   drag: () => void;
   onPressDelete: () => void;
+  buttonStyle?: any;
+  buttonColor?: any;
 }) => {
   const { percentOpen } = useSwipeableItemParams<IActivityItem>();
   const animStyle = useAnimatedStyle(
@@ -72,9 +85,14 @@ const UnderlayLeft = ({
     <Animated.View style={[classes.underlayLeft, animStyle]}>
       <TouchableOpacity
         onPress={onPressDelete}
-        style={[commonStyles.boxShadow, classes.closeButtonContainer]}
+        style={[
+          commonStyles.boxShadow,
+          classes.closeButtonContainer,
+          buttonStyle,
+          buttonColor,
+        ]}
       >
-        <MaterialIcons name="close" size={24} color="#fff" />
+        <MaterialIcons name="close" size={24} color={buttonColor || "#fff"} />
       </TouchableOpacity>
     </Animated.View>
   );

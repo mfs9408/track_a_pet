@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { SafeAreaView, Switch, Text, View } from "react-native";
 import { Avatar } from "react-native-paper";
 import { AntDesign } from "@expo/vector-icons";
-import { makeStyles } from "./styles";
 import ProfileCard from "../../components/ProfileCard";
-import { getAvatar } from "../../helpers/getAvatar";
-import { useSelector } from "../../store";
-import { EGenderType, EPage } from "../../enums";
 import { commonColors, commonStyles } from "../../theme";
+import { getAvatar } from "../../helpers/getAvatar";
+import { EGenderType, EPage } from "../../enums";
+import { useSelector } from "../../store";
+import { makeStyles } from "./styles";
 
 const ProfilePage = () => {
   const classes = makeStyles();
@@ -52,7 +52,7 @@ const ProfilePage = () => {
           />
           <ProfileCard
             title="My appointments"
-            pageNavigate={EPage.CHANGE_PROFILE_PAGE}
+            pageNavigate={EPage.APPOINTMENT_LIST}
             icon={
               <AntDesign
                 name="calendar"

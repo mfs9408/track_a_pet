@@ -1,42 +1,34 @@
-import React, { useCallback, useRef } from "react";
-import { LayoutAnimation, ViewStyle } from "react-native";
-import { useDispatch } from "react-redux";
-import DraggableFlatList, {
-  RenderItemParams,
-} from "react-native-draggable-flatlist";
-import SwappableReminder from "../SwappableComponents/SwappableReminder";
-import { remindersActions, IActivity } from "../../store/remindersStore/slice";
+import React, { useRef } from "react";
+import { ViewStyle } from "react-native";
+import DraggableFlatList from "react-native-draggable-flatlist";
+import ReminderBuilder from "../SwappableComponents";
+import { ERemindersType } from "../../enums";
+import { TReminderBuilder } from "../SwappableComponents/ReminderBuilder";
 
 interface IDraggableFlatListProps {
-  data: IActivity[];
-  styles: ViewStyle | ViewStyle[];
+  data: TReminderBuilder[];
+  style?: ViewStyle | ViewStyle[];
+  contentContainerStyle?: any;
+  type: ERemindersType;
 }
 
-const DraggableFlat = ({ data, styles }: IDraggableFlatListProps) => {
-  const dispatch = useDispatch();
+const DraggableFlat = ({
+  data,
+  type,
+  style,
+  contentContainerStyle,
+}: IDraggableFlatListProps) => {
   const itemRefs = useRef(new Map());
-
-  const renderItem = useCallback((params: RenderItemParams<IActivity>) => {
-    const onPressDelete = () => {
-      LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-      dispatch(remindersActions.removeReminder(params.item.id));
-    };
-
-    return (
-      <SwappableReminder
-        {...params}
-        itemRefs={itemRefs}
-        onPressDelete={onPressDelete}
-      />
-    );
-  }, []);
 
   return (
     <DraggableFlatList
-      style={[styles]}
+      style={[style]}
+      contentContainerStyle={contentContainerStyle}
       keyExtractor={(item) => item?.id}
       data={data}
-      renderItem={(params) => renderItem(params)}
+      renderItem={(params) =>
+        ReminderBuilder(params, params.item, itemRefs, type)
+      }
       activationDistance={20}
     />
   );

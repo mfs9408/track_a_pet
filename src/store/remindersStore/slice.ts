@@ -21,12 +21,13 @@ export interface IActivity {
 
 export interface IAppointmentItem {
   id: string;
-  petId: string;
+  pet: {
+    id: string;
+    value: string;
+  } | null;
   type: string;
-  header: string;
   reminderType: ERemindersType;
-  time?: Date;
-  petName: string;
+  when: Date;
   description: string;
   doctorName?: string;
   address?: string;
@@ -81,6 +82,9 @@ const remindersSlice = createSlice({
         ),
       };
     },
+    addAppointment: (state, { payload }: PayloadAction<IAppointmentItem>) => {
+      state.appointments.push(payload);
+    },
     removeAppointment: (state, { payload }: PayloadAction<{ id: string }>) => {
       const filteredActivity = state.appointments.filter(
         (item) => item.id !== payload.id
@@ -88,6 +92,9 @@ const remindersSlice = createSlice({
       filteredActivity
         ? (state.appointments = filteredActivity)
         : state.appointments;
+    },
+    foo: (state) => {
+      state.appointments = [];
     },
   },
 });

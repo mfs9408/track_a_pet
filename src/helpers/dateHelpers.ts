@@ -1,4 +1,5 @@
 import { ERepeatType } from "../enums";
+import { IActivity, IAppointmentItem } from "../store/remindersStore/slice";
 
 export const getDate = (currentDate?: Date, date?: boolean, time?: boolean) => {
   const dateToLocal = currentDate ? new Date(currentDate) : new Date();
@@ -34,13 +35,14 @@ export const addDays = (str: Date, days: number) => {
   return myDate;
 };
 
-export const getTimeCompared = (remindersDate: Date | null, time: number) => {
-  if (!remindersDate) {
-    return null;
-  }
+export const filterTodayEvents = (array: IActivity[] | IAppointmentItem[]) => {
+  return [...array].filter(({ when }) => {
+    const currentTime = new Date();
+    const reminderTime = new Date(when);
 
-  const currentTime = new Date(time);
-  const reminderTime = new Date(remindersDate);
-
-  return currentTime < reminderTime;
+    return (
+      currentTime < reminderTime &&
+      currentTime.getDate() === reminderTime.getDate()
+    );
+  });
 };

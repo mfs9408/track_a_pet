@@ -12,16 +12,18 @@ export interface IActivityItem {
   nextRepeat?: Date | null;
 }
 
-export interface IAppointmentItem {
-  id: string;
-  petId: string;
-  type: string;
-  header: string;
-  reminderType: ERemindersType;
-  time?: Date;
-  petName: string;
-  description: string;
-  doctorName?: string;
-  address?: string;
-  nextRepeat?: Date | null;
-}
+// export interface IAppointmentItem {
+//   id: string;
+//   pet: {
+//     id: string;
+//     value: string;
+//   } | null;
+//   type: string;
+//   header: string;
+//   reminderType: ERemindersType;
+//   time: Date;
+//   petName: string;
+//   description: string;
+//   doctorName?: string;
+//   address?: string;
+// }

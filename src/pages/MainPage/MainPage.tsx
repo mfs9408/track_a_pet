@@ -1,34 +1,37 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView, Text, View } from "react-native";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
-import User from "../../components/User";
+import DraggableFlat from "../../components/DraggableFlatList";
 import ContextButton from "../../components/ContextButton";
+import User from "../../components/User";
 import { useSelector } from "../../store";
 import { commonColors, commonStyles } from "../../theme";
 import { EPage, ERemindersType } from "../../enums";
-import { makeStyles } from "./styles";
-import { useNavigation } from "@react-navigation/native";
 import { commonDataActions } from "../../store/commonData";
-import { getFilteredCurrentActivity } from "../../helpers/getFilteredCurrentActivity";
-import DraggableFlat from "../../components/DraggableFlatList";
+import { makeStyles } from "./styles";
+import { filterTodayEvents } from "../../helpers";
 
 const MainPage = () => {
+  const classes = makeStyles();
   const dispatch = useDispatch();
+  const [time, setTime] = useState(Date.now());
   const navigation = useNavigation();
   const user = useSelector((store) => store.user.user);
   const activity = useSelector((store) => store.reminders.activity) || [];
-  const time = useSelector((state) => state.commonData.time);
-  const appointment = [];
+  const appointments =
+    useSelector((store) => store.reminders.appointments) || [];
 
-  const classes = makeStyles();
-  const currentActivity = getFilteredCurrentActivity(activity, time);
+  const currentActivity = filterTodayEvents(activity);
+  const currentAppointments = filterTodayEvents(appointments);
 
   useEffect(() => {
-    const interval = setInterval(
-      () => dispatch(commonDataActions.changeDate(Date.now())),
-      20000
-    );
+    const interval = setInterval(() => {
+      dispatch(commonDataActions.changeDate(time));
+
+      return setTime(Date.now());
+    }, 20000);
 
     return () => {
       clearInterval(interval);
@@ -90,14 +93,13 @@ const MainPage = () => {
         </Text>
       </View>
       <View style={classes.flatListContainer}>
-        <DraggableFlat
-          data={currentActivity}
-          style={{ maxHeight: 200 }}
-          contentContainerStyle={[classes.commonPadding]}
-          type={ERemindersType.APPOINTMENT}
-        />
         <View style={classes.commonPadding}>
-          {appointment.length === 0 && (
+          <DraggableFlat
+            data={currentAppointments}
+            style={{ maxHeight: 200 }}
+            type={ERemindersType.APPOINTMENT}
+          />
+          {currentAppointments.length === 0 && (
             <Text style={[commonStyles.p2, commonColors.darkGrey]}>
               You don't have any appointments today
             </Text>

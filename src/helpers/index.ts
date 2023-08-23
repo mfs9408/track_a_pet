@@ -3,6 +3,6 @@ export {
   getDate,
   addDays,
   changeNextRepeat,
-  getTimeCompared,
+  filterTodayEvents,
 } from "./dateHelpers";
 export { isDataInObject } from "./isDataInObject";

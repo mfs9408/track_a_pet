@@ -47,7 +47,7 @@ const AppointmentList = () => {
         )}
         <Button
           title="Create a new appointment"
-          onPress={() => navigation.navigate(EPage.CREATE_APPOINTMENT)}
+          onPress={() => navigation.navigate(EPage.CREATE_APPOINTMENT, {})}
         />
       </View>
     </View>

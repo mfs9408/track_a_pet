@@ -1,14 +1,12 @@
 import React from "react";
-import { TouchableOpacity, View, Text, LayoutAnimation } from "react-native";
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-import Animated, { useAnimatedStyle } from "react-native-reanimated";
-import { useSwipeableItemParams } from "react-native-swipeable-item";
+import { useDispatch } from "react-redux";
+import { View, Text, LayoutAnimation } from "react-native";
 import { commonColors, commonStyles } from "../../../theme";
-import { IAppointmentItem } from "../../../interfaces";
-import { makeStyles } from "./styles";
+import { IAppointmentItem } from "../../../store/remindersStore/slice";
 import SwappableItemWrapper from "../SwappableItemWrapper";
 import { remindersActions } from "../../../store/remindersStore";
-import { useDispatch } from "react-redux";
+import { getDate } from "../../../helpers";
+import { makeStyles } from "./styles";
 
 export type RowItemProps = {
   item: IAppointmentItem;
@@ -36,10 +34,10 @@ const AppointmentCard = ({ item, itemRefs, drag }: RowItemProps) => {
       <View style={[commonStyles.boxShadow, classes.container]}>
         <View style={classes.wrapper}>
           <View style={classes.iconWrapper}>
-            <Text style={commonStyles.p1}>{item.header}</Text>
+            <Text style={commonStyles.p1}>{item.pet?.value}</Text>
           </View>
           <Text style={[commonStyles.p3, commonColors.lightGrey]}>
-            {item.time}
+            {getDate(item.when, true, true)}
           </Text>
         </View>
         <View>
@@ -51,44 +49,21 @@ const AppointmentCard = ({ item, itemRefs, drag }: RowItemProps) => {
             ]}
             numberOfLines={5}
           >
-            You have appointment with {item.petName} to Dr.{item.doctorName} at{" "}
+            You have appointment with {item.pet?.value} to
+            {item.doctorName ? ` Dr.${item.doctorName}` : " a doctor"} at{" "}
+            {getDate(item.when, false, true)}
           </Text>
-          <Text>{item.time}</Text>
-          <Text
-            style={[commonStyles.p2, commonColors.darkGrey]}
-            numberOfLines={5}
-          >
-            Address: {item.address}
-          </Text>
+          {item.address && (
+            <Text
+              style={[commonStyles.p2, commonColors.darkGrey]}
+              numberOfLines={5}
+            >
+              Address: {item.address}
+            </Text>
+          )}
         </View>
       </View>
     </SwappableItemWrapper>
-  );
-};
-
-const UnderlayLeft = ({
-  onPressDelete,
-}: {
-  drag: () => void;
-  onPressDelete: () => void;
-}) => {
-  const { percentOpen } = useSwipeableItemParams<IAppointmentItem>();
-  const animStyle = useAnimatedStyle(
-    () => ({
-      opacity: percentOpen.value,
-    }),
-    [percentOpen]
-  );
-
-  return (
-    <Animated.View style={[classes.underlayLeft, animStyle]}>
-      <TouchableOpacity
-        onPress={onPressDelete}
-        style={[commonStyles.boxShadow, classes.closeButtonContainer]}
-      >
-        <MaterialIcons name="close" size={24} color="rgba(129, 110, 199, 1)" />
-      </TouchableOpacity>
-    </Animated.View>
   );
 };
 

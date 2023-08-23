@@ -44,7 +44,7 @@ const TextField = ({
         style={[
           classes.input,
           isFocused && classes.isFocused,
-          multiline && { paddingTop: 10.5 },
+          multiline && { paddingTop: 10.5, height: "auto" },
           styles,
         ]}
         multiline={multiline}

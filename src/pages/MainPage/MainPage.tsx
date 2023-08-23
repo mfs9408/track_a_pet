@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView, Text, View } from "react-native";
-import { Ionicons, MaterialIcons } from "@expo/vector-icons";
+import { AntDesign, Ionicons, MaterialIcons } from "@expo/vector-icons";
 import DraggableFlat from "../../components/DraggableFlatList";
 import ContextButton from "../../components/ContextButton";
 import { commonColors, commonStyles } from "../../theme";
@@ -68,13 +68,33 @@ const MainPage = () => {
       </View>
       <View style={classes.addButtonsContainer}>
         <ContextButton
-          title="Add a reminder"
+          title="Manage reminders"
           onPress={() => navigation.navigate(EPage.CURRENT_REMINDERS)}
           textStyles={commonStyles.interSemiBold}
+          styles={{ marginBottom: 15 }}
           icon={
             <Ionicons
               name="notifications-outline"
               size={24}
+              color={commonColors.primary.color}
+            />
+          }
+          endIcon={
+            <MaterialIcons
+              name="keyboard-arrow-right"
+              size={24}
+              color={commonColors.primary.color}
+            />
+          }
+        />
+        <ContextButton
+          title="Manage appointments"
+          onPress={() => navigation.navigate(EPage.CURRENT_REMINDERS)}
+          textStyles={commonStyles.interSemiBold}
+          icon={
+            <AntDesign
+              name="calendar"
+              size={17}
               color={commonColors.primary.color}
             />
           }
@@ -93,18 +113,17 @@ const MainPage = () => {
         </Text>
       </View>
       <View style={classes.flatListContainer}>
-        <View style={classes.commonPadding}>
-          <DraggableFlat
-            data={currentAppointments}
-            style={{ maxHeight: 200 }}
-            type={ERemindersType.APPOINTMENT}
-          />
-          {currentAppointments.length === 0 && (
-            <Text style={[commonStyles.p2, commonColors.darkGrey]}>
-              You don't have any appointments today
-            </Text>
-          )}
-        </View>
+        <DraggableFlat
+          data={currentAppointments}
+          style={{ maxHeight: 250 }}
+          contentContainerStyle={[classes.commonPadding]}
+          type={ERemindersType.APPOINTMENT}
+        />
+        {currentAppointments.length === 0 && (
+          <Text style={[commonStyles.p2, commonColors.darkGrey]}>
+            You don't have any appointments today
+          </Text>
+        )}
       </View>
     </SafeAreaView>
   );

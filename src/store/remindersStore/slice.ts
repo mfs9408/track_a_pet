@@ -49,6 +49,11 @@ const remindersSlice = createSlice({
   reducers: {
     addReminder: (state, { payload }: PayloadAction<IActivity>) => {
       state.activity.push(payload);
+
+      state.activity = state.activity.sort(
+        // @ts-ignore
+        (a, b) => new Date(a.when) - new Date(b.when)
+      );
     },
     removeReminder: (state, { payload }: PayloadAction<{ id: string }>) => {
       const filteredActivity = state.activity.filter(
@@ -84,6 +89,11 @@ const remindersSlice = createSlice({
     },
     addAppointment: (state, { payload }: PayloadAction<IAppointmentItem>) => {
       state.appointments.push(payload);
+
+      state.appointments = state.appointments.sort(
+        // @ts-ignore
+        (a, b) => new Date(a.when) - new Date(b.when)
+      );
     },
     removeAppointment: (state, { payload }: PayloadAction<{ id: string }>) => {
       const filteredActivity = state.appointments.filter(

@@ -5,13 +5,13 @@ import { SafeAreaView, Text, View } from "react-native";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import DraggableFlat from "../../components/DraggableFlatList";
 import ContextButton from "../../components/ContextButton";
-import User from "../../components/User";
-import { useSelector } from "../../store";
 import { commonColors, commonStyles } from "../../theme";
 import { EPage, ERemindersType } from "../../enums";
 import { commonDataActions } from "../../store/commonData";
-import { makeStyles } from "./styles";
 import { filterTodayEvents } from "../../helpers";
+import User from "../../components/User";
+import { useSelector } from "../../store";
+import { makeStyles } from "./styles";
 
 const MainPage = () => {
   const classes = makeStyles();

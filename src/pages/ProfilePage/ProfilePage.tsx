@@ -138,7 +138,8 @@ const ProfilePage = () => {
             }
           />
           <ProfileCard
-            title="Help & support"
+            title="Abuse signs"
+            pageNavigate={EPage.ABUSE_INFORMATION}
             icon={
               <AntDesign
                 name="question"

@@ -16,4 +16,5 @@ export enum EPage {
   CHANGE_PROFILE_PAGE = "changeProfilePage",
   APPOINTMENT_LIST = "appointmentListPage",
   CREATE_APPOINTMENT = "createAppointmentPage",
+  ABUSE_INFORMATION = "abuseInformationPage",
 }

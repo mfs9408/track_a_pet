@@ -89,7 +89,7 @@ const MainPage = () => {
         />
         <ContextButton
           title="Manage appointments"
-          onPress={() => navigation.navigate(EPage.CURRENT_REMINDERS)}
+          onPress={() => navigation.navigate(EPage.APPOINTMENT_LIST)}
           textStyles={commonStyles.interSemiBold}
           icon={
             <AntDesign
@@ -113,17 +113,25 @@ const MainPage = () => {
         </Text>
       </View>
       <View style={classes.flatListContainer}>
-        <DraggableFlat
-          data={currentAppointments}
-          style={{ maxHeight: 250 }}
-          contentContainerStyle={[classes.commonPadding]}
-          type={ERemindersType.APPOINTMENT}
-        />
-        {currentAppointments.length === 0 && (
-          <Text style={[commonStyles.p2, commonColors.darkGrey]}>
-            You don't have any appointments today
-          </Text>
-        )}
+        <View>
+          <DraggableFlat
+            data={currentAppointments}
+            style={{ maxHeight: 250 }}
+            contentContainerStyle={[classes.commonPadding]}
+            type={ERemindersType.APPOINTMENT}
+          />
+          {currentAppointments.length === 0 && (
+            <Text
+              style={[
+                commonStyles.p2,
+                commonColors.darkGrey,
+                classes.commonPadding,
+              ]}
+            >
+              You don't have any appointments today
+            </Text>
+          )}
+        </View>
       </View>
     </SafeAreaView>
   );

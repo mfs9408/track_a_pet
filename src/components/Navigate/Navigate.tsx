@@ -18,6 +18,7 @@ import { commonColors, fonts } from "../../theme";
 import { EPage } from "../../enums";
 import AppointmentList from "../../pages/AppointmentsList";
 import CreateAppointmentPage from "../../pages/CreateAppointmentPage";
+import AbuseInformationPage from "../../pages/AbuseInformationPage";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -112,6 +113,14 @@ const Navigate = () => {
             <Stack.Screen
               name={EPage.CREATE_APPOINTMENT}
               component={CreateAppointmentPage}
+              options={{
+                title: "",
+                headerTintColor: commonColors.primary.color,
+              }}
+            />
+            <Stack.Screen
+              name={EPage.ABUSE_INFORMATION}
+              component={AbuseInformationPage}
               options={{
                 title: "",
                 headerTintColor: commonColors.primary.color,

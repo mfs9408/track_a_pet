@@ -15,7 +15,7 @@ const RemindBuilder = (data: RowItemProps) => {
   //     return <ActivityCard {...data} />;
   //
   //   // case ERemindersType.APPOINTMENT:
-  //   //   return <AppointmentCard {...data} />;
+  //   //   return <AppointmentCurrentCard {...data} />;
   // }
 
   return <ActivityCard {...data} />

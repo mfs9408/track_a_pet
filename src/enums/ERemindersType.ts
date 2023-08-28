@@ -1,5 +1,6 @@
 export enum ERemindersType {
   MAIN_PAGE_ACTIVITY = "mainPageActivity",
-  CURRENT_REMINDER_PAGE = "currentReminderPage",
-  APPOINTMENT = "appointment",
+  MAIN_PAGE_APPOINTMENT = "mainPageAppointment",
+  CURRENT_REMINDER = "currentReminderPage",
+  CURRENT_APPOINTMENT = "appointment",
 }

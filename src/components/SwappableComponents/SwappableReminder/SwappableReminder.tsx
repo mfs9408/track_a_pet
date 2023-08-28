@@ -35,6 +35,7 @@ const SwappableReminder = ({ item, itemRefs, drag }: ISwappableReminder) => {
       itemRefs={itemRefs}
       drag={drag}
       onPressDelete={onPressDelete}
+      edit
     >
       <Pressable
         onLongPress={() =>

@@ -1,5 +1,4 @@
 import { StyleSheet } from "react-native";
-import { commonColors } from "../../../theme";
 
 export const makeStyles = () =>
   StyleSheet.create({
@@ -10,20 +9,30 @@ export const makeStyles = () =>
       paddingVertical: 10,
       marginBottom: 20,
     },
-    closeButtonContainer: {
-      backgroundColor: commonColors.error.color,
-      height: "100%",
-      borderBottomRightRadius: 10,
-      borderTopRightRadius: 10,
-      paddingHorizontal: 20,
-      justifyContent: "center",
+    wrapper: {
+      flex: 1,
+      flexDirection: "row",
+      justifyContent: "space-between",
     },
-    editButtonContainer: {
-      backgroundColor: commonColors.primary.color,
-      // backgroundColor: "#42a5f5",
+    iconWrapper: {
+      flexDirection: "row",
+      marginBottom: 8,
+      alignItems: "center",
+    },
+    icon: {
+      marginRight: 10,
+    },
+    descriptionContainer: {
+      flexDirection: "column",
+      flex: 5,
+    },
+    timeContainer: {
+      flex: 1,
+    },
+    closeButtonContainer: {
+      backgroundColor: "#F0EFF4",
       height: "100%",
-      borderBottomLeftRadius: 10,
-      borderTopLeftRadius: 10,
+      borderRadius: 10,
       paddingHorizontal: 20,
       justifyContent: "center",
     },
@@ -33,5 +42,8 @@ export const makeStyles = () =>
       flexDirection: "row",
       alignItems: "center",
       justifyContent: "flex-end",
+    },
+    textDescription: {
+      marginBottom: 10,
     },
   });

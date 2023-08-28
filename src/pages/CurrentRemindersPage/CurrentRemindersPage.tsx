@@ -22,7 +22,7 @@ const CurrentRemindersPage = () => {
         <DraggableFlat
           style={classes.flatList}
           data={allReminders}
-          type={ERemindersType.CURRENT_REMINDER_PAGE}
+          type={ERemindersType.CURRENT_REMINDER}
         />
       )}
       <View style={[commonStyles.commonWrapper]}>

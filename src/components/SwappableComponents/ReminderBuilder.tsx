@@ -6,6 +6,7 @@ import SwappableReminder from "./SwappableReminder";
 import ActivityCard from "./ActivityCard";
 import AppointmentCard from "./AppointmentCard";
 import { IAppointmentItem } from "../../interfaces";
+import AppointmentCurrentCard from "./AppointmentCurrentCard";
 
 export type TReminderBuilder = IActivity | IAppointmentItem;
 
@@ -16,11 +17,13 @@ const ReminderBuilder = (
   type: ERemindersType
 ) => {
   switch (type) {
-    case ERemindersType.CURRENT_REMINDER_PAGE:
-      return <SwappableReminder itemRefs={itemRefs} {...params} />;
     case ERemindersType.MAIN_PAGE_ACTIVITY:
       return <ActivityCard itemRefs={itemRefs} {...params} />;
-    case ERemindersType.APPOINTMENT:
+    case ERemindersType.MAIN_PAGE_APPOINTMENT:
+      return <AppointmentCurrentCard itemRefs={itemRefs} {...params} />;
+    case ERemindersType.CURRENT_REMINDER:
+      return <SwappableReminder itemRefs={itemRefs} {...params} />;
+    case ERemindersType.CURRENT_APPOINTMENT:
       return <AppointmentCard itemRefs={itemRefs} {...params} />;
   }
 };

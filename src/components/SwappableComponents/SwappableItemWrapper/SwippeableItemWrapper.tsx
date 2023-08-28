@@ -15,9 +15,11 @@ export type TSwappableItemWrapper = {
   item: TReminderBuilder;
   drag: () => void;
   onPressDelete: () => void;
+  onPressEdit?: () => void;
   itemRefs: React.MutableRefObject<Map<any, any>>;
   buttonStyle?: any;
   buttonColor?: any;
+  edit?: boolean;
 } & PropsWithChildren;
 
 const classes = makeStyles();
@@ -27,9 +29,11 @@ const SwappableItemWrapper = ({
   itemRefs,
   drag,
   onPressDelete,
+  onPressEdit,
   children,
   buttonStyle,
   buttonColor,
+  edit,
 }: TSwappableItemWrapper) => {
   return (
     <SwappableItem
@@ -52,11 +56,13 @@ const SwappableItemWrapper = ({
         <UnderlayLeft
           drag={drag}
           onPressDelete={onPressDelete}
+          onPressEdit={onPressEdit}
           buttonStyle={buttonStyle}
           buttonColor={buttonColor}
+          edit={edit}
         />
       )}
-      snapPointsLeft={[85]}
+      snapPointsLeft={edit ? [150] : [80]}
     >
       {children}
     </SwappableItem>
@@ -67,11 +73,15 @@ const UnderlayLeft = ({
   onPressDelete,
   buttonStyle,
   buttonColor,
+  onPressEdit,
+  edit,
 }: {
   drag: () => void;
   onPressDelete: () => void;
+  onPressEdit?: () => void;
   buttonStyle?: any;
   buttonColor?: any;
+  edit?: boolean;
 }) => {
   const { percentOpen } = useSwipeableItemParams<IActivityItem>();
   const animStyle = useAnimatedStyle(
@@ -83,6 +93,19 @@ const UnderlayLeft = ({
 
   return (
     <Animated.View style={[classes.underlayLeft, animStyle]}>
+      {edit && (
+        <TouchableOpacity
+          onPress={onPressEdit}
+          style={[
+            commonStyles.boxShadow,
+            classes.editButtonContainer,
+            buttonStyle,
+            buttonColor,
+          ]}
+        >
+          <MaterialIcons name="edit" size={24} color={buttonColor || "#fff"} />
+        </TouchableOpacity>
+      )}
       <TouchableOpacity
         onPress={onPressDelete}
         style={[

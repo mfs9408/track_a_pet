@@ -118,7 +118,7 @@ const MainPage = () => {
             data={currentAppointments}
             style={{ maxHeight: 250 }}
             contentContainerStyle={[classes.commonPadding]}
-            type={ERemindersType.APPOINTMENT}
+            type={ERemindersType.MAIN_PAGE_APPOINTMENT}
           />
           {currentAppointments.length === 0 && (
             <Text

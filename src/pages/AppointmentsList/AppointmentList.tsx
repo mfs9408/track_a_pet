@@ -24,7 +24,7 @@ const AppointmentList = () => {
         <DraggableFlat
           style={classes.flatList}
           data={allAppointments}
-          type={ERemindersType.APPOINTMENT}
+          type={ERemindersType.CURRENT_APPOINTMENT}
         />
       )}
       <View style={[commonStyles.commonWrapper]}>

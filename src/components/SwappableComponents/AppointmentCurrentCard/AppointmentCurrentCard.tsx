@@ -1,6 +1,5 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { useNavigation } from "@react-navigation/native";
 import { View, Text, LayoutAnimation } from "react-native";
 import { commonColors, commonStyles } from "../../../theme";
 import { IAppointmentItem } from "../../../store/remindersStore/slice";
@@ -8,6 +7,7 @@ import SwappableItemWrapper from "../SwappableItemWrapper";
 import { remindersActions } from "../../../store/remindersStore";
 import { getDate } from "../../../helpers";
 import { makeStyles } from "./styles";
+import { useNavigation } from "@react-navigation/native";
 import { EPage } from "../../../enums";
 
 export type RowItemProps = {
@@ -19,7 +19,7 @@ export type RowItemProps = {
 
 const classes = makeStyles();
 
-const AppointmentCard = ({ item, itemRefs, drag }: RowItemProps) => {
+const AppointmentCurrentCard = ({ item, itemRefs, drag }: RowItemProps) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
@@ -39,7 +39,14 @@ const AppointmentCard = ({ item, itemRefs, drag }: RowItemProps) => {
       drag={drag}
       onPressDelete={onPressDelete}
       onPressEdit={onPressEdit}
-      edit
+      buttonStyle={{
+        backgroundColor: "#F0EFF4",
+        height: "100%",
+        borderRadius: 10,
+        paddingHorizontal: 20,
+        justifyContent: "center",
+      }}
+      buttonColor={commonColors.primary.color}
     >
       <View style={[commonStyles.boxShadow, classes.container]}>
         <View style={classes.wrapper}>
@@ -77,4 +84,4 @@ const AppointmentCard = ({ item, itemRefs, drag }: RowItemProps) => {
   );
 };
 
-export default AppointmentCard;
+export default AppointmentCurrentCard;

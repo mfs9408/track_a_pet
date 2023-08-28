@@ -46,6 +46,8 @@ const PetPage = () => {
     identification,
     vaccination,
     veterinarianInfo,
+    lost,
+    loseAddress,
   } = currentPet as IPetsTypes;
 
   return (
@@ -229,6 +231,28 @@ const PetPage = () => {
                 </View>
               )}
             </View>
+          )}
+          {lost && (
+            <>
+              <View style={classes.iconContainer}>
+                <MaterialIcons
+                  name="remove-red-eye"
+                  size={20}
+                  color={commonColors.error.color}
+                  style={classes.icon}
+                />
+                <Text style={[commonStyles.p1, commonColors.error]}>Pet is lost</Text>
+              </View>
+              <Text style={[commonStyles.p2, commonColors.darkGrey]}>
+                &#8728; Street: {loseAddress?.street}
+              </Text>
+              <Text style={[commonStyles.p2, commonColors.darkGrey]}>
+                &#8728; Zip: {loseAddress?.zip}
+              </Text>
+              <Text style={[commonStyles.p2, commonColors.darkGrey]}>
+                &#8728; City: {loseAddress?.city}
+              </Text>
+            </>
           )}
         </View>
         <ModalWindow

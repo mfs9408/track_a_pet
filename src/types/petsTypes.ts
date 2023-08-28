@@ -18,7 +18,11 @@ export interface IPetsTypes {
   description?: string;
   image?: string[] | null;
   lost: boolean;
-  loseAddress?: string;
+  loseAddress?: {
+    street: string;
+    zip: string;
+    city: string;
+  };
   loseDate?: string;
   remindIDs?: number[];
   birthDay?: string;

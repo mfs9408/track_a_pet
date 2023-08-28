@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { SafeAreaView, ScrollView, Text, View } from "react-native";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { useNavigation, useRoute } from "@react-navigation/native";
@@ -6,7 +6,6 @@ import { useDispatch } from "react-redux";
 import "react-native-get-random-values";
 import { v4 as uuidv4 } from "uuid";
 import TextField from "../../components/TextField";
-import Keyboard from "../../components/Keyboard";
 import Chip from "../../components/Chip";
 import Button from "../../components/Button";
 import Select from "../../components/Select";
@@ -16,6 +15,7 @@ import { EPage, EPetGenderType, EPetType } from "../../enums";
 import { IAddForm, RoutePropsProps } from "../../types";
 import { commonColors, commonStyles } from "../../theme";
 import { makeStyles } from "./styles";
+import Switch from "../../components/Switch";
 
 const PET_TYPE = [
   { id: EPetType.CAT, value: "Cat" },
@@ -37,6 +37,8 @@ const AddPet = () => {
     control,
     handleSubmit,
     reset,
+    watch,
+    resetField,
     formState: { errors },
   } = useForm<IAddForm>({
     defaultValues: {
@@ -72,6 +74,11 @@ const AddPet = () => {
       },
       lost: petsData?.lost || false,
       birthDay: petsData?.birthDay || "01.01.2023",
+      loseAddress: {
+        street: petsData?.loseAddress?.street || "",
+        zip: petsData?.loseAddress?.zip || "",
+        city: petsData?.loseAddress?.city || "",
+      },
     },
   });
 
@@ -87,234 +94,313 @@ const AddPet = () => {
     }
   };
 
+  const isPetLost = watch("lost");
+
+  useEffect(() => {
+    if (!isPetLost) {
+      resetField("loseAddress");
+    }
+  }, [isPetLost]);
+
   const onReset = () => {
     reset();
   };
 
   return (
-    <Keyboard>
-      <SafeAreaView style={[commonStyles.commonContainer]}>
-        <ScrollView style={[commonStyles.commonWrapper, { paddingBottom: 50 }]}>
-          <Controller
-            name="name"
-            control={control}
-            rules={{ required: true }}
-            render={({ field: { onChange, value } }) => (
-              <>
-                <Text style={[commonStyles.p1, classes.text]}>Pet name *</Text>
-                <TextField
-                  value={value}
-                  placeholder="Pet's name"
-                  onChange={onChange}
-                  error={!!errors.name}
-                />
-              </>
-            )}
-          />
-          <View style={classes.container}>
-            <Controller
-              name="gender"
-              control={control}
-              render={({ field: { onChange, value } }) => (
-                <>
-                  <Text style={[commonStyles.p1, classes.text]}>Gender</Text>
-                  <View style={classes.genderChipContainer}>
-                    <Chip
-                      label="Female"
-                      id={EPetGenderType.FEMALE}
-                      value={value}
-                      //@ts-ignore added task to fix
-                      onChange={onChange}
-                    />
-                    <Chip
-                      label="Male"
-                      id={EPetGenderType.MALE}
-                      value={value}
-                      //@ts-ignore added task to fix
-                      onChange={onChange}
-                    />
-                    <Chip
-                      label="Unknown"
-                      id={EPetGenderType.UNKNOWN}
-                      value={value}
-                      //@ts-ignore added task to fix
-                      onChange={onChange}
-                    />
-                  </View>
-                </>
-              )}
+    <SafeAreaView style={[commonStyles.commonContainer]}>
+      <ScrollView style={[commonStyles.commonWrapper, { paddingBottom: 50 }]}>
+        <Controller
+          name="name"
+          control={control}
+          rules={{ required: true }}
+          render={({ field: { onChange, value } }) => (
+            <TextField
+              label="Pet name *"
+              value={value}
+              placeholder="Pet's name"
+              onChange={onChange}
+              error={!!errors.name}
             />
-          </View>
-          <Controller
-            name="petType"
-            control={control}
-            rules={{ required: true }}
-            render={({ field: { onChange, value } }) => (
-              <Select
-                label="Pet *"
-                placeholder={{ id: null, value: "Select pet type" }}
-                items={PET_TYPE}
-                value={value}
-                onValueChange={onChange}
-                error={!!errors.petType}
-              />
-            )}
-          />
-          <Controller
-            name="color"
-            control={control}
-            render={({ field: { onChange, value } }) => (
-              <TextField
-                label="Color"
-                value={value}
-                placeholder="Pet's color"
-                onChange={onChange}
-              />
-            )}
-          />
-          <Controller
-            name="weight"
-            control={control}
-            render={({ field: { onChange, value } }) => (
-              <TextField
-                label="Weight"
-                value={value}
-                placeholder="Pet's weight (lb)"
-                onChange={onChange}
-              />
-            )}
-          />
-          <Controller
-            name="age"
-            control={control}
-            render={({ field: { onChange, value } }) => (
-              <TextField
-                label="Age"
-                value={value}
-                placeholder="Pet's age"
-                onChange={onChange}
-              />
-            )}
-          />
-          <Controller
-            name="identification.microchip"
-            control={control}
-            render={({ field: { onChange, value } }) => (
-              <TextField
-                label="Microchip number"
-                value={value}
-                placeholder="Microchip number"
-                onChange={onChange}
-                styles={classes.textField}
-              />
-            )}
-          />
-          <Controller
-            name="identification.description"
-            control={control}
-            render={({ field: { onChange, value } }) => (
-              <TextField
-                value={value}
-                placeholder="Description"
-                onChange={onChange}
-              />
-            )}
-          />
-          <Controller
-            name="diet"
-            control={control}
-            render={({ field: { onChange, value } }) => (
-              <>
-                <TextField
-                  label={`Pet's diet`}
-                  value={value}
-                  placeholder="Pet's diet"
-                  onChange={onChange}
-                />
-              </>
-            )}
-          />
-          <View style={{marginBottom: 20}}>
-            <Text style={[commonStyles.p1, { marginBottom: 10 }]}>
-              Veterinarian info
-            </Text>
-            <Controller
-              name="veterinarianInfo.vet"
-              control={control}
-              render={({ field: { onChange, value } }) => (
-                <>
-                  <TextField
-                    value={value}
-                    placeholder="Veterinarian"
-                    onChange={onChange}
-                    styles={{ marginBottom: 10 }}
-                  />
-                </>
-              )}
-            />
-            <Controller
-              name="veterinarianInfo.clinic"
-              control={control}
-              render={({ field: { onChange, value } }) => (
-                <>
-                  <TextField
-                    value={value}
-                    placeholder="Clinic"
-                    onChange={onChange}
-                    styles={{ marginBottom: 10 }}
-                  />
-                </>
-              )}
-            />
-            <Controller
-              name="veterinarianInfo.address"
-              control={control}
-              render={({ field: { onChange, value } }) => (
-                <>
-                  <TextField
-                    value={value}
-                    placeholder="Address"
-                    onChange={onChange}
-                    styles={{ marginBottom: 10 }}
-                  />
-                </>
-              )}
-            />
-            <Controller
-              name="veterinarianInfo.phone"
-              control={control}
-              render={({ field: { onChange, value } }) => (
-                <>
-                  <TextField
-                    value={value}
-                    placeholder="Phone"
-                    onChange={onChange}
-                  />
-                </>
-              )}
-            />
-          </View>
-          {isErrorExist && (
-            <View style={classes.container}>
-              <Text style={[commonStyles.p1, commonColors.error]}>
-                Please fill in all mandatory fields
-              </Text>
-            </View>
           )}
-          <View style={[classes.container, classes.buttonsContainer]}>
-            <Button
-              title="Reset all"
-              onPress={onReset}
-              textStyles={commonColors.whiteColor}
+        />
+        <View style={classes.container}>
+          <Controller
+            name="gender"
+            control={control}
+            render={({ field: { onChange, value } }) => (
+              <>
+                <Text style={[commonStyles.p1, classes.text]}>Gender</Text>
+                <View style={classes.genderChipContainer}>
+                  <Chip
+                    label="Female"
+                    id={EPetGenderType.FEMALE}
+                    value={value}
+                    //@ts-ignore added task to fix
+                    onChange={onChange}
+                  />
+                  <Chip
+                    label="Male"
+                    id={EPetGenderType.MALE}
+                    value={value}
+                    //@ts-ignore added task to fix
+                    onChange={onChange}
+                  />
+                  <Chip
+                    label="Unknown"
+                    id={EPetGenderType.UNKNOWN}
+                    value={value}
+                    //@ts-ignore added task to fix
+                    onChange={onChange}
+                  />
+                </View>
+              </>
+            )}
+          />
+        </View>
+        <Controller
+          name="petType"
+          control={control}
+          rules={{ required: true }}
+          render={({ field: { onChange, value } }) => (
+            <Select
+              label="Pet *"
+              placeholder={{ id: null, value: "Select pet type" }}
+              items={PET_TYPE}
+              value={value}
+              onValueChange={onChange}
+              error={!!errors.petType}
             />
-            <Button
-              title={petId ? "Edit pet" : "Add pet"}
-              onPress={handleSubmit(onSubmit)}
+          )}
+        />
+        <Controller
+          name="color"
+          control={control}
+          render={({ field: { onChange, value } }) => (
+            <TextField
+              label="Color"
+              value={value}
+              placeholder="Pet's color"
+              onChange={onChange}
             />
+          )}
+        />
+        <Controller
+          name="weight"
+          control={control}
+          render={({ field: { onChange, value } }) => (
+            <TextField
+              label="Weight"
+              value={value}
+              placeholder="Pet's weight (lb)"
+              onChange={onChange}
+            />
+          )}
+        />
+        <Controller
+          name="age"
+          control={control}
+          render={({ field: { onChange, value } }) => (
+            <TextField
+              label="Age"
+              value={value}
+              placeholder="Pet's age"
+              onChange={onChange}
+            />
+          )}
+        />
+        <Controller
+          name="identification.microchip"
+          control={control}
+          render={({ field: { onChange, value } }) => (
+            <TextField
+              label="Microchip number"
+              value={value}
+              placeholder="Microchip number"
+              onChange={onChange}
+              styles={classes.textField}
+            />
+          )}
+        />
+        <Controller
+          name="identification.description"
+          control={control}
+          render={({ field: { onChange, value } }) => (
+            <TextField
+              value={value}
+              placeholder="Description"
+              onChange={onChange}
+            />
+          )}
+        />
+        <Controller
+          name="diet"
+          control={control}
+          render={({ field: { onChange, value } }) => (
+            <>
+              <TextField
+                label={`Pet's diet`}
+                value={value}
+                placeholder="Pet's diet"
+                onChange={onChange}
+              />
+            </>
+          )}
+        />
+        <View style={{ marginBottom: 20 }}>
+          <Text style={[commonStyles.p1, { marginBottom: 10 }]}>
+            Veterinarian info
+          </Text>
+          <Controller
+            name="veterinarianInfo.vet"
+            control={control}
+            render={({ field: { onChange, value } }) => (
+              <>
+                <TextField
+                  value={value}
+                  placeholder="Veterinarian"
+                  onChange={onChange}
+                  styles={{ marginBottom: 10 }}
+                />
+              </>
+            )}
+          />
+          <Controller
+            name="veterinarianInfo.clinic"
+            control={control}
+            render={({ field: { onChange, value } }) => (
+              <>
+                <TextField
+                  value={value}
+                  placeholder="Clinic"
+                  onChange={onChange}
+                  styles={{ marginBottom: 10 }}
+                />
+              </>
+            )}
+          />
+          <Controller
+            name="veterinarianInfo.address"
+            control={control}
+            render={({ field: { onChange, value } }) => (
+              <>
+                <TextField
+                  value={value}
+                  placeholder="Address"
+                  onChange={onChange}
+                  styles={{ marginBottom: 10 }}
+                />
+              </>
+            )}
+          />
+          <Controller
+            name="veterinarianInfo.phone"
+            control={control}
+            render={({ field: { onChange, value } }) => (
+              <>
+                <TextField
+                  value={value}
+                  placeholder="Phone"
+                  onChange={onChange}
+                />
+              </>
+            )}
+          />
+          <Controller
+            name="lost"
+            control={control}
+            render={({ field: { onChange, value } }) => (
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                }}
+              >
+                <Text
+                  style={[
+                    commonStyles.p1,
+                    commonStyles.marginBottom20,
+                    { marginTop: 10 },
+                  ]}
+                >
+                  Is your pet lost?
+                </Text>
+                <Switch
+                  value={value}
+                  toggleSwitch={onChange}
+                  styles={{ marginTop: 5 }}
+                />
+              </View>
+            )}
+          />
+          {isPetLost && (
+            <>
+              <Controller
+                name="loseAddress.street"
+                control={control}
+                render={({ field: { onChange, value } }) => (
+                  <>
+                    <TextField
+                      label="Address of lose"
+                      value={value}
+                      placeholder="Ex: Bedford ave"
+                      onChange={onChange}
+                    />
+                  </>
+                )}
+              />
+              <Controller
+                name="loseAddress.zip"
+                rules={{ required: true }}
+                control={control}
+                render={({ field: { onChange, value } }) => (
+                  <>
+                    <TextField
+                      value={value}
+                      placeholder="Ex: 11235"
+                      onChange={onChange}
+                      error={!!errors.name}
+                    />
+                  </>
+                )}
+              />
+              <Controller
+                name="loseAddress.city"
+                rules={{ required: true }}
+                control={control}
+                render={({ field: { onChange, value } }) => (
+                  <>
+                    <TextField
+                      value={value}
+                      placeholder="Ex: Brooklyn"
+                      onChange={onChange}
+                      error={!!errors.name}
+                    />
+                  </>
+                )}
+              />
+            </>
+          )}
+        </View>
+        {isErrorExist && (
+          <View style={classes.container}>
+            <Text style={[commonStyles.p1, commonColors.error]}>
+              Please fill in all mandatory fields
+            </Text>
           </View>
-        </ScrollView>
-      </SafeAreaView>
-    </Keyboard>
+        )}
+        <View style={[classes.container, classes.buttonsContainer]}>
+          <Button
+            title="Reset all"
+            onPress={onReset}
+            textStyles={commonColors.whiteColor}
+          />
+          <Button
+            title={petId ? "Edit pet" : "Add pet"}
+            onPress={handleSubmit(onSubmit)}
+          />
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 

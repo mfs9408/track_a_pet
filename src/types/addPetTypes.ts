@@ -9,6 +9,11 @@ export interface IAddForm {
   weight: string;
   color: string;
   lost: boolean;
+  loseAddress?: {
+    street: string;
+    zip: string;
+    city: string;
+  };
   petType: {
     value: string;
     id: string;

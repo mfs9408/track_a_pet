@@ -72,7 +72,7 @@ const CreateReminderPage = () => {
         id: ERepeatType.NEVER,
         value: "Never",
       },
-      when: editData?.when || new Date(),
+      when: editData?.when ? new Date(editData.when) : new Date(),
       endDate: editData?.endDate || undefined,
       nextRepeat: editData?.when || new Date(),
     },

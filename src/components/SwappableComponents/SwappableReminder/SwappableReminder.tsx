@@ -29,22 +29,23 @@ const SwappableReminder = ({ item, itemRefs, drag }: ISwappableReminder) => {
     dispatch(remindersActions.removeReminder({ id: item.id }));
   };
 
+  const onPressEdit = () => {
+    navigation.navigate(EPage.CREATE_REMINDER, {
+      reminderType: item.type,
+      reminderId: item.id,
+    });
+  };
+
   return (
     <SwappableItemWrapper
       item={item}
       itemRefs={itemRefs}
       drag={drag}
       onPressDelete={onPressDelete}
+      onPressEdit={onPressEdit}
       edit
     >
-      <Pressable
-        onLongPress={() =>
-          navigation.navigate(EPage.CREATE_REMINDER, {
-            reminderType: item.type,
-            reminderId: item.id,
-          })
-        }
-      >
+      <Pressable>
         <View style={[commonStyles.boxShadow, classes.container]}>
           <View style={classes.itemContainer}>
             <View style={classes.icon}>{getIcon(item.type)}</View>

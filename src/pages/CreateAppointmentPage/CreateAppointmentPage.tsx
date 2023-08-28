@@ -25,7 +25,7 @@ const CreateAppointmentPage = () => {
   const navigation = useNavigation();
   const route = useRoute<RoutePropsProps<EPage.CREATE_APPOINTMENT>>();
   const appointmentId = route.params?.id;
-  const petsData = useSelector((state) =>
+  const appointmentData = useSelector((state) =>
     state.reminders.appointments.find((item) => item.id === appointmentId)
   );
 
@@ -43,13 +43,13 @@ const CreateAppointmentPage = () => {
     formState: { errors },
   } = useForm<IAppointmentItem>({
     defaultValues: {
-      id: petsData?.id || uuidv4(),
-      pet: petsData?.pet || (pets && pets.length == 1) ? pets[0] : null,
-      type: petsData?.type || "",
-      when: petsData?.when || new Date(),
-      description: petsData?.description || "",
-      doctorName: petsData?.doctorName || "",
-      address: petsData?.address || "",
+      id: appointmentData?.id || uuidv4(),
+      pet: appointmentData?.pet || (pets && pets.length == 1) ? pets[0] : null,
+      type: appointmentData?.type || "",
+      when: appointmentData?.when ? new Date(appointmentData.when) : new Date(),
+      description: appointmentData?.description || "",
+      doctorName: appointmentData?.doctorName || "",
+      address: appointmentData?.address || "",
     },
   });
 

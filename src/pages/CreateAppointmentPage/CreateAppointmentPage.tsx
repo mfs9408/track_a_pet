@@ -24,6 +24,10 @@ const CreateAppointmentPage = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const route = useRoute<RoutePropsProps<EPage.CREATE_APPOINTMENT>>();
+  const appointmentId = route.params?.id;
+  const petsData = useSelector((state) =>
+    state.reminders.appointments.find((item) => item.id === appointmentId)
+  );
 
   const pets = useSelector((state) => state.pets).map((item) => ({
     id: item.id,
@@ -32,25 +36,20 @@ const CreateAppointmentPage = () => {
 
   const currentDate = new Date();
 
-  const id = route.params?.id;
-  const editData = useSelector((state) =>
-    state.reminders.appointments?.find((reminder) => reminder.id === id)
-  );
-
   const {
     control,
     handleSubmit,
     reset,
     formState: { errors },
   } = useForm<IAppointmentItem>({
-    defaultValues: editData || {
-      id: uuidv4(),
-      pet: editData?.pet || (pets && pets.length == 1) ? pets[0] : null,
-      type: "",
-      when: editData?.time || new Date(),
-      description: "",
-      doctorName: "",
-      address: "",
+    defaultValues: {
+      id: petsData?.id || uuidv4(),
+      pet: petsData?.pet || (pets && pets.length == 1) ? pets[0] : null,
+      type: petsData?.type || "",
+      when: petsData?.when || new Date(),
+      description: petsData?.description || "",
+      doctorName: petsData?.doctorName || "",
+      address: petsData?.address || "",
     },
   });
 
@@ -59,8 +58,15 @@ const CreateAppointmentPage = () => {
   const onSubmit: SubmitHandler<IAppointmentItem> = (data) => {
     const updatedData = {
       ...data,
-      time: data.when.toISOString(),
+      time: data.when,
     };
+
+    if (appointmentId) {
+      dispatch(remindersActions.editAppointment(updatedData));
+
+      return navigation.navigate(EPage.APPOINTMENT_LIST);
+    }
+
     dispatch(remindersActions.addAppointment(updatedData));
     navigation.navigate(EPage.APPOINTMENT_LIST);
   };
@@ -71,7 +77,9 @@ const CreateAppointmentPage = () => {
     >
       <View style={classes.viewWrapper}>
         <View style={classes.header}>
-          <Text style={commonStyles.h2}>Make an appointment</Text>
+          <Text style={commonStyles.h2}>
+            {appointmentId ? "Edit" : "Make"} an appointment
+          </Text>
         </View>
         <Controller
           name="pet"
@@ -167,7 +175,7 @@ const CreateAppointmentPage = () => {
             }}
           />
           <Button
-            title="Make an  appointment"
+            title={`${appointmentId ? "Edit" : "Make"} appointment`}
             onPress={handleSubmit(onSubmit)}
           />
         </View>

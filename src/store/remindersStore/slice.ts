@@ -103,6 +103,12 @@ const remindersSlice = createSlice({
         ? (state.appointments = filteredActivity)
         : state.appointments;
     },
+    editAppointment: (state, { payload }: PayloadAction<IAppointmentItem>) => {
+      const index = state.appointments.findIndex(
+        (item) => item.id === payload.id
+      );
+      state.appointments[index] = payload;
+    },
     foo: (state) => {
       state.appointments = [];
     },

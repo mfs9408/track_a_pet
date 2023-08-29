@@ -11,15 +11,29 @@ import Button from "../../components/Button";
 import Select from "../../components/Select";
 import { useSelector } from "../../store";
 import { petsActions } from "../../store/petsStore/slice";
-import { EPage, EPetGenderType, EPetType } from "../../enums";
+import { EPage, EPetGenderType, EPetStatus, EPetType } from "../../enums";
 import { IAddForm, RoutePropsProps } from "../../types";
 import { commonColors, commonStyles } from "../../theme";
 import { makeStyles } from "./styles";
-import Switch from "../../components/Switch";
 
 const PET_TYPE = [
   { id: EPetType.CAT, value: "Cat" },
   { id: EPetType.DOG, value: "Dog" },
+];
+
+const PET_STATUS = [
+  {
+    id: EPetStatus.LOST,
+    value: "Lost",
+  },
+  {
+    id: EPetStatus.FOUND,
+    value: "Found",
+  },
+  {
+    id: EPetStatus.OWNER,
+    value: "Owner",
+  },
 ];
 
 const AddPet = () => {
@@ -38,7 +52,7 @@ const AddPet = () => {
     handleSubmit,
     reset,
     watch,
-    resetField,
+    setValue,
     formState: { errors },
   } = useForm<IAddForm>({
     defaultValues: {
@@ -57,6 +71,10 @@ const AddPet = () => {
       petType: petsData?.petType || null,
       diet: petsData?.diet || "",
       insurance: petsData?.insurance || "",
+      petStatus: petsData?.petStatus || {
+        id: EPetStatus.OWNER,
+        value: "Owner",
+      },
       identification: petsData?.identification || {
         microchip: "",
         description: "",
@@ -72,7 +90,6 @@ const AddPet = () => {
         address: "",
         phone: "",
       },
-      lost: petsData?.lost || false,
       birthDay: petsData?.birthDay || "01.01.2023",
       loseAddress: {
         street: petsData?.loseAddress?.street || "",
@@ -94,13 +111,14 @@ const AddPet = () => {
     }
   };
 
-  const isPetLost = watch("lost");
+  const petStatus = watch("petStatus").id;
+  const isPetLostOrFound = petStatus !== EPetStatus.OWNER;
 
   useEffect(() => {
-    if (!isPetLost) {
-      resetField("loseAddress");
+    if (!isPetLostOrFound) {
+      setValue("loseAddress", { street: "", zip: "", city: "" });
     }
-  }, [isPetLost]);
+  }, [isPetLostOrFound]);
 
   const onReset = () => {
     reset();
@@ -306,33 +324,22 @@ const AddPet = () => {
             )}
           />
           <Controller
-            name="lost"
+            name="petStatus"
             control={control}
+            rules={{ required: true }}
             render={({ field: { onChange, value } }) => (
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                }}
-              >
-                <Text
-                  style={[
-                    commonStyles.p1,
-                    commonStyles.marginBottom20,
-                    { marginTop: 10 },
-                  ]}
-                >
-                  Is your pet lost?
-                </Text>
-                <Switch
-                  value={value}
-                  toggleSwitch={onChange}
-                  styles={{ marginTop: 5 }}
-                />
-              </View>
+              <Select
+                label="Pet status"
+                placeholder={{ id: null, value: "Select pet status" }}
+                items={PET_STATUS}
+                value={value}
+                onValueChange={onChange}
+                error={!!errors.petStatus}
+              />
             )}
           />
-          {isPetLost && (
+
+          {isPetLostOrFound && (
             <>
               <Controller
                 name="loseAddress.street"

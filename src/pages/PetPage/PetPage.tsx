@@ -12,11 +12,11 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { Carousel } from "react-native-basic-carousel";
 import { commonColors, commonStyles } from "../../theme";
-import { RoutePropsProps, IPetsTypes } from "../../types";
+import { IPetsTypes, RoutePropsProps } from "../../types";
 import { petsActions } from "../../store/petsStore/slice";
 import ModalWindow from "../../components/ModalWindow";
 import Button from "../../components/Button";
-import { EPage, EPetGenderType } from "../../enums";
+import { EPage, EPetGenderType, EPetStatus } from "../../enums";
 import InfoBox from "../../components/InfoBox";
 import Gender from "../../components/Gender";
 import { isDataInObject } from "../../helpers";
@@ -46,7 +46,7 @@ const PetPage = () => {
     identification,
     vaccination,
     veterinarianInfo,
-    lost,
+    petStatus,
     loseAddress,
   } = currentPet as IPetsTypes;
 
@@ -85,9 +85,9 @@ const PetPage = () => {
         </View>
         <View style={classes.infoContainer}>
           <InfoBox title={petType?.value} description={"Pet"} />
-          {color && <InfoBox title={color} description={"Color"} />}
-          {weight && <InfoBox title={weight} description={"Weight"} />}
-          {age && <InfoBox title={age} description={"Age"} />}
+          <InfoBox title={color || "Unknown"} description={"Color"} />
+          <InfoBox title={weight || "Unknown"} description={"Weight"} />
+          <InfoBox title={age || "Unknown"} description={"Age"} />
         </View>
         <View style={classes.dataWrapper}>
           {diet && (
@@ -232,7 +232,7 @@ const PetPage = () => {
               )}
             </View>
           )}
-          {lost && (
+          {petStatus?.id !== EPetStatus.OWNER && (
             <>
               <View style={classes.iconContainer}>
                 <MaterialIcons
@@ -242,7 +242,7 @@ const PetPage = () => {
                   style={classes.icon}
                 />
                 <Text style={[commonStyles.p1, commonColors.error]}>
-                  Pet is lost
+                  Pet is {petStatus?.id}
                 </Text>
               </View>
               <Text style={[commonStyles.p2, commonColors.darkGrey]}>

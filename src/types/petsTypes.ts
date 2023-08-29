@@ -1,4 +1,4 @@
-import { EPetGenderType } from "../enums";
+import { EPetGenderType, EPetStatus } from "../enums";
 
 export interface IPetsTypes {
   id: string;
@@ -17,11 +17,14 @@ export interface IPetsTypes {
   gender?: EPetGenderType;
   description?: string;
   image?: string[] | null;
-  lost: boolean;
   loseAddress?: {
     street: string;
     zip: string;
     city: string;
+  };
+  petStatus: {
+    value: string;
+    id: EPetStatus;
   };
   loseDate?: string;
   remindIDs?: number[];

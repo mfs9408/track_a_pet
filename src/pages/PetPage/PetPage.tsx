@@ -241,7 +241,9 @@ const PetPage = () => {
                   color={commonColors.error.color}
                   style={classes.icon}
                 />
-                <Text style={[commonStyles.p1, commonColors.error]}>Pet is lost</Text>
+                <Text style={[commonStyles.p1, commonColors.error]}>
+                  Pet is lost
+                </Text>
               </View>
               <Text style={[commonStyles.p2, commonColors.darkGrey]}>
                 &#8728; Street: {loseAddress?.street}

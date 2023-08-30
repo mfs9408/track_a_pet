@@ -1,17 +1,25 @@
 import React, { useState } from "react";
 import { SafeAreaView, Switch, Text, View } from "react-native";
 import { Avatar } from "react-native-paper";
+import { useDispatch } from "react-redux";
 import { AntDesign } from "@expo/vector-icons";
 import ProfileCard from "../../components/ProfileCard";
 import { commonColors, commonStyles } from "../../theme";
 import { getAvatar } from "../../helpers/getAvatar";
 import { EGenderType, EPage } from "../../enums";
 import { useSelector } from "../../store";
+import { useNavigation } from "@react-navigation/native";
+import ModalWindow from "../../components/ModalWindow";
+import Button from "../../components/Button";
+import { userActions } from "../../store/user";
 import { makeStyles } from "./styles";
 
 const ProfilePage = () => {
   const classes = makeStyles();
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
   const [isEnabled, setIsEnabled] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
   const user = useSelector((store) => store.user.user);
 
@@ -41,7 +49,7 @@ const ProfilePage = () => {
         <View style={classes.menuContainer}>
           <ProfileCard
             title="Edit page"
-            pageNavigate={EPage.CHANGE_PROFILE_PAGE}
+            onPress={() => navigation.navigate(EPage.CHANGE_PROFILE_PAGE)}
             icon={
               <AntDesign
                 name="edit"
@@ -52,7 +60,7 @@ const ProfilePage = () => {
           />
           <ProfileCard
             title="My appointments"
-            pageNavigate={EPage.APPOINTMENT_LIST}
+            onPress={() => navigation.navigate(EPage.APPOINTMENT_LIST)}
             icon={
               <AntDesign
                 name="calendar"
@@ -139,7 +147,7 @@ const ProfilePage = () => {
           />
           <ProfileCard
             title="Abuse signs"
-            pageNavigate={EPage.ABUSE_INFORMATION}
+            onPress={() => navigation.navigate(EPage.ABUSE_INFORMATION)}
             icon={
               <AntDesign
                 name="question"
@@ -148,17 +156,47 @@ const ProfilePage = () => {
               />
             }
           />
-          <ProfileCard
-            title="Log out"
-            lastElement
-            icon={
-              <AntDesign
-                name="logout"
-                size={17}
-                color={commonColors.primary.color}
+          <ModalWindow
+            isModalOpen={isModalOpen}
+            setIsModalOpen={setIsModalOpen}
+            Component={
+              <ProfileCard
+                onPress={() => setIsModalOpen(!isModalOpen)}
+                title="Log out"
+                lastElement
+                icon={
+                  <AntDesign
+                    name="logout"
+                    size={17}
+                    color={commonColors.primary.color}
+                  />
+                }
               />
             }
-          />
+          >
+            <Text style={[commonStyles.p1, commonStyles.marginBottom20]}>
+              Are you sure you want to leave?
+            </Text>
+            <View
+              style={{ flexDirection: "row", justifyContent: "space-around" }}
+            >
+              <Button
+                title="Cancel"
+                onPress={() => setIsModalOpen(!isModalOpen)}
+              />
+              <Button
+                title="Log out"
+                styles={{
+                  backgroundColor: commonColors.error.color,
+                  borderColor: commonColors.error.color,
+                }}
+                onPress={() => {
+                  dispatch(userActions.logOut());
+                  navigation.navigate(EPage.WELCOME);
+                }}
+              />
+            </View>
+          </ModalWindow>
         </View>
       </View>
     </SafeAreaView>

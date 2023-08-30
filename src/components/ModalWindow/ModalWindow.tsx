@@ -5,7 +5,7 @@ import { makeStyles } from "./styles";
 type IModalProps = {
   isModalOpen: boolean;
   setIsModalOpen: Dispatch<SetStateAction<boolean>>;
-  Component: React.ReactNode;
+  Component?: React.ReactNode;
 } & PropsWithChildren;
 
 const ModalWindow = ({
@@ -17,21 +17,23 @@ const ModalWindow = ({
   const classes = makeStyles();
 
   return (
-    <View style={classes.centeredView}>
-      <Modal
-        animationType="fade"
-        transparent={true}
-        visible={isModalOpen}
-        onRequestClose={() => {
-          setIsModalOpen(!isModalOpen);
-        }}
-      >
-        <View style={classes.centeredView}>
-          <View style={classes.modalView}>{children}</View>
-        </View>
-      </Modal>
+    <>
       {Component}
-    </View>
+      <View style={classes.centeredView}>
+        <Modal
+          animationType="fade"
+          transparent={true}
+          visible={isModalOpen}
+          onRequestClose={() => {
+            setIsModalOpen(!isModalOpen);
+          }}
+        >
+          <View style={classes.centeredView}>
+            <View style={classes.modalView}>{children}</View>
+          </View>
+        </Modal>
+      </View>
+    </>
   );
 };
 

@@ -1,40 +1,44 @@
 import React from "react";
 import { Pressable, Text, View } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 import { AntDesign } from "@expo/vector-icons";
-import { EPage } from "../../enums";
 import { commonColors, commonStyles } from "../../theme";
 import { makeStyles } from "./styles";
 
 interface IProfileICard {
   title: string;
-  pageNavigate?: EPage;
+  onPress?: () => void;
   icon: React.ReactNode;
   rightElement?: React.ReactNode;
   lastElement?: boolean;
   disabled?: boolean;
+  style?: any;
 }
 
 const ProfileCard = ({
   title,
-  pageNavigate,
+  onPress,
   icon,
   rightElement,
   lastElement = false,
   disabled,
+  style,
 }: IProfileICard) => {
   const classes = makeStyles();
-  const navigation = useNavigation();
+
+  const onButtonPress = () => {
+    if (onPress && !disabled) {
+      return onPress();
+    }
+  };
 
   return (
     <>
       <Pressable
-        onPress={() =>
-          pageNavigate && !disabled && navigation.navigate(pageNavigate as any)
-        }
+        onPress={onButtonPress}
         style={[
           classes.container,
           disabled && { backgroundColor: "rgba(95,91,91,0.3)" },
+          style,
         ]}
       >
         <View style={[commonStyles.alignCenter, commonStyles.directionRow]}>

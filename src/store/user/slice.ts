@@ -23,9 +23,7 @@ const userSlice = createSlice({
         owning: payload.owning,
       };
     },
-    logOut: (state) => {
-      state = initialState;
-    },
+    logOut: (state) => (state = { user: null, tokens: null }),
   },
 });
 

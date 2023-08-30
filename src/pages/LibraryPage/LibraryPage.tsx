@@ -1,21 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import { FlatList, TextInput, View } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
-import { commonStyles } from "../../theme";
+import { FontAwesome5 } from "@expo/vector-icons";
+import { commonColors, commonStyles } from "../../theme";
 import { makeStyles } from "./styles";
 import ArticleCard from "../../components/ArticleCard";
-import { FILTERS } from "../../constList";
-
-const foo = [1, 2, 3, 4, 5, 6];
+import { ARTICLES, FILTERS } from "../../constList";
+import Chip from "../../components/Chip";
 
 const LibraryPage = () => {
   const classes = makeStyles();
+  const [state, setState] = useState("all");
+  const renderArticles = ARTICLES.filter((article) => {
+    if (state === "all") {
+      return article;
+    }
+
+    return article.keyWord === state;
+  });
 
   return (
     <View
       style={[
         commonStyles.commonContainer,
-        { paddingTop: 50, paddingBottom: 70 },
+        { paddingTop: 50, paddingBottom: 90 },
       ]}
     >
       <View style={commonStyles.commonWrapper}>
@@ -31,44 +39,31 @@ const LibraryPage = () => {
         </View>
         <View style={{ flexDirection: "row", marginBottom: 25 }}>
           {FILTERS.map((item) => (
-            // @ will be deleted
             <View key={item.id}>
-              {/*<Chip*/}
-              {/*  value={item.value}*/}
-              {/*  selected={false}*/}
-              {/*  setSelected={() => {}}*/}
-              {/*  icon={*/}
-              {/*    item.id === 1 ? (*/}
-              {/*      <Ionicons*/}
-              {/*        name="logo-octocat"*/}
-              {/*        size={24}*/}
-              {/*        color="#816EC7"*/}
-              {/*        style={{*/}
-              {/*          marginRight: 5,*/}
-              {/*          height: 30,*/}
-              {/*          marginTop: 6,*/}
-              {/*          transform: [{ scaleX: 0.8 }, { scaleY: 0.8 }],*/}
-              {/*        }}*/}
-              {/*      />*/}
-              {/*    ) : (*/}
-              {/*      <MaterialCommunityIcons*/}
-              {/*        name="dog"*/}
-              {/*        size={24}*/}
-              {/*        color="#816EC7"*/}
-              {/*        style={{*/}
-              {/*          marginRight: 5,*/}
-              {/*          marginTop: 6,*/}
-              {/*          height: 30,*/}
-              {/*          transform: [{ scaleX: 0.8 }, { scaleY: 0.8 }],*/}
-              {/*        }}*/}
-              {/*      />*/}
-              {/*    )*/}
-              {/*  }*/}
-              {/*/>*/}
+              <Chip
+                id={item.id}
+                label={item.value}
+                value={state}
+                onChange={setState}
+                icon={
+                  item.icon && (
+                    <FontAwesome5
+                      name={item.icon}
+                      size={20}
+                      color={commonColors.primary.color}
+                      style={{ marginRight: 10 }}
+                    />
+                  )
+                }
+              />
             </View>
           ))}
         </View>
-        <FlatList data={foo} renderItem={() => <ArticleCard />} />
+        <FlatList
+          style={{ minHeight: "85%" }}
+          data={renderArticles}
+          renderItem={(item) => <ArticleCard {...item.item} />}
+        />
       </View>
     </View>
   );

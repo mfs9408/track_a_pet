@@ -3,14 +3,22 @@ import { Image, Text, TouchableOpacity, View } from "react-native";
 import { makeStyles } from "./styles";
 import { commonStyles } from "../../theme";
 
-const ArticleCard = () => {
+interface IArticleProps {
+  articleLink: string;
+  image: string;
+  header: string;
+  keyWord: string;
+  shortDescription: string;
+}
+
+const ArticleCard = ({ shortDescription, header, image }: IArticleProps) => {
   const classes = makeStyles();
 
   return (
     <TouchableOpacity style={commonStyles.boxShadow}>
       <View style={classes.container}>
         <Image
-          source={{ uri: "https://placekitten.com/g/200/300" }}
+          source={{ uri: image }}
           style={{
             height: "100%",
             width: "30%",
@@ -22,12 +30,10 @@ const ArticleCard = () => {
           <Text
             style={[commonStyles.p2, { marginBottom: 5, color: "#5F5B5B" }]}
           >
-            Cat health
+            {header}
           </Text>
           <Text numberOfLines={4} style={commonStyles.p1}>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum et eum
-            ex incidunt ipsa quas quasi qui ratione temporibus voluptatum? Amet
-            dolore illo ipsa quas quod rerum totam. Est, voluptatibus.
+            {shortDescription}
           </Text>
         </View>
       </View>

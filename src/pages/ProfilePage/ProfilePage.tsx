@@ -192,7 +192,6 @@ const ProfilePage = () => {
                 }}
                 onPress={() => {
                   dispatch(userActions.logOut());
-                  navigation.navigate(EPage.WELCOME);
                 }}
               />
             </View>

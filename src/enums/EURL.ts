@@ -1,3 +1,3 @@
 export enum EURL {
-  LOGIN = "auth/login",
+  LOGIN = "http://localhost:3000/auth/login",
 }

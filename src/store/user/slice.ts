@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IUserResponseInterface } from "../../types";
-import { fetchUser } from "./asyncAction";
+import { getAuthorized } from "./asyncAction";
 
 const initialState: IUserResponseInterface = {
   user: null,
@@ -14,8 +14,8 @@ const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    getUser: (state, { payload }: PayloadAction<IUserResponseInterface>) => {
-      state = payload;
+    getUser: (state, { payload }: PayloadAction<string>) => {
+      state.tokens.accessToken = payload;
     },
     changeUserData: (state, { payload }) => {
       // @ts-ignore
@@ -34,7 +34,7 @@ const userSlice = createSlice({
       }),
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchUser.fulfilled, (state, { payload }) => {
+    builder.addCase(getAuthorized.fulfilled, (state, { payload }) => {
       state.tokens.accessToken = payload;
     });
   },

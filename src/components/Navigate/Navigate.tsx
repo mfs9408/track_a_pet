@@ -24,16 +24,16 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const Navigate = () => {
   const [fontsLoaded] = useFonts(fonts);
-  const user = useSelector((state) => state.user?.user);
+  const token = useSelector((state) => state.user.tokens);
 
-  if (!fontsLoaded && !user) {
+  if (!fontsLoaded && !token) {
     return null;
   }
 
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {user ? (
+        {token?.accessToken ? (
           <>
             <Stack.Screen
               name={EPage.MAIN}

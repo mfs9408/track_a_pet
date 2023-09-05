@@ -2,6 +2,12 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { post } from "../../Api";
 import { EURL } from "../../enums";
 
-export const fetchUser = createAsyncThunk("fetchUser", (data) =>
-  post("auth/login", data).then((response) => response.data.payload)
+export const getAuthorized = createAsyncThunk(
+  "getAuthorized",
+  (data: { email: string; password: string }) =>
+    post(EURL.LOGIN, data)
+      .then((response) => {
+        return response.data.token;
+      })
+      .catch((e) => console.log("error", e))
 );

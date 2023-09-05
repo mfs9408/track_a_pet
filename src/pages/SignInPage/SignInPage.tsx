@@ -8,11 +8,8 @@ import { EGenderType, EPage } from "../../enums";
 import Button from "../../components/Button";
 import TextInput from "../../components/TextField";
 import { IUserResponseInterface } from "../../types";
-import { userActions } from "../../store/user";
 import { makeStyles } from "./styles";
-import { fetchUser } from "../../store/user/asyncAction";
-import * as Network from "expo-network";
-import axios from "axios";
+import { getAuthorized } from "../../store/user/asyncAction";
 
 const initialData: IUserResponseInterface = {
   tokens: {
@@ -47,19 +44,13 @@ const SignInPage = () => {
     formState: { errors },
   } = useForm<ISignIn>({
     defaultValues: {
-      email: "",
-      password: "",
+      email: "mfs9408@gmail.com",
+      password: "123456",
     },
   });
 
   const onSubmit: SubmitHandler<ISignIn> = (data) => {
-    axios
-      .post("http://localhost:3000/auth/login", {
-        email: data.email,
-        password: data.password,
-      })
-      .then((response) => console.log("response", response.data))
-      .catch((e) => console.log("error", e));
+    dispatch(getAuthorized(data));
   };
 
   return (

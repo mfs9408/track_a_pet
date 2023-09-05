@@ -1,9 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IUserResponseInterface } from "../../types";
+import { fetchUser } from "./asyncAction";
 
 const initialState: IUserResponseInterface = {
   user: null,
-  tokens: null,
+  tokens: {
+    accessToken: null,
+    refreshToken: null,
+  },
 };
 
 const userSlice = createSlice({
@@ -23,7 +27,16 @@ const userSlice = createSlice({
         owning: payload.owning,
       };
     },
-    logOut: (state) => (state = { user: null, tokens: null }),
+    logOut: (state) =>
+      (state = {
+        user: null,
+        tokens: { refreshToken: null, accessToken: null },
+      }),
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchUser.fulfilled, (state, { payload }) => {
+      state.tokens.accessToken = payload;
+    });
   },
 });
 

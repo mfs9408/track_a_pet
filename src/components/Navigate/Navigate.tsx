@@ -26,7 +26,7 @@ const Navigate = () => {
   const [fontsLoaded] = useFonts(fonts);
   const user = useSelector((state) => state.user?.user);
 
-  if (!fontsLoaded) {
+  if (!fontsLoaded && !user) {
     return null;
   }
 

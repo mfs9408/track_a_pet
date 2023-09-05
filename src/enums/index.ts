@@ -7,3 +7,4 @@ export { EPetType } from "./EPetType";
 export { EIconEnum } from "./EIconEnum";
 export { ERepeatType } from "./ERepeatType";
 export { EPetStatus } from "./EPetStatus";
+export { EURL } from "./EURL";

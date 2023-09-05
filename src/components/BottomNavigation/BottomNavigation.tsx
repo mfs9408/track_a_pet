@@ -16,7 +16,7 @@ const BottomNavigation = () => {
   const theme = useTheme();
 
   return (
-    <Tab.Navigator>
+    <Tab.Navigator initialRouteName={EPage.MAIN}>
       <Tab.Screen
         name={EPage.HOME}
         component={MainPage}

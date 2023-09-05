@@ -1,7 +1,7 @@
 import { EGenderType } from "../enums";
 
 export interface IUserResponseInterface {
-  tokens: ITokensInterface | null;
+  tokens: ITokensInterface;
   user: IUserInterface | null;
 }
 
@@ -18,6 +18,6 @@ export interface IUserInterface {
 }
 
 interface ITokensInterface {
-  refreshToken: string;
-  accessToken: string;
+  refreshToken: string | null;
+  accessToken: string | null;
 }

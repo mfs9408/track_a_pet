@@ -10,6 +10,9 @@ import TextInput from "../../components/TextField";
 import { IUserResponseInterface } from "../../types";
 import { userActions } from "../../store/user";
 import { makeStyles } from "./styles";
+import { fetchUser } from "../../store/user/asyncAction";
+import * as Network from "expo-network";
+import axios from "axios";
 
 const initialData: IUserResponseInterface = {
   tokens: {
@@ -36,7 +39,7 @@ interface ISignIn {
 const SignInPage = () => {
   const classes = makeStyles();
   const navigation = useNavigation();
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<any>();
 
   const {
     control,
@@ -50,8 +53,13 @@ const SignInPage = () => {
   });
 
   const onSubmit: SubmitHandler<ISignIn> = (data) => {
-    dispatch(userActions.getUser(initialData));
-    navigation.navigate(EPage.MAIN);
+    axios
+      .post("http://localhost:3000/auth/login", {
+        email: data.email,
+        password: data.password,
+      })
+      .then((response) => console.log("response", response.data))
+      .catch((e) => console.log("error", e));
   };
 
   return (

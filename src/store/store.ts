@@ -3,6 +3,7 @@ import { reducer as network } from "react-native-offline";
 import { persistReducer, persistStore } from "redux-persist";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import thunk from "redux-thunk";
+import thunkMiddleware from "redux-thunk";
 import userReducer from "./user";
 import commonData from "./commonData";
 import remindersReducer from "./remindersStore";
@@ -27,7 +28,7 @@ const persistedReducer = persistReducer(persistConfig, reducer);
 
 const store = configureStore({
   reducer: persistedReducer,
-  middleware: [thunk],
+  middleware: [thunk, thunkMiddleware],
 });
 
 const persistor = persistStore(store);

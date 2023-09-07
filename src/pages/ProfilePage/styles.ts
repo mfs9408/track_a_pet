@@ -5,7 +5,7 @@ export const makeStyles = () =>
     imgContainer: {
       flexDirection: "row",
       alignItems: "center",
-      marginBottom: 50,
+      marginBottom: 35,
     },
     email: {
       color: "rgba(95, 91, 91, 1)",

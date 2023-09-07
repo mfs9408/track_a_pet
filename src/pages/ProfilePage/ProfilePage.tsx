@@ -1,18 +1,17 @@
 import React, { useState } from "react";
 import { SafeAreaView, Switch, Text, View } from "react-native";
-import { Avatar } from "react-native-paper";
 import { useDispatch } from "react-redux";
 import { AntDesign } from "@expo/vector-icons";
 import ProfileCard from "../../components/ProfileCard";
 import { commonColors, commonStyles } from "../../theme";
-import { getAvatar } from "../../helpers/getAvatar";
-import { EGenderType, EPage } from "../../enums";
+import { EPage } from "../../enums";
 import { useSelector } from "../../store";
 import { useNavigation } from "@react-navigation/native";
 import ModalWindow from "../../components/ModalWindow";
 import Button from "../../components/Button";
 import { userActions } from "../../store/user";
 import { makeStyles } from "./styles";
+import Avatar from "../../components/Avatar";
 
 const ProfilePage = () => {
   const classes = makeStyles();
@@ -29,18 +28,7 @@ const ProfilePage = () => {
     >
       <View style={[commonStyles.commonWrapper]}>
         <View style={classes.imgContainer}>
-          <Avatar.Image
-            size={70}
-            source={
-              user?.avatar
-                ? { uri: user.avatar }
-                : ({ size }) =>
-                    getAvatar(user?.gender as EGenderType, {
-                      width: size,
-                      height: size,
-                    })
-            }
-          />
+          <Avatar name={user?.name || "N"} style={{ width: 55, height: 55 }} />
           <View style={{ marginLeft: 15 }}>
             <Text style={commonStyles.h3}>{user?.name}</Text>
             <Text style={[commonStyles.p2, classes.email]}>{user?.email}</Text>

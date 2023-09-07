@@ -6,9 +6,6 @@ export const makeStyles = () =>
       flexDirection: "row",
       marginBottom: 30,
     },
-    avatar: {
-      marginRight: 10,
-    },
     infoContainer: {
       flexDirection: "column",
     },

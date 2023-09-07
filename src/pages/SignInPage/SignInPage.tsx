@@ -10,29 +10,11 @@ import { useNavigation } from "@react-navigation/native";
 import { SubmitHandler, useForm, Controller } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { commonColors, commonStyles } from "../../theme";
-import { EGenderType, EPage } from "../../enums";
+import { EPage } from "../../enums";
 import Button from "../../components/Button";
 import TextInput from "../../components/TextField";
-import { IUserResponseInterface } from "../../types";
 import { makeStyles } from "./styles";
 import { getUser } from "../../store/asyncAction";
-
-const initialData: IUserResponseInterface = {
-  tokens: {
-    accessToken: "86b86e48-0365-4151-98ca-2258b31a53af",
-    refreshToken: "86b86e48-0365-4151-98ca-2258b31a53af",
-  },
-  user: {
-    id: "1",
-    email: "mfs9408ny@gmail.com",
-    role: ["user"],
-    name: "Fedor Muratidi",
-    pets: [234],
-    isActivated: true,
-    owning: "owner",
-    gender: EGenderType.MALE,
-  },
-};
 
 interface ISignIn {
   email: string;
@@ -70,7 +52,7 @@ const SignInPage = () => {
       >
         <View>
           <Text style={[commonStyles.h2, classes.header]}>Sign In</Text>
-          <View>
+          <View style={commonStyles.marginBottom20}>
             <Controller
               name="email"
               control={control}
@@ -83,27 +65,32 @@ const SignInPage = () => {
                   label="Email"
                   value={value}
                   onChange={onChange}
-                  styles={{ marginBottom: 0 }}
+                  error={!!errors.email}
                 />
               )}
             />
             {errors?.email && (
-              <Text style={[commonStyles.p4, classes.error]}>
+              <Text style={[commonStyles.p2, classes.error]}>
                 Incorrect email
               </Text>
             )}
           </View>
-          <View>
+          <View style={commonStyles.marginBottom20}>
             <Controller
               name="password"
               control={control}
               rules={{ required: true }}
               render={({ field: { onChange, value } }) => (
-                <TextInput label="Password" value={value} onChange={onChange} />
+                <TextInput
+                  label="Password"
+                  value={value}
+                  onChange={onChange}
+                  error={!!errors.password}
+                />
               )}
             />
             {errors?.password && (
-              <Text style={[commonStyles.p4, classes.error]}>
+              <Text style={[commonStyles.p2, classes.error]}>
                 Incorrect password
               </Text>
             )}

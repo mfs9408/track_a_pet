@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IUserResponseInterface } from "../../types";
-import { getAuthorized } from "./asyncAction";
+import { fetchUser, getAuthorized } from "./asyncAction";
 
 const initialState: IUserResponseInterface = {
   user: null,
@@ -36,6 +36,9 @@ const userSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(getAuthorized.fulfilled, (state, { payload }) => {
       state.tokens.accessToken = payload;
+    });
+    builder.addCase(fetchUser.fulfilled, (state, { payload }) => {
+      state.user = payload;
     });
   },
 });

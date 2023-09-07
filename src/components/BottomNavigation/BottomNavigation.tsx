@@ -9,26 +9,37 @@ import LibraryPage from "../../pages/LibraryPage";
 import ProfilePage from "../../pages/ProfilePage";
 import { commonColors } from "../../theme";
 import { EPage } from "../../enums";
+import { useSelector } from "../../store";
 
 const Tab = createBottomTabNavigator();
 
 const BottomNavigation = () => {
   const theme = useTheme();
+  const isLoading = useSelector((state) => state.commonData.isLoading);
 
   return (
     <Tab.Navigator initialRouteName={EPage.MAIN}>
       <Tab.Screen
         name={EPage.HOME}
         component={MainPage}
+        listeners={{
+          tabPress: (e) => {
+            isLoading && e.preventDefault();
+          },
+        }}
         options={{
           headerShown: false,
           tabBarLabel: "Home",
           tabBarInactiveTintColor: commonColors.lightPrimary.color,
-          tabBarActiveTintColor: theme.colors.primary,
+          tabBarActiveTintColor: !isLoading
+            ? theme.colors.primary
+            : commonColors.lightPrimary.color,
           tabBarIcon: ({ color, focused }) => (
             <MaterialIcons
               name="home"
-              color={focused ? color : commonColors.lightPrimary.color}
+              color={
+                focused && !isLoading ? color : commonColors.lightPrimary.color
+              }
               size={24}
             />
           ),
@@ -37,17 +48,23 @@ const BottomNavigation = () => {
       <Tab.Screen
         name={EPage.MY_PETS}
         component={MyPetsPage}
+        listeners={{
+          tabPress: (e) => {
+            isLoading && e.preventDefault();
+          },
+        }}
         options={{
           headerShown: false,
           tabBarLabel: "My pets",
           tabBarActiveTintColor: theme.colors.primary,
+          tabBarInactiveTintColor: commonColors.lightPrimary.color,
           headerStyle: {
             backgroundColor: theme.colors.background,
           },
           tabBarIcon: ({ color, focused }) => (
             <MaterialIcons
               name="pets"
-              color={focused ? color : "#c0b7e3"}
+              color={focused ? color : commonColors.lightPrimary.color}
               size={24}
             />
           ),
@@ -56,17 +73,23 @@ const BottomNavigation = () => {
       <Tab.Screen
         name={EPage.LIBRARY}
         component={LibraryPage}
+        listeners={{
+          tabPress: (e) => {
+            isLoading && e.preventDefault();
+          },
+        }}
         options={{
           headerShown: false,
           tabBarLabel: "Library",
           tabBarActiveTintColor: theme.colors.primary,
+          tabBarInactiveTintColor: commonColors.lightPrimary.color,
           headerStyle: {
             backgroundColor: theme.colors.background,
           },
           tabBarIcon: ({ color, focused }) => (
             <MaterialIcons
               name="local-library"
-              color={focused ? color : "#c0b7e3"}
+              color={focused ? color : commonColors.lightPrimary.color}
               size={24}
             />
           ),
@@ -75,17 +98,23 @@ const BottomNavigation = () => {
       <Tab.Screen
         name={EPage.PROFILE}
         component={ProfilePage}
+        listeners={{
+          tabPress: (e) => {
+            isLoading && e.preventDefault();
+          },
+        }}
         options={{
           headerShown: false,
           tabBarLabel: "Profile",
           tabBarActiveTintColor: theme.colors.primary,
+          tabBarInactiveTintColor: commonColors.lightPrimary.color,
           headerStyle: {
             backgroundColor: theme.colors.background,
           },
           tabBarIcon: ({ color, focused }) => (
             <AntDesign
               name="profile"
-              color={focused ? color : "#c0b7e3"}
+              color={focused ? color : commonColors.lightPrimary.color}
               size={24}
             />
           ),

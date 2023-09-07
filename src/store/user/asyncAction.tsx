@@ -6,8 +6,14 @@ export const getAuthorized = createAsyncThunk(
   "getAuthorized",
   (data: { email: string; password: string }) =>
     post(EURL.LOGIN, data)
-      .then((response) => {
-        return response.data.token;
-      })
+      .then((response) => response.data.token)
+      .catch((e) => console.log("error", e))
+);
+
+export const fetchUser = createAsyncThunk(
+  "fetchUser",
+  (data: { email: string }) =>
+    post(EURL.GET_USER, data)
+      .then((response) => response.data)
       .catch((e) => console.log("error", e))
 );

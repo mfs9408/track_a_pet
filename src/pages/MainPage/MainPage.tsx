@@ -7,18 +7,18 @@ import DraggableFlat from "../../components/DraggableFlatList";
 import ContextButton from "../../components/ContextButton";
 import { commonColors, commonStyles } from "../../theme";
 import { EPage, ERemindersType } from "../../enums";
-import { commonDataActions } from "../../store/commonData";
 import { filterTodayEvents } from "../../helpers";
 import User from "../../components/User";
 import { useSelector } from "../../store";
 import { makeStyles } from "./styles";
+import LoadingPage from "../LoadingPage";
 
 const MainPage = () => {
   const classes = makeStyles();
-  const dispatch = useDispatch();
-  const [time, setTime] = useState(Date.now());
+  const [, setTime] = useState(Date.now());
   const navigation = useNavigation();
   const user = useSelector((store) => store.user.user);
+  const isLoading = useSelector((store) => store.commonData.isLoading);
   const activity = useSelector((store) => store.reminders.activity) || [];
   const appointments =
     useSelector((store) => store.reminders.appointments) || [];
@@ -28,8 +28,6 @@ const MainPage = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      dispatch(commonDataActions.changeDate(time));
-
       return setTime(Date.now());
     }, 20000);
 
@@ -37,6 +35,8 @@ const MainPage = () => {
       clearInterval(interval);
     };
   }, []);
+
+  if (isLoading) return <LoadingPage />;
 
   return (
     <SafeAreaView style={classes.container}>

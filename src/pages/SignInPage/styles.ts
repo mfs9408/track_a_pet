@@ -9,9 +9,6 @@ export const makeStyles = () =>
       marginTop: 5,
       color: "red",
     },
-    controllerContainer: {
-      marginBottom: 20,
-    },
     passwordContainer: {
       alignItems: "flex-end",
       marginBottom: 30,

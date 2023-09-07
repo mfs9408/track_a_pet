@@ -19,6 +19,7 @@ import { EPage } from "../../enums";
 import AppointmentList from "../../pages/AppointmentsList";
 import CreateAppointmentPage from "../../pages/CreateAppointmentPage";
 import AbuseInformationPage from "../../pages/AbuseInformationPage";
+import SignUpPage from "../../pages/SignUpPage";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -145,7 +146,7 @@ const Navigate = () => {
             />
             <Stack.Screen
               name={EPage.SIGN_UP}
-              component={SignInPage}
+              component={SignUpPage}
               options={{
                 headerShown: false,
               }}

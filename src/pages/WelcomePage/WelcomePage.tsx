@@ -34,7 +34,7 @@ const WelcomePage = () => {
           onPress={() => navigation.navigate(EPage.SIGN_IN)}
         />
         <View style={classes.accountTextWrapper}>
-          <Text style={classes.accountText}>Already have an account?</Text>
+          <Text style={classes.accountText}>Dont have an account?</Text>
           <Pressable onPress={() => navigation.navigate(EPage.SIGN_UP)}>
             <Text style={[commonColors.primary]}>Login</Text>
           </Pressable>

@@ -14,7 +14,14 @@ const commonDataSlice = createSlice({
   name: "commonData",
   initialState,
   reducers: {
-    changeIsLoading: (state: ICommonData) => {
+    changeIsLoading: (
+      state: ICommonData,
+      { payload }: PayloadAction<boolean>
+    ) => {
+      state.isLoading = payload;
+    },
+
+    foo: (state: ICommonData) => {
       state.isLoading = true;
     },
     changeDate: (state, { payload }: PayloadAction<number>) => {

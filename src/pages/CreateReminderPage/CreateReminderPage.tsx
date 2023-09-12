@@ -9,7 +9,6 @@ import { v4 as uuidv4 } from "uuid";
 import { remindersActions } from "../../store/remindersStore";
 import { RoutePropsProps } from "../../types";
 import TextField from "../../components/TextField";
-import Switch from "../../components/Switch";
 import Select from "../../components/Select";
 import Button from "../../components/Button";
 import { commonStyles } from "../../theme";
@@ -17,7 +16,6 @@ import { useSelector } from "../../store";
 import { getDate } from "../../helpers";
 import { EPage, ERepeatType } from "../../enums";
 import { makeStyles } from "./styles";
-import { REPEAT_LIST } from "../../constList";
 
 type TReminderFormType = {
   id: string;
@@ -53,7 +51,6 @@ const CreateReminderPage = () => {
   const classes = makeStyles();
 
   const [isStartDayTimeOpen, setIsStartDayTimeOpen] = useState(false);
-  const [isEndDayTimeOpen, setIsEndDayTimeOpen] = useState(false);
   const [isEndDatePickerBlockOpen, setIsEndDatePickerBlockOpen] =
     useState(false);
 
@@ -79,10 +76,6 @@ const CreateReminderPage = () => {
   });
 
   const currentDate = new Date();
-
-  const onToggleChange = () => {
-    setIsEndDatePickerBlockOpen(!isEndDatePickerBlockOpen);
-  };
 
   const onSubmit: SubmitHandler<TReminderFormType> = (data) => {
     const updatedData = {
@@ -139,6 +132,7 @@ const CreateReminderPage = () => {
                   onChange={onChange}
                   placeholder="Description"
                   multiline
+                  styles={commonStyles.marginBottom20}
                 />
               </>
             )}
@@ -147,7 +141,7 @@ const CreateReminderPage = () => {
             name="when"
             control={control}
             render={({ field: { value, onChange } }) => (
-              <View>
+              <View style={commonStyles.marginBottom20}>
                 {!isStartDayTimeOpen && (
                   <TextField
                     label="When"
@@ -187,69 +181,69 @@ const CreateReminderPage = () => {
               </View>
             )}
           />
-          <Controller
-            name="repeat"
-            rules={{ required: true }}
-            control={control}
-            render={({ field: { onChange, value } }) => (
-              <Select
-                label="Repeat *"
-                placeholder={{ value: "Select repeat", id: null }}
-                items={REPEAT_LIST}
-                onValueChange={onChange}
-                value={value}
-                error={!!errors.repeat}
-              />
-            )}
-          />
-          <View style={classes.switcherContainer}>
-            <Text style={commonStyles.p2}>Open end date</Text>
-            <Switch
-              value={isEndDatePickerBlockOpen}
-              toggleSwitch={onToggleChange}
-            />
-          </View>
-          {isEndDatePickerBlockOpen && (
-            <Controller
-              name="endDate"
-              control={control}
-              render={({ field: { value, onChange } }) => (
-                <View style={commonStyles.marginBottom20}>
-                  {!isEndDayTimeOpen && (
-                    <TextField
-                      label="End date"
-                      value={getDate(value, true, false)}
-                      onPress={() => setIsEndDayTimeOpen(!isEndDayTimeOpen)}
-                      editable={false}
-                    />
-                  )}
-                  {isEndDayTimeOpen && (
-                    <>
-                      <RNDateTimePicker
-                        locale="en"
-                        value={value || new Date()}
-                        onChange={(event, date) => onChange(date as Date)}
-                        mode="datetime"
-                        display="spinner"
-                      />
-                      <View style={classes.buttonContainer}>
-                        <Button
-                          title="Reset"
-                          onPress={() => {
-                            onChange(currentDate);
-                          }}
-                        />
-                        <Button
-                          title="Done"
-                          onPress={() => setIsEndDayTimeOpen(false)}
-                        />
-                      </View>
-                    </>
-                  )}
-                </View>
-              )}
-            />
-          )}
+          {/*<Controller*/}
+          {/*  name="repeat"*/}
+          {/*  rules={{ required: true }}*/}
+          {/*  control={control}*/}
+          {/*  render={({ field: { onChange, value } }) => (*/}
+          {/*    <Select*/}
+          {/*      label="Repeat *"*/}
+          {/*      placeholder={{ value: "Select repeat", id: null }}*/}
+          {/*      items={REPEAT_LIST}*/}
+          {/*      onValueChange={onChange}*/}
+          {/*      value={value}*/}
+          {/*      error={!!errors.repeat}*/}
+          {/*    />*/}
+          {/*  )}*/}
+          {/*/>*/}
+          {/*<View style={classes.switcherContainer}>*/}
+          {/*  <Text style={commonStyles.p2}>Open end date</Text>*/}
+          {/*  <Switch*/}
+          {/*    value={isEndDatePickerBlockOpen}*/}
+          {/*    toggleSwitch={onToggleChange}*/}
+          {/*  />*/}
+          {/*</View>*/}
+          {/*{isEndDatePickerBlockOpen && (*/}
+          {/*  <Controller*/}
+          {/*    name="endDate"*/}
+          {/*    control={control}*/}
+          {/*    render={({ field: { value, onChange } }) => (*/}
+          {/*      <View style={commonStyles.marginBottom20}>*/}
+          {/*        {!isEndDayTimeOpen && (*/}
+          {/*          <TextField*/}
+          {/*            label="End date"*/}
+          {/*            value={getDate(value, true, false)}*/}
+          {/*            onPress={() => setIsEndDayTimeOpen(!isEndDayTimeOpen)}*/}
+          {/*            editable={false}*/}
+          {/*          />*/}
+          {/*        )}*/}
+          {/*        {isEndDayTimeOpen && (*/}
+          {/*          <>*/}
+          {/*            <RNDateTimePicker*/}
+          {/*              locale="en"*/}
+          {/*              value={value || new Date()}*/}
+          {/*              onChange={(event, date) => onChange(date as Date)}*/}
+          {/*              mode="datetime"*/}
+          {/*              display="spinner"*/}
+          {/*            />*/}
+          {/*            <View style={classes.buttonContainer}>*/}
+          {/*              <Button*/}
+          {/*                title="Reset"*/}
+          {/*                onPress={() => {*/}
+          {/*                  onChange(currentDate);*/}
+          {/*                }}*/}
+          {/*              />*/}
+          {/*              <Button*/}
+          {/*                title="Done"*/}
+          {/*                onPress={() => setIsEndDayTimeOpen(false)}*/}
+          {/*              />*/}
+          {/*            </View>*/}
+          {/*          </>*/}
+          {/*        )}*/}
+          {/*      </View>*/}
+          {/*    )}*/}
+          {/*  />*/}
+          {/*)}*/}
           <View style={classes.addButtonBlock}>
             <Button
               title="Reset"

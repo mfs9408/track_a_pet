@@ -1,4 +1,5 @@
 import { EPetGenderType, EPetStatus } from "../enums";
+import { Asset } from "expo-image-multiple-picker";
 
 export interface IPetsTypes {
   id: string;
@@ -16,7 +17,7 @@ export interface IPetsTypes {
   spayed?: boolean;
   gender?: EPetGenderType;
   description?: string;
-  image?: string[] | null;
+  image?: Asset[] | null;
   loseAddress?: {
     street: string;
     zip: string;

@@ -1,5 +1,6 @@
-import {EPetGenderType, EPetStatus} from "../enums";
+import { EPetGenderType, EPetStatus } from "../enums";
 import { IDataItem } from "./petsTypes";
+import { Asset } from "expo-image-multiple-picker";
 
 export interface IAddForm {
   id: string;
@@ -26,7 +27,7 @@ export interface IAddForm {
   avatar?: string;
   gender?: EPetGenderType;
   description?: string;
-  image?: string[] | null;
+  image?: Asset[] | null;
   diet?: string;
   birthDay?: string;
   identification?: {

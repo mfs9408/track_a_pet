@@ -29,4 +29,11 @@ export const makeStyles = () =>
     textField: {
       marginBottom: 10,
     },
+    imagePickerContainer: {
+      paddingTop: 0,
+      ...StyleSheet.absoluteFillObject,
+      backgroundColor: "#FFF",
+      zIndex: 9,
+      marginTop: -60,
+    },
   });

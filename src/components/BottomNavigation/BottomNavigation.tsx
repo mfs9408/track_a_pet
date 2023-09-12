@@ -3,18 +3,17 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import MainPage from "../../pages/MainPage";
-import { useTheme } from "react-native-paper";
 import MyPetsPage from "../../pages/MyPetsPage";
 import LibraryPage from "../../pages/LibraryPage";
 import ProfilePage from "../../pages/ProfilePage";
 import { commonColors } from "../../theme";
 import { EPage } from "../../enums";
 import { useSelector } from "../../store";
+import Map from "../../pages/Map";
 
 const Tab = createBottomTabNavigator();
 
 const BottomNavigation = () => {
-  const theme = useTheme();
   const isLoading = useSelector((state) => state.commonData.isLoading);
 
   return (
@@ -32,7 +31,7 @@ const BottomNavigation = () => {
           tabBarLabel: "Home",
           tabBarInactiveTintColor: commonColors.lightPrimary.color,
           tabBarActiveTintColor: !isLoading
-            ? theme.colors.primary
+            ? commonColors.primary.color
             : commonColors.lightPrimary.color,
           tabBarIcon: ({ color, focused }) => (
             <MaterialIcons
@@ -56,10 +55,10 @@ const BottomNavigation = () => {
         options={{
           headerShown: false,
           tabBarLabel: "My pets",
-          tabBarActiveTintColor: theme.colors.primary,
+          tabBarActiveTintColor: commonColors.primary.color,
           tabBarInactiveTintColor: commonColors.lightPrimary.color,
           headerStyle: {
-            backgroundColor: theme.colors.background,
+            backgroundColor: commonColors.background.backgroundColor,
           },
           tabBarIcon: ({ color, focused }) => (
             <MaterialIcons
@@ -81,14 +80,39 @@ const BottomNavigation = () => {
         options={{
           headerShown: false,
           tabBarLabel: "Library",
-          tabBarActiveTintColor: theme.colors.primary,
+          tabBarActiveTintColor: commonColors.primary.color,
           tabBarInactiveTintColor: commonColors.lightPrimary.color,
           headerStyle: {
-            backgroundColor: theme.colors.background,
+            backgroundColor: commonColors.background.backgroundColor,
           },
           tabBarIcon: ({ color, focused }) => (
             <MaterialIcons
               name="local-library"
+              color={focused ? color : commonColors.lightPrimary.color}
+              size={24}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name={EPage.MAP}
+        component={Map}
+        listeners={{
+          tabPress: (e) => {
+            isLoading && e.preventDefault();
+          },
+        }}
+        options={{
+          headerShown: false,
+          tabBarLabel: "Map",
+          tabBarActiveTintColor: commonColors.primary.color,
+          tabBarInactiveTintColor: commonColors.lightPrimary.color,
+          headerStyle: {
+            backgroundColor: commonColors.background.backgroundColor,
+          },
+          tabBarIcon: ({ color, focused }) => (
+            <MaterialIcons
+              name="map"
               color={focused ? color : commonColors.lightPrimary.color}
               size={24}
             />
@@ -106,10 +130,10 @@ const BottomNavigation = () => {
         options={{
           headerShown: false,
           tabBarLabel: "Profile",
-          tabBarActiveTintColor: theme.colors.primary,
+          tabBarActiveTintColor: commonColors.primary.color,
           tabBarInactiveTintColor: commonColors.lightPrimary.color,
           headerStyle: {
-            backgroundColor: theme.colors.background,
+            backgroundColor: commonColors.background.backgroundColor,
           },
           tabBarIcon: ({ color, focused }) => (
             <AntDesign

@@ -1,5 +1,3 @@
-import { configureFonts, MD3LightTheme } from "react-native-paper";
-import { MD3Theme } from "react-native-paper/src/types";
 import { StyleSheet } from "react-native";
 
 export const fonts = {
@@ -12,23 +10,6 @@ export const fonts = {
   "Inter-Regular": require("../assets/fonts/Inter-Regular.ttf"),
   "Inter-SemiBold": require("../assets/fonts/Inter-SemiBold.ttf"),
   "Inter-Thin": require("../assets/fonts/Inter-Thin.ttf"),
-};
-
-export const theme: MD3Theme = {
-  ...MD3LightTheme,
-  fonts: configureFonts(),
-  colors: {
-    ...MD3LightTheme.colors,
-    primary: "#533bb3",
-    secondary: "#6b58b4",
-    tertiary: "#4392d1",
-    onTertiary: "#ba00f4",
-    surface: "#b2a6d9",
-    surfaceVariant: "#c8bfe5",
-    background: "#fff",
-    onBackground: "#eeebf0",
-    outline: "#F0EFF4",
-  },
 };
 
 export const commonColors = StyleSheet.create({
@@ -83,6 +64,9 @@ export const commonStyles = StyleSheet.create({
   marginBottom20: {
     marginBottom: 20,
   },
+  marginBottom10: {
+    marginBottom: 10,
+  },
   button: {
     backgroundColor: commonColors.primary.color,
     borderRadius: 40,
@@ -105,7 +89,7 @@ export const commonStyles = StyleSheet.create({
     paddingTop: 20,
   },
   commonContainer: {
-    backgroundColor: theme.colors.background,
+    backgroundColor: commonColors.background.backgroundColor,
     height: "100%",
   },
   h1: {

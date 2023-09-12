@@ -20,7 +20,7 @@ const PetCard = ({ name, breed, id, gender, image }: IPetsTypes) => {
       <View style={classes.viewContainer}>
         <Image
           style={classes.image}
-          source={{ uri: (image && image[0]) || DEFAULT_IMAGE_AVATAR }}
+          source={{ uri: (image && image[0].uri) || DEFAULT_IMAGE_AVATAR }}
         />
         <View style={[classes.content, commonColors.background]}>
           <View style={classes.nameWrapper}>

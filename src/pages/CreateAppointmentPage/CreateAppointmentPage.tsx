@@ -100,7 +100,12 @@ const CreateAppointmentPage = () => {
           name="description"
           control={control}
           render={({ field: { onChange, value } }) => (
-            <TextField value={value} onChange={onChange} label="Description" />
+            <TextField
+              value={value}
+              onChange={onChange}
+              label="Description"
+              styles={commonStyles.marginBottom20}
+            />
           )}
         />
         <Controller
@@ -111,6 +116,7 @@ const CreateAppointmentPage = () => {
               value={value}
               onChange={onChange}
               label="Doctor's name"
+              styles={commonStyles.marginBottom20}
             />
           )}
         />
@@ -118,7 +124,12 @@ const CreateAppointmentPage = () => {
           name="address"
           control={control}
           render={({ field: { onChange, value } }) => (
-            <TextField value={value} onChange={onChange} label="Address" />
+            <TextField
+              value={value}
+              onChange={onChange}
+              label="Address"
+              styles={commonStyles.marginBottom20}
+            />
           )}
         />
         <Controller
@@ -133,6 +144,7 @@ const CreateAppointmentPage = () => {
                   value={getDate(value, true, true)}
                   onPress={() => setIsStartDayTimeOpen(!isStartDayTimeOpen)}
                   editable={false}
+                  styles={commonStyles.marginBottom20}
                 />
               )}
               {isStartDayTimeOpen && (

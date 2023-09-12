@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView, Text, View } from "react-native";
 import { AntDesign, Ionicons, MaterialIcons } from "@expo/vector-icons";
@@ -12,6 +11,7 @@ import User from "../../components/User";
 import { useSelector } from "../../store";
 import { makeStyles } from "./styles";
 import LoadingPage from "../LoadingPage";
+import AutocompleteSelect from "../../components/AutocompleteSelect";
 
 const MainPage = () => {
   const classes = makeStyles();
@@ -41,6 +41,7 @@ const MainPage = () => {
   return (
     <SafeAreaView style={classes.container}>
       <View style={classes.commonWrapper}>
+        <AutocompleteSelect />
         <User
           gender={user?.gender}
           name={user?.name}

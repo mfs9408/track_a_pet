@@ -62,7 +62,7 @@ const PetPage = () => {
       <Carousel
         data={image || []}
         renderItem={({ item }) => (
-          <Image style={classes.image} source={{ uri: item as string }} />
+          <Image style={classes.image} source={{ uri: item.uri }} />
         )}
         itemWidth={Dimensions.get("screen").width}
         paginationColor={commonColors.primary.color}

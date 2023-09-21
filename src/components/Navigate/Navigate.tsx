@@ -20,6 +20,7 @@ import AppointmentList from "../../pages/AppointmentsList";
 import CreateAppointmentPage from "../../pages/CreateAppointmentPage";
 import AbuseInformationPage from "../../pages/AbuseInformationPage";
 import SignUpPage from "../../pages/SignUpPage";
+import PetStatus from "../../pages/PetStatus";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -124,6 +125,14 @@ const Navigate = () => {
               component={AbuseInformationPage}
               options={{
                 title: "",
+                headerTintColor: commonColors.primary.color,
+              }}
+            />
+            <Stack.Screen
+              name={EPage.PET_STATUS}
+              component={PetStatus}
+              options={{
+                title: "Edit pet status",
                 headerTintColor: commonColors.primary.color,
               }}
             />

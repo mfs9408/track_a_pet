@@ -4,7 +4,6 @@ import { commonColors } from "../../theme";
 export const makeStyles = (error?: boolean) =>
   StyleSheet.create({
     container: {
-      height: 40,
       borderWidth: 1,
       paddingHorizontal: 15,
       paddingVertical: 10,

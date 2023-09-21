@@ -1,4 +1,24 @@
-import { ERepeatType } from "./enums";
+import { EPetStatus, EPetType, ERepeatType } from "./enums";
+
+const PET_TYPE = [
+  { id: EPetType.CAT, value: "Cat" },
+  { id: EPetType.DOG, value: "Dog" },
+];
+
+const PET_STATUS = [
+  {
+    id: EPetStatus.OWNER,
+    value: "Owner",
+  },
+  {
+    id: EPetStatus.LOST,
+    value: "Lost",
+  },
+  {
+    id: EPetStatus.FOUND,
+    value: "Found",
+  },
+];
 
 const DEFAULT_IMAGE_AVATAR = "https://placekitten.com/g/200/300";
 
@@ -58,4 +78,6 @@ export {
   ACTIVATION_DISTANCE,
   REPEAT_LIST,
   ARTICLES,
+  PET_TYPE,
+  PET_STATUS,
 };

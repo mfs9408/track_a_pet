@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IPetsTypes } from "../../types";
+import { IPetStatus } from "../../pages/PetStatus/PetStatus";
 
 const initialState: IPetsTypes[] | null = [];
 
@@ -16,6 +17,19 @@ const petsSlice = createSlice({
     },
     deletePet: (state, { payload }: PayloadAction<string>) =>
       state.filter((item) => item.id !== payload),
+
+    changePetStatus: (state, { payload }: PayloadAction<IPetStatus>) => {
+      const index = state.findIndex((item) => item.id === payload.petId);
+
+      const data = state[index];
+
+      data.loseAddress = payload.loseAddress;
+      data.petStatus = payload.petStatus;
+
+      state[index] = {
+        ...data,
+      };
+    },
   },
 });
 

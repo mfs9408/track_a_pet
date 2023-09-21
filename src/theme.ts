@@ -16,6 +16,9 @@ export const commonColors = StyleSheet.create({
   primary: {
     color: "#6b58b4",
   },
+  secondary: {
+    color: "#4492d1",
+  },
   lightPrimary: {
     color: "rgba(106, 82, 198, 0.20)",
   },

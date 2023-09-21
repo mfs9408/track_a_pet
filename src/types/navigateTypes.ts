@@ -20,6 +20,7 @@ export type RootStackParamList = {
   createAppointmentPage: { id?: string };
   abuseInformationPage: undefined;
   mapPage: undefined;
+  petStatusPage: { petId: string };
 };
 
 export type RoutePropsProps<T extends keyof RootStackParamList> =

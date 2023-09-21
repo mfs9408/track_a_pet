@@ -45,6 +45,7 @@ const TextField = ({
           classes.input,
           isFocused && classes.isFocused,
           multiline && { paddingTop: 10.5, height: "auto" },
+          !editable && { backgroundColor: "#ccc" },
           styles,
         ]}
         multiline={multiline}

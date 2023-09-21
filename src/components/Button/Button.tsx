@@ -5,7 +5,7 @@ import { commonStyles } from "../../theme";
 
 interface IButtonProps {
   title: string;
-  onPress: () => void;
+  onPress?: () => void;
   styles?: ViewStyle | ViewStyle[];
   textStyles?: TextStyle | TextStyle[];
 }

@@ -18,4 +18,5 @@ export enum EPage {
   CREATE_APPOINTMENT = "createAppointmentPage",
   ABUSE_INFORMATION = "abuseInformationPage",
   MAP = "map_page",
+  PET_STATUS = "petStatusPage",
 }

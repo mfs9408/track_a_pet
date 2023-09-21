@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { SafeAreaView, ScrollView, Text, View } from "react-native";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { useNavigation, useRoute } from "@react-navigation/native";
@@ -12,30 +12,11 @@ import Button from "../../components/Button";
 import Select from "../../components/Select";
 import { useSelector } from "../../store";
 import { petsActions } from "../../store/petsStore/slice";
-import { EPage, EPetGenderType, EPetStatus, EPetType } from "../../enums";
+import { EPage, EPetGenderType, EPetStatus } from "../../enums";
 import { IAddForm, RoutePropsProps } from "../../types";
 import { commonColors, commonStyles } from "../../theme";
+import { PET_STATUS, PET_TYPE } from "../../constList";
 import { makeStyles } from "./styles";
-
-const PET_TYPE = [
-  { id: EPetType.CAT, value: "Cat" },
-  { id: EPetType.DOG, value: "Dog" },
-];
-
-const PET_STATUS = [
-  {
-    id: EPetStatus.LOST,
-    value: "Lost",
-  },
-  {
-    id: EPetStatus.FOUND,
-    value: "Found",
-  },
-  {
-    id: EPetStatus.OWNER,
-    value: "Owner",
-  },
-];
 
 const AddPet = () => {
   const [showImagePicker, setShowImagePicker] = useState(false);
@@ -55,7 +36,6 @@ const AddPet = () => {
     handleSubmit,
     reset,
     watch,
-    setValue,
     getValues,
     formState: { errors },
   } = useForm<IAddForm>({
@@ -94,8 +74,8 @@ const AddPet = () => {
       birthDay: petsData?.birthDay || "01.01.2023",
       loseAddress: {
         street: petsData?.loseAddress?.street || "",
-        zip: petsData?.loseAddress?.zip || "",
-        city: petsData?.loseAddress?.city || "",
+        // zip: petsData?.loseAddress?.zip || "",
+        // city: petsData?.loseAddress?.city || "",
       },
     },
   });
@@ -114,12 +94,6 @@ const AddPet = () => {
 
   const petStatus = watch("petStatus").id;
   const isPetLostOrFound = petStatus !== EPetStatus.OWNER;
-
-  useEffect(() => {
-    if (!isPetLostOrFound) {
-      setValue("loseAddress", { street: "", zip: "", city: "" });
-    }
-  }, [isPetLostOrFound]);
 
   const onReset = () => {
     reset();
@@ -351,49 +325,20 @@ const AddPet = () => {
 
             {isPetLostOrFound && (
               <>
+                <Text style={[commonStyles.p1, commonStyles.marginBottom10]}>
+                  Address of lose
+                </Text>
                 <Controller
                   name="loseAddress.street"
                   control={control}
                   render={({ field: { onChange, value } }) => (
                     <>
                       <TextField
-                        label="Address of lose"
+                        label="Street"
                         value={value}
                         placeholder="Ex: Bedford ave"
                         onChange={onChange}
-                        styles={commonStyles.marginBottom10}
-                      />
-                    </>
-                  )}
-                />
-                <Controller
-                  name="loseAddress.zip"
-                  rules={{ required: true }}
-                  control={control}
-                  render={({ field: { onChange, value } }) => (
-                    <>
-                      <TextField
-                        value={value}
-                        placeholder="Ex: 11235"
-                        onChange={onChange}
-                        error={!!errors.name}
-                        styles={commonStyles.marginBottom10}
-                      />
-                    </>
-                  )}
-                />
-                <Controller
-                  name="loseAddress.city"
-                  rules={{ required: true }}
-                  control={control}
-                  render={({ field: { onChange, value } }) => (
-                    <>
-                      <TextField
-                        value={value}
-                        placeholder="Ex: Brooklyn"
-                        onChange={onChange}
-                        error={!!errors.name}
-                        styles={commonStyles.marginBottom10}
+                        styles={commonStyles.marginBottom20}
                       />
                     </>
                   )}
@@ -424,10 +369,7 @@ const AddPet = () => {
               onPress={onReset}
               textStyles={commonColors.whiteColor}
             />
-            <Button
-              title={petId ? "Edit pet" : "Add pet"}
-              onPress={handleSubmit(onSubmit)}
-            />
+            <Button title="Continue" onPress={handleSubmit(onSubmit)} />
           </View>
         </ScrollView>
       </SafeAreaView>
@@ -450,6 +392,7 @@ const AddPet = () => {
                   limit={3}
                   galleryColumns={3}
                   albumColumns={3}
+                  noAlbums
                 />
               </View>
             </>

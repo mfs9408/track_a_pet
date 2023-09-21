@@ -20,8 +20,6 @@ export interface IPetsTypes {
   image?: Asset[] | null;
   loseAddress?: {
     street: string;
-    zip: string;
-    city: string;
   };
   petStatus: {
     value: string;

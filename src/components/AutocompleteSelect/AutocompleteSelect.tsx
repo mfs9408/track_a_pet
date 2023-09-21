@@ -10,13 +10,19 @@ interface IValueProps {
 }
 
 interface ISelectProps {
+  onChange: (value: string) => void;
   placeholder?: IValueProps;
   label?: string;
   error?: boolean;
   styles?: ViewStyle | ViewStyle[];
 }
 
-const AutocompleteSelect = ({ error, styles, label }: ISelectProps) => {
+const AutocompleteSelect = ({
+  onChange,
+  error,
+  styles,
+  label,
+}: ISelectProps) => {
   const classes = makeStyles(error);
 
   const fpp = "AIzaSyA0c71Y4QnFv9LsOhA6xtnjsVvwtmxVqs8";
@@ -24,16 +30,42 @@ const AutocompleteSelect = ({ error, styles, label }: ISelectProps) => {
   return (
     <>
       {label && <Text style={[commonStyles.p1, classes.label]}>{label}</Text>}
-      <View style={[classes.container, styles]}>
+      <View style={[styles, { height: "100%" }]}>
         <GooglePlacesAutocomplete
-          fetchDetails={true}
+          keyboardShouldPersistTaps={"handled"}
+          styles={{
+            container: {
+              zIndex: 10,
+              overflow: "visible",
+              height: 50,
+              flexShrink: 0,
+            },
+            description: {},
+            textInputContainer: {},
+            loader: {
+              backgroundColor: "blue",
+            },
+            listView: {
+              height: "auto",
+            },
+            textInput: classes.container,
+            poweredContainer: {
+              display: "none",
+            },
+            separator: {},
+            row: {},
+          }}
           placeholder="Search"
           query={{
             key: fpp,
             language: "en",
+            type: "address",
           }}
-          onPress={(data) => console.log(data)}
+          onPress={(data, detail = null) => {
+            onChange(data.description);
+          }}
           onFail={(error) => console.error(error)}
+          debounce={200}
         />
       </View>
     </>

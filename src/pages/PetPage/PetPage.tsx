@@ -19,9 +19,9 @@ import Button from "../../components/Button";
 import { EPage, EPetGenderType, EPetStatus } from "../../enums";
 import InfoBox from "../../components/InfoBox";
 import Gender from "../../components/Gender";
-import { isDataInObject } from "../../helpers";
 import { useSelector } from "../../store";
 import { makeStyles } from "./styles";
+import { DEFAULT_IMAGE_AVATAR } from "../../constList";
 
 const PetPage = () => {
   const dispatch = useDispatch();
@@ -60,7 +60,9 @@ const PetPage = () => {
         onPress={() => navigation.goBack()}
       />
       <Carousel
-        data={image || []}
+        data={
+          image && image?.length > 0 ? image : [{ uri: DEFAULT_IMAGE_AVATAR }]
+        }
         renderItem={({ item }) => (
           <Image style={classes.image} source={{ uri: item.uri }} />
         )}
@@ -85,62 +87,73 @@ const PetPage = () => {
         </View>
         <View style={classes.infoContainer}>
           <InfoBox title={petType?.value} description={"Pet"} />
-          <InfoBox title={color || "Unknown"} description={"Color"} />
-          <InfoBox title={weight || "Unknown"} description={"Weight"} />
-          <InfoBox title={age || "Unknown"} description={"Age"} />
+          <InfoBox title={color || "N/a"} description={"Color"} />
+          <InfoBox title={weight || "N/a"} description={"Weight"} />
+          <InfoBox title={age || "N/a"} description={"Age"} />
         </View>
         <View style={classes.dataWrapper}>
-          {diet && (
-            <View style={classes.dataContainer}>
-              <View style={classes.iconContainer}>
-                <MaterialIcons
-                  name="note"
-                  size={20}
-                  color="black"
-                  style={classes.icon}
-                />
-                <Text style={commonStyles.p1}>Pet diet</Text>
-              </View>
-              <View style={classes.subDataContainer}>
-                <View style={classes.subHeaderContainer}>
-                  <Text style={[commonStyles.p2, commonColors.darkGrey]}>
-                    {diet}
-                  </Text>
-                </View>
+          <View style={classes.dataContainer}>
+            <View style={classes.iconContainer}>
+              <MaterialIcons
+                name="info"
+                size={20}
+                color="black"
+                style={classes.icon}
+              />
+              <Text style={commonStyles.p1}>Pet status</Text>
+            </View>
+            <View style={classes.subDataContainer}>
+              <View style={classes.subHeaderContainer}>
+                <Text style={[commonStyles.p2, commonColors.darkGrey]}>
+                  {petStatus.value}
+                </Text>
               </View>
             </View>
-          )}
-          {(identification?.microchip || identification?.description) && (
-            <View style={classes.dataContainer}>
-              <View style={classes.iconContainer}>
-                <MaterialIcons
-                  name="pets"
-                  size={20}
-                  color="black"
-                  style={classes.icon}
-                />
-                <Text style={commonStyles.p1}>Identification</Text>
-              </View>
-              {identification.microchip && (
-                <View>
-                  <View style={classes.subHeaderContainer}>
-                    <Text style={[commonStyles.p2, commonColors.darkGrey]}>
-                      &#8728; Microchip number: {identification.microchip}
-                    </Text>
-                  </View>
-                </View>
-              )}
-              {identification.description && (
-                <View>
-                  <View style={classes.subHeaderContainer}>
-                    <Text style={[commonStyles.p2, commonColors.darkGrey]}>
-                      &#8728; Pet description: {identification.description}
-                    </Text>
-                  </View>
-                </View>
-              )}
+          </View>
+          <View style={classes.dataContainer}>
+            <View style={classes.iconContainer}>
+              <MaterialIcons
+                name="note"
+                size={20}
+                color="black"
+                style={classes.icon}
+              />
+              <Text style={commonStyles.p1}>Pet diet</Text>
             </View>
-          )}
+            <View style={classes.subDataContainer}>
+              <View style={classes.subHeaderContainer}>
+                <Text style={[commonStyles.p2, commonColors.darkGrey]}>
+                  {diet || "N/a"}
+                </Text>
+              </View>
+            </View>
+          </View>
+          <View style={classes.dataContainer}>
+            <View style={classes.iconContainer}>
+              <MaterialIcons
+                name="pets"
+                size={20}
+                color="black"
+                style={classes.icon}
+              />
+              <Text style={commonStyles.p1}>Identification</Text>
+            </View>
+            <View>
+              <View style={classes.subHeaderContainer}>
+                <Text style={[commonStyles.p2, commonColors.darkGrey]}>
+                  &#8728; Microchip number: {identification?.microchip || "N/a"}
+                </Text>
+              </View>
+            </View>
+            <View>
+              <View style={classes.subHeaderContainer}>
+                <Text style={[commonStyles.p2, commonColors.darkGrey]}>
+                  &#8728; Pet description:{" "}
+                  {identification?.description || "N/a"}
+                </Text>
+              </View>
+            </View>
+          </View>
           {vaccination && vaccination?.length > 0 && (
             <View style={classes.dataContainer}>
               <View style={classes.iconContainer}>
@@ -183,55 +196,45 @@ const PetPage = () => {
               )}
             </View>
           )}
-          {isDataInObject(veterinarianInfo) && (
-            <View style={classes.dataContainer}>
-              <View style={classes.iconContainer}>
-                <MaterialIcons
-                  name="pets"
-                  size={20}
-                  color="black"
-                  style={classes.icon}
-                />
-                <Text style={commonStyles.p1}>Veterinarian info</Text>
-              </View>
-              {veterinarianInfo?.vet && (
-                <View>
-                  <View style={classes.subHeaderContainer}>
-                    <Text style={[commonStyles.p2, commonColors.darkGrey]}>
-                      &#8728; Veterinarian: {veterinarianInfo.vet}
-                    </Text>
-                  </View>
-                </View>
-              )}
-              {veterinarianInfo?.clinic && (
-                <View>
-                  <View style={classes.subHeaderContainer}>
-                    <Text style={[commonStyles.p2, commonColors.darkGrey]}>
-                      &#8728; Clinic: {veterinarianInfo.clinic}
-                    </Text>
-                  </View>
-                </View>
-              )}
-              {veterinarianInfo?.address && (
-                <View>
-                  <View style={classes.subHeaderContainer}>
-                    <Text style={[commonStyles.p2, commonColors.darkGrey]}>
-                      &#8728; Address: {veterinarianInfo.address}
-                    </Text>
-                  </View>
-                </View>
-              )}
-              {veterinarianInfo?.phone && (
-                <View>
-                  <View style={classes.subHeaderContainer}>
-                    <Text style={[commonStyles.p2, commonColors.darkGrey]}>
-                      &#8728; Address: {veterinarianInfo.phone}
-                    </Text>
-                  </View>
-                </View>
-              )}
+          <View style={classes.dataContainer}>
+            <View style={classes.iconContainer}>
+              <MaterialIcons
+                name="info"
+                size={20}
+                color="black"
+                style={classes.icon}
+              />
+              <Text style={commonStyles.p1}>Veterinarian info</Text>
             </View>
-          )}
+            <View>
+              <View style={classes.subHeaderContainer}>
+                <Text style={[commonStyles.p2, commonColors.darkGrey]}>
+                  &#8728; Veterinarian: {veterinarianInfo?.vet || "N/a"}
+                </Text>
+              </View>
+            </View>
+            <View>
+              <View style={classes.subHeaderContainer}>
+                <Text style={[commonStyles.p2, commonColors.darkGrey]}>
+                  &#8728; Clinic: {veterinarianInfo?.clinic || "N/a"}
+                </Text>
+              </View>
+            </View>
+            <View>
+              <View style={classes.subHeaderContainer}>
+                <Text style={[commonStyles.p2, commonColors.darkGrey]}>
+                  &#8728; Address: {veterinarianInfo?.address || "N/a"}
+                </Text>
+              </View>
+            </View>
+            <View>
+              <View style={classes.subHeaderContainer}>
+                <Text style={[commonStyles.p2, commonColors.darkGrey]}>
+                  &#8728; Phone: {veterinarianInfo?.phone || "N/a"}
+                </Text>
+              </View>
+            </View>
+          </View>
           {petStatus?.id !== EPetStatus.OWNER && (
             <>
               <View style={classes.iconContainer}>
@@ -248,14 +251,29 @@ const PetPage = () => {
               <Text style={[commonStyles.p2, commonColors.darkGrey]}>
                 &#8728; Street: {loseAddress?.street}
               </Text>
-              <Text style={[commonStyles.p2, commonColors.darkGrey]}>
-                &#8728; Zip: {loseAddress?.zip}
-              </Text>
-              <Text style={[commonStyles.p2, commonColors.darkGrey]}>
-                &#8728; City: {loseAddress?.city}
-              </Text>
+              {/*<Text style={[commonStyles.p2, commonColors.darkGrey]}>*/}
+              {/*  &#8728; Zip: {loseAddress?.zip}*/}
+              {/*</Text>*/}
+              {/*<Text style={[commonStyles.p2, commonColors.darkGrey]}>*/}
+              {/*  &#8728; City: {loseAddress?.city}*/}
+              {/*</Text>*/}
             </>
           )}
+        </View>
+        <View style={commonStyles.marginBottom10}>
+          <View style={{ flexDirection: "row" }}>
+            <Button
+              title="Edit pet status"
+              styles={{
+                backgroundColor: commonColors.secondary.color,
+                borderColor: commonColors.secondary.color,
+                flex: 1,
+              }}
+              onPress={() =>
+                navigation.navigate(EPage.PET_STATUS, { petId: id })
+              }
+            />
+          </View>
         </View>
         <ModalWindow
           isModalOpen={isModalOpen}

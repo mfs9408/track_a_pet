@@ -74,8 +74,6 @@ const AddPet = () => {
       birthDay: petsData?.birthDay || "01.01.2023",
       loseAddress: {
         street: petsData?.loseAddress?.street || "",
-        // zip: petsData?.loseAddress?.zip || "",
-        // city: petsData?.loseAddress?.city || "",
       },
     },
   });

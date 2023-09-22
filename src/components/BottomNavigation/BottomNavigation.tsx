@@ -103,7 +103,7 @@ const BottomNavigation = () => {
           },
         }}
         options={{
-          headerShown: false,
+          title: "Map of pets",
           tabBarLabel: "Map",
           tabBarActiveTintColor: commonColors.primary.color,
           tabBarInactiveTintColor: commonColors.lightPrimary.color,

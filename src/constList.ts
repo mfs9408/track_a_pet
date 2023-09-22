@@ -20,6 +20,17 @@ const PET_STATUS = [
   },
 ];
 
+const PET_STATUS_FOR_SEARCHING = [
+  {
+    id: EPetStatus.LOST,
+    value: "Lost pet",
+  },
+  {
+    id: EPetStatus.FOUND,
+    value: "Found pet",
+  },
+];
+
 const DEFAULT_IMAGE_AVATAR = "https://placekitten.com/g/200/300";
 
 const ICON_SIZE = 24;
@@ -80,4 +91,5 @@ export {
   ARTICLES,
   PET_TYPE,
   PET_STATUS,
+  PET_STATUS_FOR_SEARCHING,
 };

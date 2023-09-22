@@ -17,17 +17,23 @@ interface ISelectProps {
   onValueChange: any;
   label?: string;
   error?: boolean;
+  icon?: boolean;
   styles?: ViewStyle | ViewStyle[];
+  placeholderStyle?: ViewStyle;
+  pickerStyle?: ViewStyle;
 }
 
 const Select = ({
-  placeholder,
   value,
   onValueChange,
   items,
   error,
   styles,
   label,
+  placeholder,
+  placeholderStyle,
+  pickerStyle,
+  icon = true,
 }: ISelectProps) => {
   const classes = makeStyles(error);
   const [selected, setSelected] = useState(value?.id || null);
@@ -59,19 +65,25 @@ const Select = ({
       {label && <Text style={[commonStyles.p1, classes.label]}>{label}</Text>}
       <View style={[classes.container, styles]}>
         <RNPickerSelect
+          style={{
+            inputIOSContainer: pickerStyle,
+            placeholder: placeholderStyle,
+          }}
           placeholder={pickerPlaceholder}
-          // @ts-ignore as a bug
-          Icon={() => (
-            <AntDesign
-              name="down"
-              size={15}
-              color="black"
-              style={{ color: "rgba(106, 82, 198, 0.4)", marginTop: 2 }}
-            />
-          )}
           value={selected}
           items={pickerItems}
           onValueChange={(value) => setSelected(value)}
+          // @ts-ignore as a bug
+          Icon={() =>
+            icon && (
+              <AntDesign
+                name="down"
+                size={15}
+                color="black"
+                style={{ color: "rgba(106, 82, 198, 0.4)", marginTop: 2 }}
+              />
+            )
+          }
         />
       </View>
     </>

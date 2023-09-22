@@ -18,7 +18,7 @@ const Map = () => {
   const bottomSheetRef = useRef<BottomSheet>(null);
 
   // variables
-  const snapPoints = useMemo(() => ["25%", "50%"], []);
+  const snapPoints = useMemo(() => ["15%", "100%"], []);
 
   // callbacks
   const handleSheetChanges = useCallback((index: number) => {
@@ -26,13 +26,14 @@ const Map = () => {
   }, []);
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ flex: 1 }}>
       <ScrollView
         horizontal
         style={{
           backgroundColor: commonColors.background.backgroundColor,
           paddingVertical: 10,
           paddingHorizontal: 20,
+          flexDirection: "row",
         }}
       >
         <Select
@@ -65,7 +66,10 @@ const Map = () => {
             <Button
               title={`Radius: ${radius} m`}
               onPress={() => setIsModalOpen(true)}
-              styles={{ marginHorizontal: 10 }}
+              styles={{
+                marginHorizontal: 10,
+                height: 40,
+              }}
             />
           }
           isModalOpen={modal}
@@ -96,18 +100,19 @@ const Map = () => {
           <Button title="Close" onPress={() => setIsModalOpen(false)} />
         </ModalWindow>
       </ScrollView>
-      <View style={styles.container}>
-        <BottomSheet
-          ref={bottomSheetRef}
-          index={1}
-          snapPoints={snapPoints}
-          onChange={handleSheetChanges}
-        >
-          <View style={styles.contentContainer}>
-            <Text>Awesome 🎉</Text>
-          </View>
-        </BottomSheet>
+      <View>
+        <Text>fff</Text>
       </View>
+      <BottomSheet
+        ref={bottomSheetRef}
+        index={1}
+        snapPoints={snapPoints}
+        onChange={handleSheetChanges}
+      >
+        <View style={styles.contentContainer}>
+          <Text>Awesome 🎉</Text>
+        </View>
+      </BottomSheet>
     </SafeAreaView>
   );
 };
@@ -116,7 +121,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 24,
-    backgroundColor: "grey",
   },
   contentContainer: {
     flex: 1,

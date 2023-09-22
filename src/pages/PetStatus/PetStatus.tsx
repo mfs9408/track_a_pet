@@ -84,6 +84,7 @@ const PetStatus = () => {
               value={value}
               onValueChange={onChange}
               error={!!errors.petStatus}
+              styles={commonStyles.marginBottom20}
             />
           )}
         />
@@ -100,6 +101,7 @@ const PetStatus = () => {
             <Controller
               name="loseAddress.street"
               control={control}
+              rules={{ required: true }}
               render={({ field: { onChange } }) => (
                 <AutocompleteSelect label="New address" onChange={onChange} />
               )}
@@ -107,7 +109,7 @@ const PetStatus = () => {
           </>
         )}
       </View>
-      <View style={{ backgroundColor: "red" }}>
+      <View style={{ marginHorizontal: 20, marginBottom: 30 }}>
         <Button title="Change pet status" onPress={handleSubmit(onSubmit)} />
       </View>
     </SafeAreaView>

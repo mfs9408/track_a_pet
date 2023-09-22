@@ -15,7 +15,7 @@ import Gender from "../../components/Gender";
 import { useSelector } from "../../store";
 import { makeStyles } from "./styles";
 import { DEFAULT_IMAGE_AVATAR } from "../../constList";
-import BottomSheet from "@gorhom/bottom-sheet";
+import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet";
 
 const PetPage = () => {
   const dispatch = useDispatch();
@@ -82,251 +82,256 @@ const PetPage = () => {
         containerHeight={500}
         animateOnMount={false}
       >
-        <View style={[commonStyles.commonWrapper, classes.commonContainer]}>
-          <View style={classes.headerContainer}>
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <Text style={[commonStyles.h1, classes.header]}>{name}</Text>
-              <Gender gender={gender || EPetGenderType.UNKNOWN} />
+        <BottomSheetScrollView>
+          <View style={[commonStyles.commonWrapper, classes.commonContainer]}>
+            <View style={classes.headerContainer}>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <Text style={[commonStyles.h1, classes.header]}>{name}</Text>
+                <Gender gender={gender || EPetGenderType.UNKNOWN} />
+              </View>
+              <TouchableOpacity>
+                <Text
+                  style={[commonStyles.p1, commonColors.primary]}
+                  onPress={() => navigation.navigate(EPage.ADD_PET, { id: id })}
+                >
+                  Edit
+                </Text>
+              </TouchableOpacity>
             </View>
-            <TouchableOpacity>
-              <Text
-                style={[commonStyles.p1, commonColors.primary]}
-                onPress={() => navigation.navigate(EPage.ADD_PET, { id: id })}
-              >
-                Edit
-              </Text>
-            </TouchableOpacity>
-          </View>
-          <View style={classes.infoContainer}>
-            <InfoBox title={petType?.value} description={"Pet"} />
-            <InfoBox title={color || "N/a"} description={"Color"} />
-            <InfoBox title={weight || "N/a"} description={"Weight"} />
-            <InfoBox title={age || "N/a"} description={"Age"} />
-          </View>
-          <View style={classes.dataWrapper}>
-            <View style={classes.dataContainer}>
-              <View style={classes.iconContainer}>
-                <MaterialIcons
-                  name="info"
-                  size={20}
-                  color="black"
-                  style={classes.icon}
-                />
-                <Text style={commonStyles.p1}>Pet status</Text>
-              </View>
-              <View style={classes.subDataContainer}>
-                <View style={classes.subHeaderContainer}>
-                  <Text style={[commonStyles.p2, commonColors.darkGrey]}>
-                    {petStatus.value}
-                  </Text>
-                </View>
-              </View>
+            <View style={classes.infoContainer}>
+              <InfoBox title={petType?.value} description={"Pet"} />
+              <InfoBox title={color || "N/a"} description={"Color"} />
+              <InfoBox title={weight || "N/a"} description={"Weight"} />
+              <InfoBox title={age || "N/a"} description={"Age"} />
             </View>
-            <View style={classes.dataContainer}>
-              <View style={classes.iconContainer}>
-                <MaterialIcons
-                  name="note"
-                  size={20}
-                  color="black"
-                  style={classes.icon}
-                />
-                <Text style={commonStyles.p1}>Pet diet</Text>
-              </View>
-              <View style={classes.subDataContainer}>
-                <View style={classes.subHeaderContainer}>
-                  <Text style={[commonStyles.p2, commonColors.darkGrey]}>
-                    {diet || "N/a"}
-                  </Text>
-                </View>
-              </View>
-            </View>
-            <View style={classes.dataContainer}>
-              <View style={classes.iconContainer}>
-                <MaterialIcons
-                  name="pets"
-                  size={20}
-                  color="black"
-                  style={classes.icon}
-                />
-                <Text style={commonStyles.p1}>Identification</Text>
-              </View>
-              <View>
-                <View style={classes.subHeaderContainer}>
-                  <Text style={[commonStyles.p2, commonColors.darkGrey]}>
-                    &#8728; Microchip number:{" "}
-                    {identification?.microchip || "N/a"}
-                  </Text>
-                </View>
-              </View>
-              <View>
-                <View style={classes.subHeaderContainer}>
-                  <Text style={[commonStyles.p2, commonColors.darkGrey]}>
-                    &#8728; Pet description:{" "}
-                    {identification?.description || "N/a"}
-                  </Text>
-                </View>
-              </View>
-            </View>
-            {vaccination && vaccination?.length > 0 && (
+            <View style={classes.dataWrapper}>
               <View style={classes.dataContainer}>
                 <View style={classes.iconContainer}>
                   <MaterialIcons
-                    name="medical-services"
+                    name="info"
                     size={20}
                     color="black"
                     style={classes.icon}
                   />
-                  <Text style={commonStyles.p1}>Medical records</Text>
+                  <Text style={commonStyles.p1}>Pet status</Text>
                 </View>
-                {vaccination?.map(
-                  ({ label, value, additionalRecords }, key) =>
-                    value && (
-                      <View key={key} style={classes.subDataContainer}>
-                        <Text
-                          style={[
-                            commonStyles.p2,
-                            {
-                              color: additionalRecords
-                                ? commonColors.blackColor.color
-                                : commonColors.darkGrey.color,
-                            },
-                          ]}
-                        >
-                          {value}
-                        </Text>
-                        {additionalRecords?.map(
-                          ({ label, value }, arrayKey) => (
-                            <View
-                              key={arrayKey}
-                              style={classes.additionalRecordsContainer}
-                            >
-                              <Text
-                                style={[commonStyles.p2, { color: "#5F5B5B" }]}
-                              >
-                                &#8728; {label}: {value}
-                              </Text>
-                            </View>
-                          )
-                        )}
-                      </View>
-                    )
-                )}
-              </View>
-            )}
-            <View style={classes.dataContainer}>
-              <View style={classes.iconContainer}>
-                <MaterialIcons
-                  name="info"
-                  size={20}
-                  color="black"
-                  style={classes.icon}
-                />
-                <Text style={commonStyles.p1}>Veterinarian info</Text>
-              </View>
-              <View>
-                <View style={classes.subHeaderContainer}>
-                  <Text style={[commonStyles.p2, commonColors.darkGrey]}>
-                    &#8728; Veterinarian: {veterinarianInfo?.vet || "N/a"}
-                  </Text>
+                <View style={classes.subDataContainer}>
+                  <View style={classes.subHeaderContainer}>
+                    <Text style={[commonStyles.p2, commonColors.darkGrey]}>
+                      {petStatus.value}
+                    </Text>
+                  </View>
                 </View>
               </View>
-              <View>
-                <View style={classes.subHeaderContainer}>
-                  <Text style={[commonStyles.p2, commonColors.darkGrey]}>
-                    &#8728; Clinic: {veterinarianInfo?.clinic || "N/a"}
-                  </Text>
-                </View>
-              </View>
-              <View>
-                <View style={classes.subHeaderContainer}>
-                  <Text style={[commonStyles.p2, commonColors.darkGrey]}>
-                    &#8728; Address: {veterinarianInfo?.address || "N/a"}
-                  </Text>
-                </View>
-              </View>
-              <View>
-                <View style={classes.subHeaderContainer}>
-                  <Text style={[commonStyles.p2, commonColors.darkGrey]}>
-                    &#8728; Phone: {veterinarianInfo?.phone || "N/a"}
-                  </Text>
-                </View>
-              </View>
-            </View>
-            {petStatus?.id !== EPetStatus.OWNER && (
-              <>
+              <View style={classes.dataContainer}>
                 <View style={classes.iconContainer}>
                   <MaterialIcons
-                    name="remove-red-eye"
+                    name="note"
                     size={20}
-                    color={commonColors.error.color}
+                    color="black"
                     style={classes.icon}
                   />
-                  <Text style={[commonStyles.p1, commonColors.error]}>
-                    Pet is {petStatus?.id}
-                  </Text>
+                  <Text style={commonStyles.p1}>Pet diet</Text>
                 </View>
-                <Text style={[commonStyles.p2, commonColors.darkGrey]}>
-                  &#8728; Street: {loseAddress?.street}
-                </Text>
-              </>
-            )}
-          </View>
-          <View style={commonStyles.marginBottom10}>
-            <View style={{ flexDirection: "row" }}>
-              <Button
-                title="Edit pet status"
-                styles={{
-                  backgroundColor: commonColors.secondary.color,
-                  borderColor: commonColors.secondary.color,
-                  flex: 1,
-                }}
-                onPress={() =>
-                  navigation.navigate(EPage.PET_STATUS, { petId: id })
-                }
-              />
+                <View style={classes.subDataContainer}>
+                  <View style={classes.subHeaderContainer}>
+                    <Text style={[commonStyles.p2, commonColors.darkGrey]}>
+                      {diet || "N/a"}
+                    </Text>
+                  </View>
+                </View>
+              </View>
+              <View style={classes.dataContainer}>
+                <View style={classes.iconContainer}>
+                  <MaterialIcons
+                    name="pets"
+                    size={20}
+                    color="black"
+                    style={classes.icon}
+                  />
+                  <Text style={commonStyles.p1}>Identification</Text>
+                </View>
+                <View>
+                  <View style={classes.subHeaderContainer}>
+                    <Text style={[commonStyles.p2, commonColors.darkGrey]}>
+                      &#8728; Microchip number:{" "}
+                      {identification?.microchip || "N/a"}
+                    </Text>
+                  </View>
+                </View>
+                <View>
+                  <View style={classes.subHeaderContainer}>
+                    <Text style={[commonStyles.p2, commonColors.darkGrey]}>
+                      &#8728; Pet description:{" "}
+                      {identification?.description || "N/a"}
+                    </Text>
+                  </View>
+                </View>
+              </View>
+              {vaccination && vaccination?.length > 0 && (
+                <View style={classes.dataContainer}>
+                  <View style={classes.iconContainer}>
+                    <MaterialIcons
+                      name="medical-services"
+                      size={20}
+                      color="black"
+                      style={classes.icon}
+                    />
+                    <Text style={commonStyles.p1}>Medical records</Text>
+                  </View>
+                  {vaccination?.map(
+                    ({ label, value, additionalRecords }, key) =>
+                      value && (
+                        <View key={key} style={classes.subDataContainer}>
+                          <Text
+                            style={[
+                              commonStyles.p2,
+                              {
+                                color: additionalRecords
+                                  ? commonColors.blackColor.color
+                                  : commonColors.darkGrey.color,
+                              },
+                            ]}
+                          >
+                            {value}
+                          </Text>
+                          {additionalRecords?.map(
+                            ({ label, value }, arrayKey) => (
+                              <View
+                                key={arrayKey}
+                                style={classes.additionalRecordsContainer}
+                              >
+                                <Text
+                                  style={[
+                                    commonStyles.p2,
+                                    { color: "#5F5B5B" },
+                                  ]}
+                                >
+                                  &#8728; {label}: {value}
+                                </Text>
+                              </View>
+                            )
+                          )}
+                        </View>
+                      )
+                  )}
+                </View>
+              )}
+              <View style={classes.dataContainer}>
+                <View style={classes.iconContainer}>
+                  <MaterialIcons
+                    name="info"
+                    size={20}
+                    color="black"
+                    style={classes.icon}
+                  />
+                  <Text style={commonStyles.p1}>Veterinarian info</Text>
+                </View>
+                <View>
+                  <View style={classes.subHeaderContainer}>
+                    <Text style={[commonStyles.p2, commonColors.darkGrey]}>
+                      &#8728; Veterinarian: {veterinarianInfo?.vet || "N/a"}
+                    </Text>
+                  </View>
+                </View>
+                <View>
+                  <View style={classes.subHeaderContainer}>
+                    <Text style={[commonStyles.p2, commonColors.darkGrey]}>
+                      &#8728; Clinic: {veterinarianInfo?.clinic || "N/a"}
+                    </Text>
+                  </View>
+                </View>
+                <View>
+                  <View style={classes.subHeaderContainer}>
+                    <Text style={[commonStyles.p2, commonColors.darkGrey]}>
+                      &#8728; Address: {veterinarianInfo?.address || "N/a"}
+                    </Text>
+                  </View>
+                </View>
+                <View>
+                  <View style={classes.subHeaderContainer}>
+                    <Text style={[commonStyles.p2, commonColors.darkGrey]}>
+                      &#8728; Phone: {veterinarianInfo?.phone || "N/a"}
+                    </Text>
+                  </View>
+                </View>
+              </View>
+              {petStatus?.id !== EPetStatus.OWNER && (
+                <>
+                  <View style={classes.iconContainer}>
+                    <MaterialIcons
+                      name="remove-red-eye"
+                      size={20}
+                      color={commonColors.error.color}
+                      style={classes.icon}
+                    />
+                    <Text style={[commonStyles.p1, commonColors.error]}>
+                      Pet is {petStatus?.id}
+                    </Text>
+                  </View>
+                  <Text style={[commonStyles.p2, commonColors.darkGrey]}>
+                    &#8728; Street: {loseAddress?.street}
+                  </Text>
+                </>
+              )}
             </View>
-          </View>
-          <ModalWindow
-            isModalOpen={isModalOpen}
-            setIsModalOpen={setIsModalOpen}
-            Component={
+            <View style={commonStyles.marginBottom10}>
               <View style={{ flexDirection: "row" }}>
                 <Button
-                  title="Delete pet"
+                  title="Edit pet status"
+                  styles={{
+                    backgroundColor: commonColors.secondary.color,
+                    borderColor: commonColors.secondary.color,
+                    flex: 1,
+                  }}
+                  onPress={() =>
+                    navigation.navigate(EPage.PET_STATUS, { petId: id })
+                  }
+                />
+              </View>
+            </View>
+            <ModalWindow
+              isModalOpen={isModalOpen}
+              setIsModalOpen={setIsModalOpen}
+              Component={
+                <View style={{ flexDirection: "row" }}>
+                  <Button
+                    title="Delete pet"
+                    styles={{
+                      backgroundColor: commonColors.error.color,
+                      borderColor: commonColors.error.color,
+                      flex: 1,
+                    }}
+                    onPress={() => setIsModalOpen(true)}
+                  />
+                </View>
+              }
+            >
+              <Text style={[commonStyles.p1, { marginBottom: 20 }]}>
+                Delete your pet from your pet's list?
+              </Text>
+              <View
+                style={{ flexDirection: "row", justifyContent: "space-around" }}
+              >
+                <Button
+                  title="Cancel"
+                  onPress={() => setIsModalOpen(!isModalOpen)}
+                />
+                <Button
+                  title="Delete"
                   styles={{
                     backgroundColor: commonColors.error.color,
                     borderColor: commonColors.error.color,
-                    flex: 1,
                   }}
-                  onPress={() => setIsModalOpen(true)}
+                  onPress={() => {
+                    dispatch(petsActions.deletePet(id));
+                    navigation.navigate(EPage.MY_PETS);
+                  }}
                 />
               </View>
-            }
-          >
-            <Text style={[commonStyles.p1, { marginBottom: 20 }]}>
-              Delete your pet from your pet's list?
-            </Text>
-            <View
-              style={{ flexDirection: "row", justifyContent: "space-around" }}
-            >
-              <Button
-                title="Cancel"
-                onPress={() => setIsModalOpen(!isModalOpen)}
-              />
-              <Button
-                title="Delete"
-                styles={{
-                  backgroundColor: commonColors.error.color,
-                  borderColor: commonColors.error.color,
-                }}
-                onPress={() => {
-                  dispatch(petsActions.deletePet(id));
-                  navigation.navigate(EPage.MY_PETS);
-                }}
-              />
-            </View>
-          </ModalWindow>
-        </View>
+            </ModalWindow>
+          </View>
+        </BottomSheetScrollView>
       </BottomSheet>
     </View>
   );

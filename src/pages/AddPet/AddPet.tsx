@@ -15,7 +15,7 @@ import { petsActions } from "../../store/petsStore/slice";
 import { EPage, EPetGenderType, EPetStatus } from "../../enums";
 import { IAddForm, RoutePropsProps } from "../../types";
 import { commonColors, commonStyles } from "../../theme";
-import { PET_STATUS, PET_TYPE } from "../../constList";
+import { PET_TYPE } from "../../constList";
 import { makeStyles } from "./styles";
 
 const AddPet = () => {
@@ -35,7 +35,6 @@ const AddPet = () => {
     control,
     handleSubmit,
     reset,
-    watch,
     getValues,
     formState: { errors },
   } = useForm<IAddForm>({
@@ -89,9 +88,6 @@ const AddPet = () => {
       navigation.navigate(EPage.MY_PETS);
     }
   };
-
-  const petStatus = watch("petStatus").id;
-  const isPetLostOrFound = petStatus !== EPetStatus.OWNER;
 
   const onReset = () => {
     reset();
@@ -305,44 +301,6 @@ const AddPet = () => {
                 </>
               )}
             />
-            <Controller
-              name="petStatus"
-              control={control}
-              rules={{ required: true }}
-              render={({ field: { onChange, value } }) => (
-                <Select
-                  label="Pet status"
-                  placeholder={{ id: null, value: "Select pet status" }}
-                  items={PET_STATUS}
-                  value={value}
-                  onValueChange={onChange}
-                  error={!!errors.petStatus}
-                />
-              )}
-            />
-
-            {isPetLostOrFound && (
-              <>
-                <Text style={[commonStyles.p1, commonStyles.marginBottom10]}>
-                  Address of lose
-                </Text>
-                <Controller
-                  name="loseAddress.street"
-                  control={control}
-                  render={({ field: { onChange, value } }) => (
-                    <>
-                      <TextField
-                        label="Street"
-                        value={value}
-                        placeholder="Ex: Bedford ave"
-                        onChange={onChange}
-                        styles={commonStyles.marginBottom20}
-                      />
-                    </>
-                  )}
-                />
-              </>
-            )}
           </View>
           <View style={commonStyles.marginBottom20}>
             <Button

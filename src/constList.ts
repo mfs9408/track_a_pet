@@ -51,7 +51,7 @@ const ACTIVATION_DISTANCE = 20;
 
 const ARTICLES = [
   {
-    articleLink: "foo",
+    articleLink: "https://www.google.ru",
     image: "https://placekitten.com/g/200/300",
     header: "Dog health",
     keyWord: "dog",

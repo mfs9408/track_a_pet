@@ -1,5 +1,5 @@
-import React from "react";
-import { Image, Text, TouchableOpacity, View } from "react-native";
+import React, { useCallback } from "react";
+import { Image, Linking, Text, TouchableOpacity, View } from "react-native";
 import { makeStyles } from "./styles";
 import { commonStyles } from "../../theme";
 
@@ -11,11 +11,26 @@ interface IArticleProps {
   shortDescription: string;
 }
 
-const ArticleCard = ({ shortDescription, header, image }: IArticleProps) => {
+const ArticleCard = ({
+  shortDescription,
+  header,
+  image,
+  articleLink,
+}: IArticleProps) => {
   const classes = makeStyles();
 
+  const handlePress = useCallback(async () => {
+    const supported = await Linking.canOpenURL(articleLink);
+
+    if (supported) {
+      await Linking.openURL(articleLink);
+    } else {
+      return null;
+    }
+  }, [articleLink]);
+
   return (
-    <TouchableOpacity style={commonStyles.boxShadow}>
+    <TouchableOpacity style={commonStyles.boxShadow} onPress={handlePress}>
       <View style={classes.container}>
         <Image
           source={{ uri: image }}

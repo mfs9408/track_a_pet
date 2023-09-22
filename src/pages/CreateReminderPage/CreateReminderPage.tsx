@@ -117,6 +117,7 @@ const CreateReminderPage = () => {
               onValueChange={onChange}
               value={value}
               error={!!errors.pet}
+              styles={commonStyles.marginBottom20}
             />
           )}
         />
@@ -147,7 +148,6 @@ const CreateReminderPage = () => {
                     label="When"
                     value={getDate(value, true, true)}
                     onPress={() => setIsStartDayTimeOpen(!isStartDayTimeOpen)}
-                    editable={false}
                   />
                 )}
                 {isStartDayTimeOpen && (

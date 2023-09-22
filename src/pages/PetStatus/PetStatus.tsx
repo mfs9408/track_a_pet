@@ -103,7 +103,11 @@ const PetStatus = () => {
               control={control}
               rules={{ required: true }}
               render={({ field: { onChange } }) => (
-                <AutocompleteSelect label="New address" onChange={onChange} />
+                <AutocompleteSelect
+                  label="New address"
+                  onChange={onChange}
+                  error={!!errors.loseAddress?.street}
+                />
               )}
             />
           </>

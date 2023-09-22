@@ -2,7 +2,7 @@ import React from "react";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import { Text, View, ViewStyle } from "react-native";
 import { makeStyles } from "./styles";
-import { commonStyles } from "../../theme";
+import { commonColors, commonStyles } from "../../theme";
 
 interface IValueProps {
   id: string | null;
@@ -27,6 +27,8 @@ const AutocompleteSelect = ({
 
   const fpp = "AIzaSyA0c71Y4QnFv9LsOhA6xtnjsVvwtmxVqs8";
 
+  console.log(error);
+
   return (
     <>
       {label && <Text style={[commonStyles.p1, classes.label]}>{label}</Text>}
@@ -39,6 +41,9 @@ const AutocompleteSelect = ({
               overflow: "visible",
               height: 50,
               flexShrink: 0,
+              borderColor: error
+                ? commonColors.error.color
+                : commonColors.lightPrimary.color,
             },
             description: {},
             textInputContainer: {},

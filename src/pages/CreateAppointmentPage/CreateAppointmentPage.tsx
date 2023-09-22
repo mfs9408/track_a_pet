@@ -93,6 +93,7 @@ const CreateAppointmentPage = () => {
               onValueChange={onChange}
               value={value}
               error={!!errors.pet}
+              styles={commonStyles.marginBottom20}
             />
           )}
         />
@@ -143,7 +144,6 @@ const CreateAppointmentPage = () => {
                   label="When"
                   value={getDate(value, true, true)}
                   onPress={() => setIsStartDayTimeOpen(!isStartDayTimeOpen)}
-                  editable={false}
                   styles={commonStyles.marginBottom20}
                 />
               )}

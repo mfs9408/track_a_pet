@@ -1,9 +1,11 @@
 import React, { useMemo, useRef, useState } from "react";
-import { Dimensions, Image, Text, TouchableOpacity, View } from "react-native";
 import { useDispatch } from "react-redux";
+import { Dimensions, Image, Text, TouchableOpacity, View } from "react-native";
+import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { Carousel } from "react-native-basic-carousel";
+import Dots from "react-native-dots-pagination";
 import { commonColors, commonStyles } from "../../theme";
 import { IPetsTypes, RoutePropsProps } from "../../types";
 import { petsActions } from "../../store/petsStore/slice";
@@ -15,28 +17,20 @@ import Gender from "../../components/Gender";
 import { useSelector } from "../../store";
 import { makeStyles } from "./styles";
 import { DEFAULT_IMAGE_AVATAR } from "../../constList";
-import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet";
 
 const PetPage = () => {
   const dispatch = useDispatch();
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const pets = useSelector((store) => store.pets);
+  const bottomSheetRef = useRef<BottomSheet>(null);
   const route = useRoute<RoutePropsProps<EPage.PET>>();
   const navigation = useNavigation();
+
   const classes = makeStyles();
 
-  // ref
-  const bottomSheetRef = useRef<BottomSheet>(null);
-
-  // variables
-  const snapPoints = useMemo(() => ["60%", "85%"], []);
-
-  // // callbacks
-  // const handleSheetChanges = useCallback((index: number) => {
-  //   console.log("handleSheetChanges", index);
-  // }, []);
-
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const pets = useSelector((store) => store.pets);
   const currentPet = pets?.find((pet) => route.params.petId === pet.id);
+
+  const snapPoints = useMemo(() => ["60%", "85%"], []);
 
   const {
     id,
@@ -64,17 +58,21 @@ const PetPage = () => {
         style={classes.backIcon}
         onPress={() => navigation.goBack()}
       />
-      <Carousel
-        data={
-          image && image?.length > 0 ? image : [{ uri: DEFAULT_IMAGE_AVATAR }]
-        }
-        renderItem={({ item }) => (
-          <Image style={classes.image} source={{ uri: item.uri }} />
-        )}
-        itemWidth={Dimensions.get("screen").width}
-        paginationColor={commonColors.primary.color}
-        pagination
-      />
+      <View style={{ position: "relative" }}>
+        <Carousel
+          data={
+            image && image?.length > 0 ? image : [{ uri: DEFAULT_IMAGE_AVATAR }]
+          }
+          renderItem={({ item }) => (
+            <Image style={classes.image} source={{ uri: item.uri }} />
+          )}
+          itemWidth={Dimensions.get("screen").width}
+          // paginationColor={commonColors.primary.color}
+          customPagination={({ activeIndex }) => {
+            return <Dots length={image?.length || 0} active={activeIndex} />;
+          }}
+        />
+      </View>
       <BottomSheet
         ref={bottomSheetRef}
         index={0}

@@ -27,8 +27,6 @@ const AutocompleteSelect = ({
 
   const fpp = "AIzaSyA0c71Y4QnFv9LsOhA6xtnjsVvwtmxVqs8";
 
-  console.log(error);
-
   return (
     <>
       {label && <Text style={[commonStyles.p1, classes.label]}>{label}</Text>}

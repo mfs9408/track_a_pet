@@ -1,131 +1,154 @@
-import React, { useCallback, useMemo, useRef, useState } from "react";
-import { SafeAreaView, ScrollView, View, Text, StyleSheet } from "react-native";
-import BottomSheet from "@gorhom/bottom-sheet";
-import Slider from "@react-native-community/slider";
-import Select from "../../components/Select";
-import { commonColors, commonStyles } from "../../theme";
-import { PET_STATUS_FOR_SEARCHING, PET_TYPE } from "../../constList";
+import React, { useEffect, useState } from "react";
+import { SafeAreaView, Image, ScrollView, View, Text } from "react-native";
+import MapView, { Marker } from "react-native-maps";
+import ModalSlider from "../../components/ModalSlider";
 import ModalWindow from "../../components/ModalWindow";
 import Button from "../../components/Button";
+import Select from "../../components/Select";
+import { useGetCurrentLocation } from "../../hooks";
+import { PET_STATUS_FOR_SEARCHING, PET_TYPE } from "../../constList";
 import { EPetStatus } from "../../enums";
+import { commonColors, commonStyles } from "../../theme";
+
+interface IFoo {
+  petId: string;
+  address: string;
+  image: string[];
+  owner: string;
+  coordinates: {
+    latitude: number;
+    longitude: number;
+  };
+  phoneNumber: number;
+}
+
+const foo: IFoo[] = [
+  {
+    petId: "foooo",
+    address: "fppbar",
+    image: ["https://placekitten.com/g/200/300"],
+    owner: "Fedor Muratidi",
+    coordinates: {
+      latitude: 40.58960851426045,
+      longitude: -73.94589078045342,
+    },
+    phoneNumber: 2,
+  },
+];
 
 const Map = () => {
   const [state, setState] = useState(null);
   const [radius, setRadius] = useState(1500);
   const [modal, setIsModalOpen] = useState(false);
   const [petStatus, setPetStatus] = useState(PET_STATUS_FOR_SEARCHING[0]);
+  const [selectedPet, setSelectedPet] = useState<IFoo | null>(null);
 
-  const bottomSheetRef = useRef<BottomSheet>(null);
+  const [mapRegion, setMapRegion] = useState<any>({
+    latitude: 40.58960851426045,
+    longitude: -73.94589078045342,
+    latitudeDelta: 0.0922,
+    longitudeDelta: 0.0421,
+  });
 
-  // variables
-  const snapPoints = useMemo(() => ["15%", "100%"], []);
+  const { location } = useGetCurrentLocation();
 
-  // callbacks
-  const handleSheetChanges = useCallback((index: number) => {
-    console.log("handleSheetChanges", index);
-  }, []);
+  useEffect(() => {
+    if (!location) {
+      return;
+    }
+
+    // setMapRegion(location.coords);
+  }, [location]);
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <ScrollView
-        horizontal
-        style={{
-          backgroundColor: commonColors.background.backgroundColor,
-          paddingVertical: 10,
-          paddingHorizontal: 20,
-          flexDirection: "row",
-        }}
-      >
-        <Select
-          value={state}
-          items={PET_TYPE}
-          onValueChange={(item: React.SetStateAction<null>) => setState(item)}
-          placeholder={{ id: null, value: "Species" }}
-          icon={false}
-          styles={{ width: 90, marginRight: 10 }}
-          pickerStyle={{
-            alignItems: "center",
-            justifyContent: "center",
+    <>
+      <SafeAreaView style={{ height: "100%" }}>
+        <ScrollView
+          horizontal
+          style={{
+            backgroundColor: commonColors.background.backgroundColor,
+            paddingVertical: 10,
+            paddingHorizontal: 20,
+            flexDirection: "row",
+            flex: 1,
           }}
-        />
-        <Select
-          value={petStatus}
-          items={PET_STATUS_FOR_SEARCHING}
-          onValueChange={(
-            item: React.SetStateAction<{ id: EPetStatus; value: string }>
-          ) => setPetStatus(item)}
-          icon={false}
-          styles={{ width: 90 }}
-          pickerStyle={{
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        />
-        <ModalWindow
-          Component={
-            <Button
-              title={`Radius: ${radius} m`}
-              onPress={() => setIsModalOpen(true)}
-              styles={{
-                marginHorizontal: 10,
-                height: 40,
-              }}
-            />
-          }
-          isModalOpen={modal}
-          setIsModalOpen={() => setIsModalOpen(!modal)}
         >
-          <View style={commonStyles.marginBottom20}>
-            <Text style={commonStyles.h2}>Radius: {radius} m</Text>
-            <Slider
-              value={radius}
-              onValueChange={(value) => setRadius(value)}
-              style={{ width: 200, height: 40 }}
-              minimumValue={100}
-              maximumValue={1500}
-              minimumTrackTintColor={commonColors.primary.color}
-              maximumTrackTintColor={commonColors.semiTransparentGrey.color}
-              step={100}
-            />
-            <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-              }}
-            >
-              <Text style={commonStyles.p1}>0</Text>
-              <Text style={commonStyles.p1}>1500</Text>
-            </View>
-          </View>
-          <Button title="Close" onPress={() => setIsModalOpen(false)} />
-        </ModalWindow>
-      </ScrollView>
-      <View>
-        <Text>fff</Text>
-      </View>
-      <BottomSheet
-        ref={bottomSheetRef}
-        index={1}
-        snapPoints={snapPoints}
-        onChange={handleSheetChanges}
-      >
-        <View style={styles.contentContainer}>
-          <Text>Awesome 🎉</Text>
+          <Select
+            value={state}
+            items={PET_TYPE}
+            onValueChange={(item: React.SetStateAction<null>) => setState(item)}
+            placeholder={{ id: null, value: "Species" }}
+            icon={false}
+            styles={{ width: 90, marginRight: 10 }}
+            pickerStyle={{
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          />
+          <Select
+            value={petStatus}
+            items={PET_STATUS_FOR_SEARCHING}
+            onValueChange={(
+              item: React.SetStateAction<{ id: EPetStatus; value: string }>
+            ) => setPetStatus(item)}
+            icon={false}
+            styles={{ width: 90 }}
+            pickerStyle={{
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          />
+          <ModalSlider radius={radius} setRadius={setRadius} />
+        </ScrollView>
+        <View style={{ flex: 15 }}>
+          <MapView style={{ height: "100%" }} region={mapRegion}>
+            {foo.map((item) => (
+              <Marker
+                onPress={() => {
+                  setIsModalOpen(!modal);
+                  setSelectedPet(item as any);
+                }}
+                coordinate={{
+                  latitude: 40.58960851426045,
+                  longitude: -73.94589078045342,
+                }}
+              >
+                <Image
+                  source={{ uri: "https://placekitten.com/g/200/300" }}
+                  style={{ height: 50, width: 50, borderRadius: 50 }}
+                />
+              </Marker>
+            ))}
+          </MapView>
         </View>
-      </BottomSheet>
-    </SafeAreaView>
+      </SafeAreaView>
+      {selectedPet && (
+        <ModalWindow isModalOpen={modal} setIsModalOpen={setIsModalOpen}>
+          <View>
+            <Image
+              source={{ uri: selectedPet.image[0] }}
+              style={{
+                height: 150,
+                width: 250,
+                borderRadius: 5,
+                marginBottom: 20,
+              }}
+            />
+            <Text style={[commonStyles.p1, commonStyles.marginBottom10]}>
+              Person: {selectedPet.owner}
+            </Text>
+            <Text style={[commonStyles.p2, commonStyles.marginBottom10]}>
+              Address: {selectedPet.address}
+            </Text>
+            <Text style={[commonStyles.p2, commonStyles.marginBottom20]}>
+              Phone number: {selectedPet.phoneNumber}
+            </Text>
+            <Button title={"Close"} onPress={() => setIsModalOpen(false)} />
+          </View>
+        </ModalWindow>
+      )}
+    </>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 24,
-  },
-  contentContainer: {
-    flex: 1,
-    alignItems: "center",
-  },
-});
 
 export default Map;

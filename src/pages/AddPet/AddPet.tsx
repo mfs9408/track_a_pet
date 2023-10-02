@@ -17,6 +17,7 @@ import { IAddForm, RoutePropsProps } from "../../types";
 import { commonColors, commonStyles } from "../../theme";
 import { PET_TYPE } from "../../constList";
 import { makeStyles } from "./styles";
+import Keyboard from "../../components/Keyboard";
 
 const AddPet = () => {
   const [showImagePicker, setShowImagePicker] = useState(false);
@@ -94,268 +95,272 @@ const AddPet = () => {
   };
 
   return (
-    <>
-      <SafeAreaView style={[commonStyles.commonContainer]}>
-        <ScrollView style={[commonStyles.commonWrapper, { paddingBottom: 50 }]}>
-          <Controller
-            name="name"
-            control={control}
-            rules={{ required: true }}
-            render={({ field: { onChange, value } }) => (
-              <TextField
-                label="Pet name *"
-                value={value}
-                placeholder="Pet's name"
-                onChange={onChange}
-                error={!!errors.name}
-                styles={commonStyles.marginBottom20}
-              />
-            )}
-          />
-          <View style={classes.container}>
+    <Keyboard>
+      <>
+        <SafeAreaView style={[commonStyles.commonContainer]}>
+          <ScrollView
+            style={[commonStyles.commonWrapper, { paddingBottom: 50 }]}
+          >
             <Controller
-              name="gender"
+              name="name"
               control={control}
+              rules={{ required: true }}
               render={({ field: { onChange, value } }) => (
-                <>
-                  <Text style={[commonStyles.p1, classes.text]}>Gender</Text>
-                  <View style={classes.genderChipContainer}>
-                    <Chip
-                      label="Female"
-                      id={EPetGenderType.FEMALE}
-                      value={value}
-                      //@ts-ignore added task to fix
-                      onChange={onChange}
-                    />
-                    <Chip
-                      label="Male"
-                      id={EPetGenderType.MALE}
-                      value={value}
-                      //@ts-ignore added task to fix
-                      onChange={onChange}
-                    />
-                    <Chip
-                      label="Unknown"
-                      id={EPetGenderType.UNKNOWN}
-                      value={value}
-                      //@ts-ignore added task to fix
-                      onChange={onChange}
-                    />
-                  </View>
-                </>
+                <TextField
+                  label="Pet name *"
+                  value={value}
+                  placeholder="Pet's name"
+                  onChange={onChange}
+                  error={!!errors.name}
+                  styles={commonStyles.marginBottom20}
+                />
               )}
             />
-          </View>
-          <Controller
-            name="petType"
-            control={control}
-            rules={{ required: true }}
-            render={({ field: { onChange, value } }) => (
-              <Select
-                label="Pet *"
-                placeholder={{ id: null, value: "Select pet type" }}
-                items={PET_TYPE}
-                value={value}
-                onValueChange={onChange}
-                error={!!errors.petType}
-                styles={commonStyles.marginBottom20}
+            <View style={classes.container}>
+              <Controller
+                name="gender"
+                control={control}
+                render={({ field: { onChange, value } }) => (
+                  <>
+                    <Text style={[commonStyles.p1, classes.text]}>Gender</Text>
+                    <View style={classes.genderChipContainer}>
+                      <Chip
+                        label="Female"
+                        id={EPetGenderType.FEMALE}
+                        value={value}
+                        //@ts-ignore added task to fix
+                        onChange={onChange}
+                      />
+                      <Chip
+                        label="Male"
+                        id={EPetGenderType.MALE}
+                        value={value}
+                        //@ts-ignore added task to fix
+                        onChange={onChange}
+                      />
+                      <Chip
+                        label="Unknown"
+                        id={EPetGenderType.UNKNOWN}
+                        value={value}
+                        //@ts-ignore added task to fix
+                        onChange={onChange}
+                      />
+                    </View>
+                  </>
+                )}
               />
-            )}
-          />
-          <Controller
-            name="color"
-            control={control}
-            render={({ field: { onChange, value } }) => (
-              <TextField
-                label="Color"
-                value={value}
-                placeholder="Pet's color"
-                onChange={onChange}
-                styles={commonStyles.marginBottom20}
-              />
-            )}
-          />
-          <Controller
-            name="weight"
-            control={control}
-            render={({ field: { onChange, value } }) => (
-              <TextField
-                label="Weight"
-                value={value}
-                placeholder="Pet's weight (lb)"
-                onChange={onChange}
-                styles={commonStyles.marginBottom20}
-              />
-            )}
-          />
-          <Controller
-            name="age"
-            control={control}
-            render={({ field: { onChange, value } }) => (
-              <TextField
-                label="Age"
-                value={value}
-                placeholder="Pet's age"
-                onChange={onChange}
-                styles={commonStyles.marginBottom20}
-              />
-            )}
-          />
-          <Controller
-            name="identification.microchip"
-            control={control}
-            render={({ field: { onChange, value } }) => (
-              <TextField
-                label="Microchip number"
-                value={value}
-                placeholder="Microchip number"
-                onChange={onChange}
-                styles={[classes.textField]}
-              />
-            )}
-          />
-          <Controller
-            name="identification.description"
-            control={control}
-            render={({ field: { onChange, value } }) => (
-              <TextField
-                value={value}
-                placeholder="Description"
-                onChange={onChange}
-                styles={commonStyles.marginBottom20}
-              />
-            )}
-          />
-          <Controller
-            name="diet"
-            control={control}
-            render={({ field: { onChange, value } }) => (
-              <>
-                <TextField
-                  label={`Pet's diet`}
+            </View>
+            <Controller
+              name="petType"
+              control={control}
+              rules={{ required: true }}
+              render={({ field: { onChange, value } }) => (
+                <Select
+                  label="Pet *"
+                  placeholder={{ id: null, value: "Select pet type" }}
+                  items={PET_TYPE}
                   value={value}
-                  placeholder="Pet's diet"
+                  onValueChange={onChange}
+                  error={!!errors.petType}
+                  styles={commonStyles.marginBottom20}
+                />
+              )}
+            />
+            <Controller
+              name="color"
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <TextField
+                  label="Color"
+                  value={value}
+                  placeholder="Pet's color"
                   onChange={onChange}
                   styles={commonStyles.marginBottom20}
                 />
-              </>
-            )}
-          />
-          <View style={{ marginBottom: 10 }}>
-            <Text style={[commonStyles.p1, { marginBottom: 10 }]}>
-              Veterinarian info
-            </Text>
-            <Controller
-              name="veterinarianInfo.vet"
-              control={control}
-              render={({ field: { onChange, value } }) => (
-                <>
-                  <TextField
-                    value={value}
-                    placeholder="Veterinarian"
-                    onChange={onChange}
-                    styles={commonStyles.marginBottom10}
-                  />
-                </>
               )}
             />
             <Controller
-              name="veterinarianInfo.clinic"
+              name="weight"
               control={control}
               render={({ field: { onChange, value } }) => (
-                <>
-                  <TextField
-                    value={value}
-                    placeholder="Clinic"
-                    onChange={onChange}
-                    styles={commonStyles.marginBottom10}
-                  />
-                </>
+                <TextField
+                  label="Weight"
+                  value={value}
+                  placeholder="Pet's weight (lb)"
+                  onChange={onChange}
+                  styles={commonStyles.marginBottom20}
+                />
               )}
             />
             <Controller
-              name="veterinarianInfo.address"
+              name="age"
               control={control}
               render={({ field: { onChange, value } }) => (
-                <>
-                  <TextField
-                    value={value}
-                    placeholder="Address"
-                    onChange={onChange}
-                    styles={commonStyles.marginBottom10}
-                  />
-                </>
+                <TextField
+                  label="Age"
+                  value={value}
+                  placeholder="Pet's age"
+                  onChange={onChange}
+                  styles={commonStyles.marginBottom20}
+                />
               )}
             />
             <Controller
-              name="veterinarianInfo.phone"
+              name="identification.microchip"
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <TextField
+                  label="Microchip number"
+                  value={value}
+                  placeholder="Microchip number"
+                  onChange={onChange}
+                  styles={[classes.textField]}
+                />
+              )}
+            />
+            <Controller
+              name="identification.description"
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <TextField
+                  value={value}
+                  placeholder="Description"
+                  onChange={onChange}
+                  styles={commonStyles.marginBottom20}
+                />
+              )}
+            />
+            <Controller
+              name="diet"
               control={control}
               render={({ field: { onChange, value } }) => (
                 <>
                   <TextField
+                    label={`Pet's diet`}
                     value={value}
-                    placeholder="Phone"
+                    placeholder="Pet's diet"
                     onChange={onChange}
                     styles={commonStyles.marginBottom20}
                   />
                 </>
               )}
             />
-          </View>
-          <View style={commonStyles.marginBottom20}>
-            <Button
-              title={
-                getValues("image") || [].length > 0
-                  ? `Selected ${getValues("image")?.length}`
-                  : "Select photos"
-              }
-              onPress={() => setShowImagePicker((pre) => !pre)}
-            />
-          </View>
-          {isErrorExist && (
-            <View style={classes.container}>
-              <Text style={[commonStyles.p1, commonColors.error]}>
-                Please fill in all mandatory fields
+            <View style={{ marginBottom: 10 }}>
+              <Text style={[commonStyles.p1, { marginBottom: 10 }]}>
+                Veterinarian info
               </Text>
+              <Controller
+                name="veterinarianInfo.vet"
+                control={control}
+                render={({ field: { onChange, value } }) => (
+                  <>
+                    <TextField
+                      value={value}
+                      placeholder="Veterinarian"
+                      onChange={onChange}
+                      styles={commonStyles.marginBottom10}
+                    />
+                  </>
+                )}
+              />
+              <Controller
+                name="veterinarianInfo.clinic"
+                control={control}
+                render={({ field: { onChange, value } }) => (
+                  <>
+                    <TextField
+                      value={value}
+                      placeholder="Clinic"
+                      onChange={onChange}
+                      styles={commonStyles.marginBottom10}
+                    />
+                  </>
+                )}
+              />
+              <Controller
+                name="veterinarianInfo.address"
+                control={control}
+                render={({ field: { onChange, value } }) => (
+                  <>
+                    <TextField
+                      value={value}
+                      placeholder="Address"
+                      onChange={onChange}
+                      styles={commonStyles.marginBottom10}
+                    />
+                  </>
+                )}
+              />
+              <Controller
+                name="veterinarianInfo.phone"
+                control={control}
+                render={({ field: { onChange, value } }) => (
+                  <>
+                    <TextField
+                      value={value}
+                      placeholder="Phone"
+                      onChange={onChange}
+                      styles={commonStyles.marginBottom20}
+                    />
+                  </>
+                )}
+              />
             </View>
-          )}
-          <View style={[classes.container, classes.buttonsContainer]}>
-            <Button
-              title="Reset all"
-              onPress={onReset}
-              textStyles={commonColors.whiteColor}
-            />
-            <Button title="Continue" onPress={handleSubmit(onSubmit)} />
-          </View>
-        </ScrollView>
-      </SafeAreaView>
-      {showImagePicker && (
-        <Controller
-          name="image"
-          rules={{ required: true }}
-          control={control}
-          render={({ field: { onChange, value } }) => (
-            <>
-              <View style={classes.imagePickerContainer}>
-                <ImagePicker
-                  onSave={(assets) => {
-                    onChange(assets);
-                    setShowImagePicker(false);
-                  }}
-                  onCancel={() => setShowImagePicker(false)}
-                  selected={value || []}
-                  multiple
-                  limit={3}
-                  galleryColumns={3}
-                  albumColumns={3}
-                  noAlbums
-                />
+            <View style={commonStyles.marginBottom20}>
+              <Button
+                title={
+                  getValues("image") || [].length > 0
+                    ? `Selected ${getValues("image")?.length}`
+                    : "Select photos"
+                }
+                onPress={() => setShowImagePicker((pre) => !pre)}
+              />
+            </View>
+            {isErrorExist && (
+              <View style={classes.container}>
+                <Text style={[commonStyles.p1, commonColors.error]}>
+                  Please fill in all mandatory fields
+                </Text>
               </View>
-            </>
-          )}
-        />
-      )}
-    </>
+            )}
+            <View style={[classes.container, classes.buttonsContainer]}>
+              <Button
+                title="Reset all"
+                onPress={onReset}
+                textStyles={commonColors.whiteColor}
+              />
+              <Button title="Continue" onPress={handleSubmit(onSubmit)} />
+            </View>
+          </ScrollView>
+        </SafeAreaView>
+        {showImagePicker && (
+          <Controller
+            name="image"
+            rules={{ required: true }}
+            control={control}
+            render={({ field: { onChange, value } }) => (
+              <>
+                <View style={classes.imagePickerContainer}>
+                  <ImagePicker
+                    onSave={(assets) => {
+                      onChange(assets);
+                      setShowImagePicker(false);
+                    }}
+                    onCancel={() => setShowImagePicker(false)}
+                    selected={value || []}
+                    multiple
+                    limit={3}
+                    galleryColumns={3}
+                    albumColumns={3}
+                    noAlbums
+                  />
+                </View>
+              </>
+            )}
+          />
+        )}
+      </>
+    </Keyboard>
   );
 };
 

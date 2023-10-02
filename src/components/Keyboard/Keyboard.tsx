@@ -1,12 +1,16 @@
 import React, { PropsWithChildren } from "react";
-import { KeyboardAvoidingView, TouchableWithoutFeedback } from "react-native";
+import { KeyboardAvoidingView } from "react-native";
+import { useHeaderHeight } from "@react-navigation/elements";
 
 const Keyboard = ({ children }: PropsWithChildren) => {
+  const headerHeight = useHeaderHeight();
+
   return (
-    <KeyboardAvoidingView behavior="padding">
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        {children}
-      </TouchableWithoutFeedback>
+    <KeyboardAvoidingView
+      keyboardVerticalOffset={headerHeight}
+      behavior="padding"
+    >
+      {children}
     </KeyboardAvoidingView>
   );
 };

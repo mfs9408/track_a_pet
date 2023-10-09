@@ -1,5 +1,4 @@
 import React from "react";
-import AntDesign from "@expo/vector-icons/AntDesign";
 import { Text, View } from "react-native";
 import { EGenderType } from "../../enums";
 import { makeStyles } from "./styles";
@@ -24,14 +23,6 @@ const User = ({ owning, name }: IUserProps) => {
           {owning || "owner"}
         </Text>
         <Text style={[commonStyles.p1]}>{name}</Text>
-      </View>
-      <View style={classes.iconContainer}>
-        <View style={classes.iconWrapper}>
-          <AntDesign name="search1" size={24} color="black" />
-        </View>
-        <View style={classes.iconWrapper}>
-          <AntDesign name="bells" size={24} color="black" />
-        </View>
       </View>
     </View>
   );

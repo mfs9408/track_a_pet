@@ -3,11 +3,10 @@ import { ScrollView, Text, View } from "react-native";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { useSelector } from "../../store";
-import { EGenderType, EPage, EPetGenderType } from "../../enums";
+import { EGenderType, EPage } from "../../enums";
 import { commonStyles } from "../../theme";
 import { makeStyles } from "./styles";
 import TextField from "../../components/TextField";
-import Chip from "../../components/Chip";
 import Button from "../../components/Button";
 import { userActions } from "../../store/user";
 import { useNavigation } from "@react-navigation/native";
@@ -25,11 +24,7 @@ const ChangeProfilePage = () => {
   const user = useSelector((state) => state.user.user);
   const classes = makeStyles();
 
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<TSubmitProfile>({
+  const { control, handleSubmit } = useForm<TSubmitProfile>({
     defaultValues: {
       email: user?.email,
       gender: user?.gender,
@@ -66,6 +61,7 @@ const ChangeProfilePage = () => {
                 value={value}
                 onChange={onChange}
                 placeholder="Email"
+                styles={commonStyles.marginBottom20}
               />
             </>
           )}
@@ -81,44 +77,11 @@ const ChangeProfilePage = () => {
                 value={value}
                 onChange={onChange}
                 placeholder="Name"
+                styles={commonStyles.marginBottom20}
               />
             </>
           )}
         />
-        <View style={classes.container}>
-          <Controller
-            name="gender"
-            control={control}
-            render={({ field: { onChange, value } }) => (
-              <>
-                <Text style={[commonStyles.p1, classes.text]}>Gender</Text>
-                <View style={classes.genderChipContainer}>
-                  <Chip
-                    label="Female"
-                    id={EPetGenderType.FEMALE}
-                    value={value}
-                    //@ts-ignore added task to fix
-                    onChange={onChange}
-                  />
-                  <Chip
-                    label="Male"
-                    id={EPetGenderType.MALE}
-                    value={value}
-                    //@ts-ignore added task to fix
-                    onChange={onChange}
-                  />
-                  <Chip
-                    label="Unknown"
-                    id={EPetGenderType.UNKNOWN}
-                    value={value}
-                    //@ts-ignore added task to fix
-                    onChange={onChange}
-                  />
-                </View>
-              </>
-            )}
-          />
-        </View>
       </View>
       <View style={classes.addButtonBlock}>
         <Button title="Save" onPress={handleSubmit(onSubmit)} />

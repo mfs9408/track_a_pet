@@ -13,7 +13,6 @@ export interface IPetsTypes {
   weight: string;
   age: string;
   breed?: string;
-  avatar?: string;
   spayed?: boolean;
   gender?: EPetGenderType;
   description?: string;
@@ -26,7 +25,7 @@ export interface IPetsTypes {
     id: EPetStatus;
   };
   loseDate?: string;
-  remindIDs?: number[];
+  remindIDs?: string[];
   birthDay?: string;
   insurance?: string;
   activityHistory?: any;

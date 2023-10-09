@@ -67,6 +67,7 @@ const AutocompleteSelect = ({
           onPress={(data, detail = null) => {
             onChange(data.description);
           }}
+          fetchDetails
           onFail={(error) => console.error(error)}
           debounce={200}
         />

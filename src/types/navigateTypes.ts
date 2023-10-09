@@ -21,6 +21,7 @@ export type RootStackParamList = {
   abuseInformationPage: undefined;
   mapPage: undefined;
   petStatusPage: { petId: string };
+  updatePage: { link: string };
 };
 
 export type RoutePropsProps<T extends keyof RootStackParamList> =

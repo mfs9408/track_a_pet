@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useFonts } from "expo-font";
+import packageJson from "../../../package.json";
 import { useSelector } from "../../store";
 import CurrentRemindersPage from "../../pages/CurrentRemindersPage";
 import CreateReminderPage from "../../pages/CreateReminderPage";
@@ -11,6 +12,7 @@ import BottomNavigation from "../BottomNavigation";
 import WelcomePage from "../../pages/WelcomePage";
 import SuccessPage from "../../pages/SuccessPage";
 import SignInPage from "../../pages/SignInPage";
+import UpdatePage from "../../pages/UpdatePage";
 import PetPage from "../../pages/PetPage";
 import AddPet from "../../pages/AddPet";
 import { RootStackParamList } from "../../types";
@@ -21,12 +23,33 @@ import CreateAppointmentPage from "../../pages/CreateAppointmentPage";
 import AbuseInformationPage from "../../pages/AbuseInformationPage";
 import SignUpPage from "../../pages/SignUpPage";
 import PetStatus from "../../pages/PetStatus";
+import { get } from "../../Api";
+
+interface IInitData {
+  version: string;
+  updateRequired: boolean;
+  link?: string;
+}
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const Navigate = () => {
   const [fontsLoaded] = useFonts(fonts);
+
+  const [initData, setInitData] = useState<IInitData>({
+    version: packageJson.version,
+    updateRequired: false,
+  });
+
+  const isUpdateNeeded =
+    packageJson.version < initData.version && initData.updateRequired;
   const token = useSelector((state) => state.user.tokens);
+
+  useEffect(() => {
+    get("http://localhost:3000/app/init").then((response) =>
+      setInitData(response.data)
+    );
+  }, []);
 
   if (!fontsLoaded) {
     return null;
@@ -35,7 +58,18 @@ const Navigate = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {token?.accessToken ? (
+        {isUpdateNeeded && (
+          <Stack.Screen
+            name={EPage.UPDATE_PAGE}
+            options={{
+              headerShown: false,
+            }}
+          >
+            {/*// @ts-ignore*/}
+            {(props) => <UpdatePage {...props} link={initData.link} />}
+          </Stack.Screen>
+        )}
+        {token?.accessToken && !isUpdateNeeded ? (
           <>
             <Stack.Screen
               name={EPage.MAIN}

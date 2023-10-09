@@ -6,15 +6,16 @@ import ModalWindow from "../../components/ModalWindow";
 import Button from "../../components/Button";
 import Select from "../../components/Select";
 import { useGetCurrentLocation } from "../../hooks";
+import { commonColors, commonStyles } from "../../theme";
 import { PET_STATUS_FOR_SEARCHING, PET_TYPE } from "../../constList";
 import { EPetStatus } from "../../enums";
-import { commonColors, commonStyles } from "../../theme";
 
-interface IFoo {
+export interface ILostInfo {
   petId: string;
   address: string;
   image: string[];
-  owner: string;
+  userName: string;
+  userId: string;
   coordinates: {
     latitude: number;
     longitude: number;
@@ -22,12 +23,13 @@ interface IFoo {
   phoneNumber: number;
 }
 
-const foo: IFoo[] = [
+const foo: ILostInfo[] = [
   {
     petId: "foooo",
     address: "fppbar",
     image: ["https://placekitten.com/g/200/300"],
-    owner: "Fedor Muratidi",
+    userId: "foo",
+    userName: "Fedor Muratidi",
     coordinates: {
       latitude: 40.58960851426045,
       longitude: -73.94589078045342,
@@ -41,7 +43,7 @@ const Map = () => {
   const [radius, setRadius] = useState(1500);
   const [modal, setIsModalOpen] = useState(false);
   const [petStatus, setPetStatus] = useState(PET_STATUS_FOR_SEARCHING[0]);
-  const [selectedPet, setSelectedPet] = useState<IFoo | null>(null);
+  const [selectedPet, setSelectedPet] = useState<ILostInfo | null>(null);
 
   const [mapRegion, setMapRegion] = useState<any>({
     latitude: 40.58960851426045,
@@ -135,7 +137,7 @@ const Map = () => {
               }}
             />
             <Text style={[commonStyles.p1, commonStyles.marginBottom10]}>
-              Person: {selectedPet.owner}
+              Person: {selectedPet.userName}
             </Text>
             <Text style={[commonStyles.p2, commonStyles.marginBottom10]}>
               Address: {selectedPet.address}

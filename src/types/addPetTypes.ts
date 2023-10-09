@@ -11,8 +11,6 @@ export interface IAddForm {
   color: string;
   loseAddress?: {
     street: string;
-    // zip: string;
-    // city: string;
   };
   petType: {
     value: string;

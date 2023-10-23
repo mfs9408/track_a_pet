@@ -12,6 +12,6 @@ export const apiClient = axios.create({
 //   return config;
 // });
 
-const { get, post } = apiClient;
+const { get, post, patch } = apiClient;
 
-export { get, post };
+export { get, post, patch };

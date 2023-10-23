@@ -132,12 +132,19 @@ const SignUpPage = () => {
               styles={classes.button}
             />
           </View>
-          <View style={classes.accountTextWrapper}>
+          <View
+            style={[classes.accountTextWrapper, commonStyles.marginBottom20]}
+          >
             <Text style={classes.accountText}>Already have an account?</Text>
             <Pressable onPress={() => navigation.navigate(EPage.SIGN_IN)}>
-              <Text style={[commonColors.primary]}>Sign up!</Text>
+              <Text style={[commonColors.primary]}>Sign in!</Text>
             </Pressable>
           </View>
+          <Pressable onPress={() => navigation.navigate(EPage.TERMS_PAGE)}>
+            <View style={classes.accountTextWrapper}>
+              <Text style={commonColors.primary}>Terms and conditions</Text>
+            </View>
+          </Pressable>
         </View>
       </ImageBackground>
     </SafeAreaView>

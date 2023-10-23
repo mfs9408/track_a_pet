@@ -192,15 +192,18 @@ const AbuseInformationPage = () => {
           </Text>
         </View>
         {data.map((item) => (
-          <View style={{ marginBottom: 20 }}>
+          <View id={item.header} style={{ marginBottom: 20 }}>
             <Text style={[commonStyles.h4, classes.upperParagraph]}>
               {item.header}
             </Text>
             {item.topList.map((list) => (
-              <View style={{ marginBottom: 5, marginLeft: 5 }}>
+              <View id={item.header} style={{ marginBottom: 5, marginLeft: 5 }}>
                 <Text style={[commonStyles.p1]}>{list.header}</Text>
                 {list.paragraphs.map((item) => (
-                  <View style={{ marginLeft: 10, flexDirection: "row" }}>
+                  <View
+                    id={item.paragraph}
+                    style={{ marginLeft: 10, flexDirection: "row" }}
+                  >
                     <Text>&#8728; </Text>
                     <Text style={commonStyles.p3}>{item.paragraph}</Text>
                   </View>

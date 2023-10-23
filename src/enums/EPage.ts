@@ -20,4 +20,5 @@ export enum EPage {
   MAP = "map_page",
   PET_STATUS = "petStatusPage",
   UPDATE_PAGE = "updatePage",
+  TERMS_PAGE = "termsPage",
 }

@@ -17,13 +17,14 @@ import PetPage from "../../pages/PetPage";
 import AddPet from "../../pages/AddPet";
 import { RootStackParamList } from "../../types";
 import { commonColors, fonts } from "../../theme";
-import { EPage } from "../../enums";
+import { EPage, EURL } from "../../enums";
 import AppointmentList from "../../pages/AppointmentsList";
 import CreateAppointmentPage from "../../pages/CreateAppointmentPage";
 import AbuseInformationPage from "../../pages/AbuseInformationPage";
 import SignUpPage from "../../pages/SignUpPage";
 import PetStatus from "../../pages/PetStatus";
 import { get } from "../../Api";
+import TermsPage from "../../pages/TermsPage";
 
 interface IInitData {
   version: string;
@@ -46,9 +47,7 @@ const Navigate = () => {
   const token = useSelector((state) => state.user.tokens);
 
   useEffect(() => {
-    get("http://localhost:3000/app/init").then((response) =>
-      setInitData(response.data)
-    );
+    get(EURL.APP_INIT).then((response) => setInitData(response.data));
   }, []);
 
   if (!fontsLoaded) {
@@ -196,6 +195,14 @@ const Navigate = () => {
             />
           </>
         )}
+        <Stack.Screen
+          name={EPage.TERMS_PAGE}
+          component={TermsPage}
+          options={{
+            title: "Terms and Conditions",
+            headerTintColor: commonColors.primary.color,
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

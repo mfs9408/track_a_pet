@@ -23,8 +23,6 @@ const userSlice = createSlice({
         ...state.user,
         email: payload.email,
         name: payload.name,
-        gender: payload.gender,
-        owning: payload.owning,
       };
     },
     logOut: (state) =>

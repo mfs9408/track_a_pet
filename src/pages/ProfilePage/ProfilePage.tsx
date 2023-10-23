@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { SafeAreaView, Switch, Text, View } from "react-native";
 import { useDispatch } from "react-redux";
-import { AntDesign } from "@expo/vector-icons";
+import {AntDesign, Ionicons} from "@expo/vector-icons";
 import ProfileCard from "../../components/ProfileCard";
 import { commonColors, commonStyles } from "../../theme";
 import { EPage } from "../../enums";
@@ -124,10 +124,11 @@ const ProfilePage = () => {
         </View>
         <View style={classes.menuContainer}>
           <ProfileCard
-            title="Setting & privacy"
+            title="Terms and conditions"
+            onPress={() => navigation.navigate(EPage.TERMS_PAGE)}
             icon={
-              <AntDesign
-                name="setting"
+              <Ionicons
+                name="ios-newspaper-outline"
                 size={17}
                 color={commonColors.primary.color}
               />
@@ -178,8 +179,9 @@ const ProfilePage = () => {
                   backgroundColor: commonColors.error.color,
                   borderColor: commonColors.error.color,
                 }}
-                onPress={() => {
-                  dispatch(userActions.logOut());
+                onPress={async () => {
+                  await dispatch(userActions.logOut());
+                  navigation.navigate(EPage.WELCOME);
                 }}
               />
             </View>

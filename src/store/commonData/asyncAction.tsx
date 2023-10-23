@@ -11,13 +11,3 @@ export const getAuthorized = createAsyncThunk(
       })
       .catch((e) => console.log("error", e))
 );
-
-// export const fetchUser = createAsyncThunk(
-//   "fetchUser",
-//   (data: { email: string }) =>
-//     post(EURL.GET_USER, data)
-//       .then((response) => {
-//         return response.data;
-//       })
-//       .catch((e) => console.log("error", e))
-// );

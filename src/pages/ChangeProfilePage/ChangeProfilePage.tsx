@@ -1,21 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { ScrollView, Text, View } from "react-native";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { useSelector } from "../../store";
-import { EGenderType, EPage } from "../../enums";
-import { commonStyles } from "../../theme";
+import { EPage, EURL } from "../../enums";
+import { commonColors, commonStyles } from "../../theme";
 import { makeStyles } from "./styles";
 import TextField from "../../components/TextField";
 import Button from "../../components/Button";
 import { userActions } from "../../store/user";
 import { useNavigation } from "@react-navigation/native";
+import { patch } from "../../Api";
 
 type TSubmitProfile = {
   email: string;
-  gender: EGenderType;
   name: string;
-  owning: string;
 };
 
 const ChangeProfilePage = () => {
@@ -23,19 +22,36 @@ const ChangeProfilePage = () => {
   const navigation = useNavigation();
   const user = useSelector((state) => state.user.user);
   const classes = makeStyles();
+  const token = useSelector((state) => state.user.tokens.accessToken);
+  const [error, setError] = useState("");
 
   const { control, handleSubmit } = useForm<TSubmitProfile>({
     defaultValues: {
       email: user?.email,
-      gender: user?.gender,
       name: user?.name,
-      owning: user?.owning,
     },
   });
 
-  const onSubmit: SubmitHandler<TSubmitProfile> = (data) => {
-    dispatch(userActions.changeUserData(data));
-    navigation.navigate(EPage.PROFILE);
+  const onSubmit: SubmitHandler<TSubmitProfile> = async (data) => {
+    await patch(
+      EURL.EDIT_USER,
+      {
+        id: user?.id,
+        email: data.email,
+        name: data.name,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+      }
+    )
+      .then((response) => {
+        dispatch(userActions.changeUserData(response.data));
+        navigation.navigate(EPage.PROFILE);
+      })
+      .catch((e) => setError(e));
   };
 
   return (
@@ -53,7 +69,7 @@ const ChangeProfilePage = () => {
         <Controller
           name="email"
           control={control}
-          rules={{ required: true }}
+          rules={{ required: true, minLength: 5, maxLength: 40 }}
           render={({ field: { onChange, value } }) => (
             <>
               <TextField
@@ -69,7 +85,7 @@ const ChangeProfilePage = () => {
         <Controller
           name="name"
           control={control}
-          rules={{ required: true }}
+          rules={{ required: true, minLength: 5, maxLength: 40 }}
           render={({ field: { onChange, value } }) => (
             <>
               <TextField
@@ -82,6 +98,9 @@ const ChangeProfilePage = () => {
             </>
           )}
         />
+        {error && (
+          <Text style={[commonStyles.p2, commonColors.error]}>{error}</Text>
+        )}
       </View>
       <View style={classes.addButtonBlock}>
         <Button title="Save" onPress={handleSubmit(onSubmit)} />

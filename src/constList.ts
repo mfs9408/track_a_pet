@@ -1,4 +1,10 @@
 import { EPetStatus, EPetType, ERepeatType } from "./enums";
+// @ts-ignore
+import dog1 from "../assets/images/articles/dog1.jpg";
+// @ts-ignore
+import cat1 from "../assets/images/articles/cat1.jpg";
+// @ts-ignore
+import cat2 from "../assets/images/articles/cat2.jpg";
 
 const PET_TYPE = [
   { id: EPetType.CAT, value: "Cat" },
@@ -53,16 +59,15 @@ const ARTICLES = [
   {
     articleLink:
       "https://www.catanddogfirstaid.com/blog/10-red-flags-from-dogs-you-should-never-ignore/amp/",
-    image: "https://placekitten.com/g/200/300",
-    // image: require("../assets/images/articles/dog1.jpg"),
+    image: dog1,
     header: "Dog health",
     keyWord: "dog",
-    shortDescription: "Health Facts that Could Save Your Cat’s Life",
+    shortDescription: "10 Red Flags from Dogs you should Never Ignore",
   },
   {
     articleLink:
       "https://www.hillspet.com/cat-care/play-exercise/five-fun-things-to-do-with-your-cat?lightboxfired=true",
-    image: "https://placekitten.com/g/200/300",
+    image: cat1,
     header: "Cat health",
     keyWord: "cat",
     shortDescription: "5 New Fun Things to Do With Your Cat",
@@ -70,9 +75,9 @@ const ARTICLES = [
   {
     articleLink:
       "https://www.westfieldvetgroup.com/blog/2021/september/does-my-pet-need-vitamins-or-supplements-/",
-    image: "https://placekitten.com/g/200/300",
+    image: cat2,
     header: "Pet care",
-    keyWord: "all",
+    keyWord: "cat",
     shortDescription: "Does my pet need vitamins or supplements?",
   },
 ];

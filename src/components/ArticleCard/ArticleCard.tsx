@@ -33,7 +33,9 @@ const ArticleCard = ({
     <TouchableOpacity style={commonStyles.boxShadow} onPress={handlePress}>
       <View style={classes.container}>
         <Image
-          source={{ uri: image }}
+          // @ts-ignore
+          source={image}
+          // source={{ uri: image }}
           style={{
             height: "100%",
             width: "30%",

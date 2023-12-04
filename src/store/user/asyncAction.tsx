@@ -11,6 +11,15 @@ export const getAuthorized = createAsyncThunk(
       .catch((e) => console.log("error", e))
 );
 
+export const getRegistered = createAsyncThunk(
+  "getRegistered",
+  (data: { email: string; password: string; name: string }) => {
+    post(EURL.REGISTRATION, data)
+      .then((response) => console.log("response", response))
+      .catch((e) => console.log("error", e));
+  }
+);
+
 export const fetchUser = createAsyncThunk(
   "fetchUser",
   (data: { email: string }) =>

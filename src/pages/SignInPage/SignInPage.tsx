@@ -13,8 +13,8 @@ import { commonColors, commonStyles } from "../../theme";
 import { EPage } from "../../enums";
 import Button from "../../components/Button";
 import TextInput from "../../components/TextField";
+import { getSignedIn } from "../../store/asyncAction";
 import { makeStyles } from "./styles";
-import { getUser } from "../../store/asyncAction";
 
 interface ISignIn {
   email: string;
@@ -38,7 +38,7 @@ const SignInPage = () => {
   });
 
   const onSubmit: SubmitHandler<ISignIn> = (data) => {
-    dispatch(getUser(data));
+    dispatch(getSignedIn(data));
   };
 
   return (

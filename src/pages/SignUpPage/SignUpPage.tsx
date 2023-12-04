@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   ImageBackground,
   Pressable,
@@ -6,15 +6,14 @@ import {
   Text,
   View,
 } from "react-native";
-import { commonColors, commonStyles } from "../../theme";
+import { useNavigation } from "@react-navigation/native";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import TextInput from "../../components/TextField/TextInput";
 import Button from "../../components/Button";
-import { EPage } from "../../enums";
+import { EPage, EURL } from "../../enums";
 import { makeStyles } from "../SignInPage/styles";
-import { useNavigation } from "@react-navigation/native";
-import { useDispatch } from "react-redux";
-import { getUser } from "../../store/asyncAction";
+import { commonColors, commonStyles } from "../../theme";
+import { post } from "../../Api";
 
 interface ISignUp {
   email: string;
@@ -25,7 +24,7 @@ interface ISignUp {
 const SignUpPage = () => {
   const classes = makeStyles();
   const navigation = useNavigation();
-  const dispatch = useDispatch<any>();
+  const [error, setError] = useState("");
 
   const {
     control,
@@ -39,8 +38,12 @@ const SignUpPage = () => {
     },
   });
 
-  const onSubmit: SubmitHandler<ISignUp> = (data) => {
-    dispatch(getUser(data));
+  const onSubmit: SubmitHandler<ISignUp> = async (data) => {
+    post(EURL.REGISTRATION, data)
+      .then(() => navigation.navigate(EPage.SIGN_IN))
+      .catch((e: Error) => {
+        setError(e.message);
+      });
   };
 
   return (
@@ -127,7 +130,7 @@ const SignUpPage = () => {
         <View>
           <View style={classes.buttonContainer}>
             <Button
-              title="Sign In"
+              title="Sign Up"
               onPress={handleSubmit(onSubmit)}
               styles={classes.button}
             />
@@ -136,7 +139,7 @@ const SignUpPage = () => {
             style={[classes.accountTextWrapper, commonStyles.marginBottom20]}
           >
             <Text style={classes.accountText}>Already have an account?</Text>
-            <Pressable onPress={() => navigation.navigate(EPage.SIGN_IN)}>
+            <Pressable>
               <Text style={[commonColors.primary]}>Sign in!</Text>
             </Pressable>
           </View>
@@ -146,6 +149,17 @@ const SignUpPage = () => {
             </View>
           </Pressable>
         </View>
+        {error && (
+          <Text
+            style={[
+              commonStyles.p2,
+              commonStyles.marginBottom20,
+              classes.error,
+            ]}
+          >
+            {error}
+          </Text>
+        )}
       </ImageBackground>
     </SafeAreaView>
   );

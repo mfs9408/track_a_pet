@@ -35,6 +35,10 @@ const MainPage = () => {
     };
   }, []);
 
+  // get("https://www.trackapet.net:3000/library/articles")
+  //   .then((e) => console.log(e, 'here'))
+  //   .catch((e) => console.log(e));
+
   if (isLoading) return <LoadingPage />;
 
   return (

@@ -7,13 +7,18 @@ const TermsPage = () => {
   return (
     <SafeAreaView style={commonStyles.commonContainer}>
       <ScrollView style={commonStyles.commonWrapper}>
-        <Text style={[commonStyles.h2, commonStyles.marginBottom20]}>Terms and conditions</Text>
+        <Text style={[commonStyles.h2, commonStyles.marginBottom20]}>
+          Terms and conditions
+        </Text>
         {TERMS.map(({ section, content }) => (
-          <View>
+          <View key={section}>
             <Text style={[commonStyles.h4, commonStyles.marginBottom10]}>
               {section}
             </Text>
-            <Text style={[commonStyles.p2, commonStyles.marginBottom20]}>
+            <Text
+              key={content}
+              style={[commonStyles.p2, commonStyles.marginBottom20]}
+            >
               {content}
             </Text>
           </View>
